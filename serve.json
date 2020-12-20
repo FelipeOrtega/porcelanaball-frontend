@@ -1,0 +1,11 @@
+{
+    "public": "_site",
+    "redirects": [{
+        "source": "/",
+        "destination": "/porcelanaball"
+    }],
+    "rewrites": [{
+        "source": "/porcelanaball/**",
+        "destination": "/porcelanaball/index.html"
+    }]
+}
