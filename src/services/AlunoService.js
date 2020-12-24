@@ -1,26 +1,25 @@
-import axios from 'axios';
-import {BASE_URL, ALUNO_BASE_URL} from "./BaseService";
+import {ALUNO_BASE_URL, BaseService} from "./BaseService";
 
-class alunoService {
+class alunoService extends BaseService{
 
     getalunos(){
-        return axios.get(BASE_URL+ALUNO_BASE_URL);
+        return super.get(ALUNO_BASE_URL);
     }
 
     createaluno(aluno){
-        return axios.post(BASE_URL+ALUNO_BASE_URL, aluno);
+        return super.create(ALUNO_BASE_URL,aluno);
     }
 
     getalunoByCodigo(alunoCodigo){
-        return axios.get(BASE_URL+ALUNO_BASE_URL+alunoCodigo);
+        return super.getByCodigo(ALUNO_BASE_URL,alunoCodigo);
     }
 
     updatealuno(aluno){
-        return axios.put(BASE_URL+ALUNO_BASE_URL, aluno);
+        return super.update(ALUNO_BASE_URL, aluno);
     }
 
     deletealuno(alunoCodigo){
-        return axios.delete(BASE_URL+ALUNO_BASE_URL+alunoCodigo);
+        return super.delete(ALUNO_BASE_URL+alunoCodigo);
     }
 }
 

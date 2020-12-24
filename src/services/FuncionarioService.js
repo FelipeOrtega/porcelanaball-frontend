@@ -1,27 +1,26 @@
-import axios from 'axios';
-import {BASE_URL, FUNCIONARIO_BASE_URL} from "./BaseService";
+import {FUNCIONARIO_BASE_URL, BaseService} from "./BaseService";
 
-class funcionarioService {
+class lancamentoService extends BaseService{
 
-    getfuncionarios(){
-        return axios.get(BASE_URL+FUNCIONARIO_BASE_URL);
+    getlancamentos(){
+        return super.get(FUNCIONARIO_BASE_URL);
     }
 
-    createfuncionario(funcionario){
-        return axios.post(BASE_URL+FUNCIONARIO_BASE_URL, funcionario);
+    createlancamento(lancamento){
+        return super.create(FUNCIONARIO_BASE_URL,lancamento);
     }
 
-    getfuncionarioByCodigo(funcionarioCodigo){
-        return axios.get(BASE_URL+FUNCIONARIO_BASE_URL+funcionarioCodigo);
+    getlancamentoByCodigo(lancamentoCodigo){
+        return super.getByCodigo(FUNCIONARIO_BASE_URL,lancamentoCodigo);
     }
 
-    updatefuncionario(funcionario, funcionarioCodigo){
-        return axios.put(BASE_URL+FUNCIONARIO_BASE_URL+funcionarioCodigo, funcionario);
+    updatelancamento(lancamento){
+        return super.update(FUNCIONARIO_BASE_URL, lancamento);
     }
 
-    deletefuncionario(funcionarioCodigo){
-        return axios.delete(BASE_URL+FUNCIONARIO_BASE_URL+funcionarioCodigo);
+    deletelancamento(lancamentoCodigo){
+        return super.delete(FUNCIONARIO_BASE_URL+lancamentoCodigo);
     }
 }
 
-export default new funcionarioService()
+export default new lancamentoService()

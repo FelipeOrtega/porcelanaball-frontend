@@ -1,26 +1,25 @@
-import axios from 'axios';
-import {BASE_URL, LANCAMENTO_BASE_URL} from "./BaseService";
+import {LANCAMENTO_BASE_URL, BaseService} from "./BaseService";
 
-class lancamentoService {
+class lancamentoService extends BaseService{
 
     getlancamentos(){
-        return axios.get(BASE_URL+LANCAMENTO_BASE_URL);
+        return super.get(LANCAMENTO_BASE_URL);
     }
 
     createlancamento(lancamento){
-        return axios.post(BASE_URL+LANCAMENTO_BASE_URL, lancamento);
+        return super.create(LANCAMENTO_BASE_URL,lancamento);
     }
 
     getlancamentoByCodigo(lancamentoCodigo){
-        return axios.get(BASE_URL+LANCAMENTO_BASE_URL+lancamentoCodigo);
+        return super.getByCodigo(LANCAMENTO_BASE_URL,lancamentoCodigo);
     }
 
-    updatelancamento(lancamento, lancamentoCodigo){
-        return axios.put(BASE_URL+LANCAMENTO_BASE_URL+lancamentoCodigo, lancamento);
+    updatelancamento(lancamento){
+        return super.update(LANCAMENTO_BASE_URL, lancamento);
     }
 
     deletelancamento(lancamentoCodigo){
-        return axios.delete(BASE_URL+LANCAMENTO_BASE_URL+lancamentoCodigo);
+        return super.delete(LANCAMENTO_BASE_URL+lancamentoCodigo);
     }
 }
 

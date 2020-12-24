@@ -1,26 +1,25 @@
-import axios from 'axios';
-import {BASE_URL, PLANO_BASE_URL} from "./BaseService";
+import {PLANO_BASE_URL, BaseService} from "./BaseService";
 
-class planoService {
+class planoService extends BaseService{
 
     getplanos(){
-        return axios.get(BASE_URL+PLANO_BASE_URL);
+        return super.get(PLANO_BASE_URL);
     }
 
     createplano(plano){
-        return axios.post(BASE_URL+PLANO_BASE_URL, plano);
+        return super.create(PLANO_BASE_URL,plano);
     }
 
     getplanoByCodigo(planoCodigo){
-        return axios.get(BASE_URL+PLANO_BASE_URL+planoCodigo);
+        return super.getByCodigo(PLANO_BASE_URL,planoCodigo);
     }
 
-    updateplano(plano, planoCodigo){
-        return axios.put(BASE_URL+PLANO_BASE_URL+planoCodigo, plano);
+    updateplano(plano){
+        return super.update(PLANO_BASE_URL, plano);
     }
 
     deleteplano(planoCodigo){
-        return axios.delete(BASE_URL+PLANO_BASE_URL+planoCodigo);
+        return super.delete(PLANO_BASE_URL+planoCodigo);
     }
 }
 
