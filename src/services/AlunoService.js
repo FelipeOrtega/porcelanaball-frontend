@@ -2,24 +2,24 @@ import {ALUNO_BASE_URL, BaseService} from "./BaseService";
 
 class alunoService extends BaseService{
 
-    getalunos(){
-        return super.get(ALUNO_BASE_URL);
+    getalunos(history){
+        return super.get(history, ALUNO_BASE_URL);
     }
 
-    createaluno(aluno){
-        return super.create(ALUNO_BASE_URL,aluno);
+    createaluno(history, aluno){
+        return super.create(history, ALUNO_BASE_URL,aluno);
     }
 
-    getalunoByCodigo(alunoCodigo){
-        return super.getByCodigo(ALUNO_BASE_URL,alunoCodigo);
+    getalunoByCodigo(history, alunoCodigo){
+        return super.getByCodigo(history, ALUNO_BASE_URL,alunoCodigo);
     }
 
-    updatealuno(aluno){
-        return super.update(ALUNO_BASE_URL, aluno);
+    updatealuno(history, aluno){
+        return super.update(history, ALUNO_BASE_URL, aluno);
     }
 
-    deletealuno(alunoCodigo){
-        return super.delete(ALUNO_BASE_URL+alunoCodigo);
+    deletealuno(history, alunoCodigo){
+        return super.delete(history, ALUNO_BASE_URL+alunoCodigo);
     }
 }
 

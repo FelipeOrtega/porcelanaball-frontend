@@ -9,50 +9,50 @@ export const LANCAMENTO_BASE_URL = "Lancamento/";
 
 class BaseService {
 
-    get(URL) {
+    get(history, URL) {
         return axios.get(`${BASE_URL}${URL}`).then((response) => {
             return response.data;
         }).catch((error) => {
-            this.handleErrors(error);
+            this.handleErrors(error, history);
         });
     }
 
-    create(URL, object) {
+    create(history, URL, object) {
         return axios.post(`${BASE_URL}${URL}`, object).then((response) => {
             return response.data;
         }).catch((error) => {
-            this.handleErrors(error);
+            this.handleErrors(error, history);
         });
     }
 
-    getByCodigo(URL, object) {
+    getByCodigo(history, URL, object) {
         return axios.get(`${BASE_URL}${URL}${object}`).then((response) => {
             return response.data;
         }).catch((error) => {
-            this.handleErrors(error);
+            this.handleErrors(error, history);
         });
     }
 
-    update(URL, object) {
+    update(history, URL, object) {
         return axios.put(`${BASE_URL}${URL}`, object).then((response) => {
             return response.data;
         }).catch((error) => {
-            this.handleErrors(error);
+            this.handleErrors(error, history);
         });
     }
 
-    delete(URL, object) {
+    delete(history, URL, object) {
         return axios.delete(`${BASE_URL}${URL}${object}`).then((response) => {
             return response.data;
         }).catch((error) => {
-            this.handleErrors(error);
+            this.handleErrors(error, history);
         });
     }
 
-    handleErrors(error) {
+    handleErrors(error, history) {
         console.log(error);
         if (error.response.status === 401) {
-            this.props.history.push("/logout");
+            history.push("/logout");
         }
     }
 }
