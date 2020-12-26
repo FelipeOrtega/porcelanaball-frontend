@@ -1,26 +1,26 @@
 import {FUNCIONARIO_BASE_URL, BaseService} from "./BaseService";
 
-class lancamentoService extends BaseService{
+class funcionarioService extends BaseService{
 
-    getlancamentos(){
-        return super.get(FUNCIONARIO_BASE_URL);
+    getfuncionarios(history){
+        return super.get(history, FUNCIONARIO_BASE_URL);
     }
 
-    createlancamento(lancamento){
-        return super.create(FUNCIONARIO_BASE_URL,lancamento);
+    createfuncionario(history, funcionario){
+        return super.create(history, FUNCIONARIO_BASE_URL,funcionario);
     }
 
-    getlancamentoByCodigo(lancamentoCodigo){
-        return super.getByCodigo(FUNCIONARIO_BASE_URL,lancamentoCodigo);
+    getfuncionarioByCodigo(history, funcionarioCodigo){
+        return super.getByCodigo(history, FUNCIONARIO_BASE_URL,funcionarioCodigo);
     }
 
-    updatelancamento(lancamento){
-        return super.update(FUNCIONARIO_BASE_URL, lancamento);
+    updatefuncionario(history, funcionario){
+        return super.update(history, FUNCIONARIO_BASE_URL, funcionario);
     }
 
-    deletelancamento(lancamentoCodigo){
-        return super.delete(FUNCIONARIO_BASE_URL+lancamentoCodigo);
+    deletefuncionario(history, funcionarioCodigo){
+        return super.delete(history, FUNCIONARIO_BASE_URL+funcionarioCodigo);
     }
 }
 
-export default new lancamentoService()
+export default new funcionarioService()
