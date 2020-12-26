@@ -2,22 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, Notice } from "../../../../_metronic/_partials/controls";
 import alunoService from "../../../../services/AlunoService";
 import { Link } from 'react-router-dom';
-import { useHistory } from "react-router-dom";
 
 function GestaoAlunoPage({ match }) {
     const { path } = match;
     const [alunos, setAlunos] = useState([]);
-    const history = useHistory();
 
     useEffect(() => {
-        alunoService.getalunos().then((response) => {
-            setAlunos(response.data.data);
-        }).catch((error) => {
-            console.log(error.response.status);
-            if(error.response.status===401){
-              history.push("/logout");
-            }
-          });
+        const promisse = alunoService.getalunos();
+        promisse.then(function(result) {
+            setAlunos(result.data);
+        });
     }, []);
 
     return (
