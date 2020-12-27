@@ -4,11 +4,11 @@ import { NavLink } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
 import { Dropdown, OverlayTrigger, Tooltip } from "react-bootstrap";
 import SVG from "react-inlinesvg";
-import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
+import { toAbsoluteUrl } from "../../../../_helpers";
 import {
   DropdownCustomToggler,
   DropdownMenu4,
-} from "../../../../_metronic/_partials/dropdowns";
+} from "../../../../_partials/dropdowns";
 
 export function ProfileCard() {
   const user = useSelector(({ auth }) => auth.user, shallowEqual);

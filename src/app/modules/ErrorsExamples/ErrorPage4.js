@@ -1,6 +1,6 @@
 import React from "react";
-import { toAbsoluteUrl } from "../../../_metronic/_helpers";
-import "../../../_metronic/_assets/sass/pages/error/error-4.scss";
+import { toAbsoluteUrl } from "../../../_helpers";
+import "../../../_assets/sass/pages/error/error-4.scss";
 
 export function ErrorPage4() {
   return (

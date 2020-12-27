@@ -1,7 +1,7 @@
 /* eslint-disable */
 "use strict";
 
-import { KTUtil } from "./../../components/util.js";
+import { KTUtil } from "../../components/util.js";
 //
 // Handle User Quick Search For Dropdown, Inline and Offcanvas Search Panels
 //

@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Form, InputGroup, Col, Row} from "react-bootstrap";
-import {KTCodeExample} from "../../../../_metronic/_partials/controls";
-import {Card, CardBody, CardHeader, Notice} from "../../../../_metronic/_partials/controls";
+import {KTCodeExample} from "../../../../_partials/controls";
+import {Card, CardBody, CardHeader, Notice} from "../../../../_partials/controls";
 
 export default class ConsultaLancamentoPage extends React.Component {
     render() {

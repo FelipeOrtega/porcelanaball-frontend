@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useSelector, shallowEqual, connect, useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ModalProgressBar } from "../../../_metronic/_partials/controls";
-import { toAbsoluteUrl } from "../../../_metronic/_helpers";
+import { ModalProgressBar } from "../../../_partials/controls";
+import { toAbsoluteUrl } from "../../../_helpers";
 import * as auth from "../Auth";
 
 function PersonaInformation(props) {

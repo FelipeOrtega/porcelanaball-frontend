@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Switch } from "react-router-dom";
 import { LancamentosPage } from "./lancamentos/LancamentosPage";
-import { ContentRoute } from "../../../_metronic/layout";
+import { ContentRoute } from "../../../layout";
 
 export default function FinanceiroPage() {
     return (

@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Switch } from "react-router-dom";
 import { GestaoPage } from "./gestao/GestaoPage";
 import { RecebimentosPage } from "./recebimentos/RecebimentosPage";
-import { ContentRoute } from "../../../_metronic/layout";
+import { ContentRoute } from "../../../layout";
 
 export default function PlanosPage() {
     return (

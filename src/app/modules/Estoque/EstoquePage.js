@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Switch } from "react-router-dom";
 import { ProdutosPage } from "./produtos/ProdutosPage";
 import { CategoriasPage } from "./categorias/CategoriasPage";
-import { ContentRoute } from "../../../_metronic/layout";
+import { ContentRoute } from "../../../layout";
 
 export default function EstoquePage() {
     return (

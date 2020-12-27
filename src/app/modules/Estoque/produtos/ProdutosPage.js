@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Switch } from "react-router-dom";
 import CadastroProdutosPage from "./CadastroProdutosPage";
 import ConsultaProdutosPage from "./ConsultaProdutosPage";
-import { ContentRoute } from "../../../../_metronic/layout";
+import { ContentRoute } from "../../../../layout";
 
 export function ProdutosPage() {
     return (

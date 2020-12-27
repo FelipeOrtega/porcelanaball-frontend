@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Switch } from "react-router-dom";
 import BaixaMensalidadePage from "./BaixaMensalidadePage";
-import { ContentRoute } from "../../../../_metronic/layout";
+import { ContentRoute } from "../../../../layout";
 
 export function RecebimentosPage() {
     return (

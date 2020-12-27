@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Col } from "react-bootstrap";
-import { Card, CardBody, CardHeader } from "../../../../_metronic/_partials/controls";
+import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Formik } from "formik";
 import alunoService from "../../../../services/aluno/AlunoService";
 import { useHistory } from "react-router-dom";

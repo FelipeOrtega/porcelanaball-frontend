@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Switch } from "react-router-dom";
 import CadastroModalidadePage from "./CadastroModalidadePage";
 import ConsultaModalidadePage from "./ConsultaModalidadePage";
-import { ContentRoute } from "../../../../_metronic/layout";
+import { ContentRoute } from "../../../../layout";
 
 export function GestaoPage() {
     return (

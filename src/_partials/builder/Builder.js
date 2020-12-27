@@ -372,7 +372,7 @@ export function Builder() {
                                         Generated Config{" "}
                                         <small>
                                             can be used for layout config in{" "}
-                                            <code>/src/_metronic/layout/LayoutConfig.js</code>
+                                            <code>/src/layout/LayoutConfig.js</code>
                                         </small>
                                     </>
                                 }

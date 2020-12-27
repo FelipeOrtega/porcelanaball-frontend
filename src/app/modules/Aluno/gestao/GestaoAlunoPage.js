@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardBody, CardHeader } from "../../../../_metronic/_partials/controls";
+import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import alunoService from "../../../../services/aluno/AlunoService";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
+import { TableSearch } from "../../../../_helpers/TableSearch";
 
 function GestaoAlunoPage({ match }) {
     const history = useHistory();
-    const { path } = match;
     const [alunos, setAlunos] = useState([]);
     const [isLoading, setLoading] = useState(false);
+
+    const [searchVal, setSearchVal] = useState(null);
+    const { filteredData, loadingSearch } = TableSearch({
+      searchVal,
+      retrieve: alunos
+    });
 
     useEffect(() => {
         setLoading(true);
@@ -22,7 +28,7 @@ function GestaoAlunoPage({ match }) {
 
     }, []);
 
-    if (isLoading) {
+    if (isLoading || loadingSearch) {
         return <div className="d-flex flex-wrap justify-content-between align-items-center">
           <span className="ml-3 spinner spinner-white"></span>
         </div>
@@ -44,6 +50,9 @@ function GestaoAlunoPage({ match }) {
                         />
                         <CardBody>
                             <div>
+                            <input type="text" placeholder="Pesquisar" onChange={(e) => setSearchVal(e.target.value)} />
+                            </div>
+                            <div>
                                 <table className="table table-striped">
                                     <thead>
                                         <tr>
@@ -55,7 +64,7 @@ function GestaoAlunoPage({ match }) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {alunos && alunos.map(aluno =>
+                                        {filteredData && filteredData.map(aluno =>
                                             <tr key={aluno.codigo}>
                                                 <td>{aluno.nome}</td>
                                                 <td>{aluno.apelido}</td>
@@ -66,17 +75,17 @@ function GestaoAlunoPage({ match }) {
                                                 </td>
                                             </tr>
                                         )}
-                                        {!alunos &&
+                                        {!filteredData &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
                                                     <div className="spinner-border spinner-border-lg align-center"></div>
                                                 </td>
                                             </tr>
                                         }
-                                        {alunos && !alunos.length &&
+                                        {filteredData && !filteredData.length &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
-                                                    <div className="p-2">Nenhum aluno cadastrado</div>
+                                                    <div className="p-2">Nenhum aluno encontrado</div>
                                                 </td>
                                             </tr>
                                         }

@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { Redirect, Switch, Route } from "react-router-dom";
-import { LayoutSplashScreen, ContentRoute } from "../_metronic/layout";
+import { LayoutSplashScreen, ContentRoute } from "../layout";
 import { DashboardPage } from "./pages/DashboardPage";
 const AlunoPage = lazy(() =>
     import("./modules/Aluno/AlunoPage")
