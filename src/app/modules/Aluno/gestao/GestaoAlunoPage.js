@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardBody, CardHeader, Notice } from "../../../../_metronic/_partials/controls";
+import { Card, CardBody, CardHeader } from "../../../../_metronic/_partials/controls";
 import alunoService from "../../../../services/AlunoService";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
@@ -8,15 +8,25 @@ function GestaoAlunoPage({ match }) {
     const history = useHistory();
     const { path } = match;
     const [alunos, setAlunos] = useState([]);
+    const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         const promisse = alunoService.getalunos(history);
-        if(promisse){
-            promisse.then(function(result) {
+        promisse.then(function (result) {
+            if(result != null){
                 setAlunos(result.data);
-            });
-        }
+                setLoading(false);
+            }
+        });
+
     }, []);
+
+    if (isLoading) {
+        return <div className="d-flex flex-wrap justify-content-between align-items-center">
+          <span className="ml-3 spinner spinner-white"></span>
+        </div>
+      }
 
     return (
         <>

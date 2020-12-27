@@ -50,8 +50,8 @@ class BaseService {
     }
 
     handleErrors(error, history) {
-        console.log(error);
-        if (error.response.status === 401) {
+        console.log(error.message);        
+        if (error.message.includes("Network Error") || error.response.status === 401) {
             history.push("/logout");
         }
     }
