@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader } from "../../../../_metronic/_partials/controls";
-import alunoService from "../../../../services/AlunoService";
+import alunoService from "../../../../services/aluno/AlunoService";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 

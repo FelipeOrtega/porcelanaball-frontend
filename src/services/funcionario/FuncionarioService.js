@@ -1,4 +1,4 @@
-import {FUNCIONARIO_BASE_URL, BaseService} from "./BaseService";
+import {FUNCIONARIO_BASE_URL, BaseService} from "../BaseService";
 
 class funcionarioService extends BaseService{
 

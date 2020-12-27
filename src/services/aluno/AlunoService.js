@@ -1,4 +1,4 @@
-import {ALUNO_BASE_URL, BaseService} from "./BaseService";
+import {ALUNO_BASE_URL, BaseService} from "../BaseService";
 
 class alunoService extends BaseService{
 

@@ -1,4 +1,4 @@
-import {PLANO_BASE_URL, BaseService} from "./BaseService";
+import {PLANO_BASE_URL, BaseService} from "../BaseService";
 
 class planoService extends BaseService{
 

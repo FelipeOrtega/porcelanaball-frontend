@@ -1,4 +1,4 @@
-import {LANCAMENTO_BASE_URL, BaseService} from "./BaseService";
+import {LANCAMENTO_BASE_URL, BaseService} from "../BaseService";
 
 class lancamentoService extends BaseService{
 
