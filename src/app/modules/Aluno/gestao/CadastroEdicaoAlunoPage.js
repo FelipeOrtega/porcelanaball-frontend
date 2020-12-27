@@ -17,6 +17,7 @@ function CadastroEdicaoAlunoPage({ match }) {
       setLoading(true);
       alunoService.getalunoByCodigo(history, id).then(function (result) {
         setAluno(formataAtributos(result.data));
+        console.log(aluno)
         setLoading(false);
       });
     }
@@ -200,7 +201,12 @@ function CadastroEdicaoAlunoPage({ match }) {
                   </Form.Row>
 
                   <Form.Group id="formGridCheckbox">
-                    <Form.Check type="checkbox" name="ativo" label="Ativo" />
+                    <Form.Check 
+                        type="checkbox" 
+                        name="ativo" 
+                        label="Ativo" 
+                        defaultChecked={values.ativo}
+                        onChange={handleChange} />
                   </Form.Group>
 
                   <Button type="submit">Salvar</Button>
