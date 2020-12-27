@@ -65,6 +65,18 @@ export function HeaderMenu({ layoutProps }) {
                                 <span className="menu-text">Cadastro</span>
                             </NavLink>
                         </li>
+                        <li
+                            className={`menu-item menu-item-submenu ${getMenuItemActive('/aluno/edicao')}`}
+                            style={{display: "none"}}
+                        >
+                            <NavLink className="menu-link" to="/aluno/edicao">
+                                <span className="svg-icon menu-icon">
+                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
+                                </span>
+                                <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                <span className="menu-text">Edição</span>
+                            </NavLink>
+                        </li>
                         {/*end::2 Level*/}
                     </ul>
                 </div>
