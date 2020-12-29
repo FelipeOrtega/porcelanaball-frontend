@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Redirect, Switch } from "react-router-dom";
 import { GestaoAlunoPage } from "./gestao/GestaoAlunoPage";
 import { CadastroEdicaoAlunoPage} from "./gestao/CadastroEdicaoAlunoPage"
 import { ContentRoute } from "../../../layout";

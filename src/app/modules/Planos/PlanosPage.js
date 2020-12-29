@@ -13,9 +13,10 @@ export default function PlanosPage() {
                 to="/planos/gestao"
             />
             {/* Planos */}
-            <ContentRoute from="/planos/cadastro" component={CadastroEdicaoPlanosPage} />
             <ContentRoute from="/planos/gestao" component={GestaoPlanosPage} />
-
+            <ContentRoute from="/planos/edicao/:id" component={CadastroEdicaoPlanosPage} />
+            <ContentRoute from="/planos/cadastro" component={CadastroEdicaoPlanosPage} />
+            
         </Switch>
     );
 }

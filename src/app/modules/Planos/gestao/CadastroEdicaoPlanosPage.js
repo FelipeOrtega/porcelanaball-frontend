@@ -1,6 +1,5 @@
 import React from "react";
 import {Button, Form, InputGroup, Col, Row, Badge} from "react-bootstrap";
-import {KTCodeExample} from "../../../../_partials/controls";
 import {Card, CardBody, CardHeader, Notice} from "../../../../_partials/controls";
 
 export default class CadastroEdicaoPlanosPage extends React.Component {

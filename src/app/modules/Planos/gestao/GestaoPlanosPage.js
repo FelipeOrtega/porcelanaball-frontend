@@ -1,79 +1,105 @@
-import React from "react";
-import { Button, Form, Col } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
-import {InputGroup, Row, Badge} from "react-bootstrap";
-import {KTCodeExample} from "../../../../_partials/controls";
-import {Notice} from "../../../../_partials/controls";
+import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+import { TableSearch } from "../../../../_helpers/TableSearch";
+import planosService from "../../../../services/plano/PlanosService";
 
+function GestaoPlanosPage({ match }) {
+    const history = useHistory();
+    const [planos, setPlanos] = useState([]);
+    const [isLoading, setLoading] = useState(false);
 
-export default class GestaoPlanosPage extends React.Component {
-    render() {
-        return (
-            <>
-                <div className="row">
-                    <div className="col-md-12">
+    const [searchVal, setSearchVal] = useState(null);
+    const { filteredData, loadingSearch } = TableSearch({
+      searchVal,
+      retrieve: planos
+    });
 
-                        <Card className="mt-4">
-                            <CardHeader
-                                title={<>
-                                    Consulta de Equipes ou Planos
+    useEffect(() => {
+        setLoading(true);
+        const promisse = planosService.getPlanos(history);
+        promisse.then(function (result) {
+            if(result != null){
+                setPlanos(result.data);
+                setLoading(false);
+            }
+        });
+
+    }, []);
+
+    if (isLoading || loadingSearch) {
+        return <div className="d-flex flex-wrap justify-content-between align-items-center">
+          <span className="ml-3 spinner spinner-white"></span>
+        </div>
+      }
+
+    return (
+        <>
+            <div className="row">
+                <div className="col-md-12">
+                    <Card className="mt-4">
+                        <CardHeader
+                            title={
+                                <>
+                                    Gestão de Planos
                                         <small>
-
                                     </small>
-                                </>} />
-                            <CardBody>
-                                <Form>
-                                    <Form.Row>
-                                        <Form.Group as={Col} md="3" controlId="formGridPesquisarPor">
-                                            <Form.Label>Pesquisar por:</Form.Label>
-                                            <Form.Control as="select">
-                                                <option>Equipe</option>
-                                                <option>Planos</option>
-                                            </Form.Control>
-                                        </Form.Group>
-                                        <Form.Group as={Col} controlId="formGridDesc">
-                                            <Form.Label>Digite</Form.Label>
-                                            <Form.Control type="name" placeholder="" />
-                                        </Form.Group>
-                                    </Form.Row>
-
-                                    <Button variant="primary" type="submit">
-                                        Pesquisar
-                                    </Button>
-                                </Form>
-                            </CardBody>
-                        </Card>
-
-                    </div>
+                                </>
+                            }
+                        />
+                        <CardBody>
+                            <div>
+                            <input type="text" placeholder="Pesquisar" onChange={(e) => setSearchVal(e.target.value)} />
+                            </div>
+                            <div>
+                                <table className="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style={{ width: '30%' }}>Descrição</th>
+                                            <th style={{ width: '30%' }}>Valor</th>
+                                            <th style={{ width: '30%' }}>Modalidade</th>
+                                            <th style={{ width: '10%' }}>Ativo</th> 
+                                            <th style={{ width: '10%' }}></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {filteredData && filteredData.map(plano =>
+                                            <tr key={plano.codigo}>
+                                                <td>{plano.descricao}</td>
+                                                <td>{plano.valor}</td>
+                                                <td>{plano.modalidade}</td>
+                                                <td>{plano.ativo ? "Sim" : "Nao"}</td>
+                                                <td style={{ whiteSpace: 'nowrap' }}>
+                                                    <Link to={`/plano/edicao/${plano.codigo}`} className="btn btn-sm btn-primary mr-1">Editar</Link>
+                                                </td>
+                                            </tr>
+                                        )}
+                                        {!filteredData &&
+                                            <tr>
+                                                <td colSpan="4" className="text-center">
+                                                    <div className="spinner-border spinner-border-lg align-center"></div>
+                                                </td>
+                                            </tr>
+                                        }
+                                        {filteredData && !filteredData.length &&
+                                            <tr>
+                                                <td colSpan="4" className="text-center">
+                                                    <div className="p-2">Nenhum plano encontrado</div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </CardBody>
+                    </Card>
 
                 </div>
-                <div className="row">
-                    <div className="col-md-12">
 
-                        <Card className="mt-4">
-                            <CardHeader
-                                title={<>
-                                    Resultado da Consulta
-                                        <small>
-
-                                    </small>
-                                </>} />
-                            <CardBody>
-                                <Form>
-                                    <Form.Row>
-
-                                    </Form.Row>
-
-                                </Form>
-                            </CardBody>
-                        </Card>
-
-                    </div>
-
-                </div>
-            </>
-        );
-    }
+            </div>
+        </>
+    );
 }
 
 export { GestaoPlanosPage };

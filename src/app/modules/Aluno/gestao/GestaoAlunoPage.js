@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
-import alunoService from "../../../../services/aluno/AlunoService";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { TableSearch } from "../../../../_helpers/TableSearch";
+import alunoService from "../../../../services/aluno/AlunoService";
 
 function GestaoAlunoPage({ match }) {
     const history = useHistory();
