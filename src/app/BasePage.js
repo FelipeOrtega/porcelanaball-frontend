@@ -5,6 +5,9 @@ import { DashboardPage } from "./pages/DashboardPage";
 const AlunoPage = lazy(() =>
     import("./modules/Aluno/AlunoPage")
 );
+const EquipesPage = lazy(() =>
+    import("./modules/Equipes/EquipesPage")
+);
 const PlanosPage = lazy(() =>
     import("./modules/Planos/PlanosPage")
 );
