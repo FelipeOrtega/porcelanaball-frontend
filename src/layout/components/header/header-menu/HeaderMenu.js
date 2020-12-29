@@ -133,37 +133,6 @@ export function HeaderMenu({ layoutProps }) {
                             </div>
                         </li>
                         {/*end::2 Level*/}
-                        {/*begin::2 Level*/}
-                        <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/equipes/recebimentos')}`}
-                            data-menu-toggle="hover"
-                            aria-haspopup="true"
-                        >
-                            <NavLink className="menu-link menu-toggle" to="/equipes/recebimentos">
-                                <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Dollar.svg")} />
-                                </span>
-                                <span className="menu-text">
-                                    Recebimentos
-                                </span>
-                                <i className="menu-arrow" />
-                            </NavLink>
-                            <div className={`menu-submenu menu-submenu-classic menu-submenu-right`}>
-                                <ul className="menu-subnav">
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/equipes/recebimentos/baixaMensalidade')}`}>
-                                        <NavLink className="menu-link" to="/equipes/recebimentos/baixaMensalidade">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Baixa de Mensalidade</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-
-                                </ul>
-                            </div>
-                        </li>
-                        {/*end::2 Level*/}
-
                     </ul>
                 </div>
             </li>
