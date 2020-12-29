@@ -2,10 +2,10 @@
     "public": "_site",
     "redirects": [{
         "source": "/",
-        "destination": "/porcelanaball"
+        "destination": ""
     }],
     "rewrites": [{
-        "source": "/porcelanaball/**",
-        "destination": "/porcelanaball/index.html"
+        "source": "/**",
+        "destination": "/index.html"
     }]
 }
