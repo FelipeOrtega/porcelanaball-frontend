@@ -3,7 +3,7 @@ import {Button, Form, InputGroup, Col, Row, Badge} from "react-bootstrap";
 import {KTCodeExample} from "../../../../_partials/controls";
 import {Card, CardBody, CardHeader, Notice} from "../../../../_partials/controls";
 
-export default class CadastroPlanoPage extends React.Component {
+export default class CadastroEdicaoPlanosPage extends React.Component {
     render() {
         return (
             <>
@@ -112,7 +112,7 @@ export default class CadastroPlanoPage extends React.Component {
     }
 }
 
-
+export { CadastroEdicaoPlanosPage };
 
 
 

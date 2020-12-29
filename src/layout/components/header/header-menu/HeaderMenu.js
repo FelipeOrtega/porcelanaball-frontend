@@ -179,47 +179,46 @@ export function HeaderMenu({ layoutProps }) {
                     <i className="menu-arrow"></i>
                 </NavLink>
                 <div className="menu-submenu menu-submenu-classic menu-submenu-left">
-                    <ul className="menu-subnav">
+                <ul className="menu-subnav">
                         {/*begin::2 Level*/}
                         <li
                             className={`menu-item menu-item-submenu ${getMenuItemActive('/planos/gestao')}`}
-                            data-menu-toggle="hover"
-                            aria-haspopup="true"
                         >
-                            <NavLink className="menu-link menu-toggle" to="/planos/gestao">
+                            <NavLink className="menu-link" to="/planos/gestao">
                                 <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
+                                    <SVG src={toAbsoluteUrl("/media/svg/icons/General/User.svg")} />
                                 </span>
+                                <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">
                                     Gestão de Planos
                                 </span>
-                                <i className="menu-arrow" />
                             </NavLink>
-                            <div className={`menu-submenu menu-submenu-classic menu-submenu-right`}>
-                                <ul className="menu-subnav">
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/planos/gestao/cadastro')}`}>
-                                        <NavLink className="menu-link" to="/planos/gestao/cadastro">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Cadastro</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/planos/gestao/consulta')}`}>
-                                        <NavLink className="menu-link" to="/planos/gestao/consulta">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Consulta</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-
-                                </ul>
-                            </div>
+                            
+                        </li>
+                        <li
+                            className={`menu-item menu-item-submenu ${getMenuItemActive('/planos/cadastro')}`}
+                        >
+                            <NavLink className="menu-link" to="/planos/cadastro">
+                                <span className="svg-icon menu-icon">
+                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
+                                </span>
+                                <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                <span className="menu-text">Cadastro</span>
+                            </NavLink>
+                        </li>
+                        <li
+                            className={`menu-item menu-item-submenu ${getMenuItemActive('/aluno/edicao')}`}
+                            style={{display: "none"}}
+                        >
+                            <NavLink className="menu-link" to="/planos/edicao">
+                                <span className="svg-icon menu-icon">
+                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
+                                </span>
+                                <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                <span className="menu-text">Edição</span>
+                            </NavLink>
                         </li>
                         {/*end::2 Level*/}
-                       
                     </ul>
                 </div>
             </li>

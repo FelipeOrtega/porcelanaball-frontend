@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Switch } from "react-router-dom";
-import { GestaoPage } from "./gestao/GestaoPage";
-import { RecebimentosPage } from "./recebimentos/RecebimentosPage";
+import { GestaoPlanosPage } from "./gestao/GestaoPlanosPage";
+import { CadastroEdicaoPlanosPage } from "./gestao/CadastroEdicaoPlanosPage";
 import { ContentRoute } from "../../../layout";
 
 export default function PlanosPage() {
@@ -13,10 +13,8 @@ export default function PlanosPage() {
                 to="/planos/gestao"
             />
             {/* Planos */}
-            <ContentRoute from="/planos/gestao" component={GestaoPage} />
-
-            {/* Recebimentos */}
-            <ContentRoute from="/planos/recebimentos" component={RecebimentosPage} />
+            <ContentRoute from="/planos/cadastro" component={CadastroEdicaoPlanosPage} />
+            <ContentRoute from="/planos/gestao" component={GestaoPlanosPage} />
 
         </Switch>
     );

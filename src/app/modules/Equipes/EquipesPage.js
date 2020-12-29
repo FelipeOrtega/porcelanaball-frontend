@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Switch } from "react-router-dom";
 import { GestaoPage } from "./gestao/GestaoPage";
-import { RecebimentosPage } from "./recebimentos/RecebimentosPage";
+import { RecebimentosPage } from "../Planos/recebimentos/RecebimentosPage";
 import { ContentRoute } from "../../../layout";
 
 export default function PlanosPage() {
