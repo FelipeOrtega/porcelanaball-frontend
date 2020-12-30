@@ -1,21 +1,21 @@
 import {PLANO_BASE_URL, BaseService} from "../BaseService";
 
-class planosService extends BaseService{
+class planoService extends BaseService{
 
-    getPlanos(history){
+    getPlano(history){
         return super.get(history, PLANO_BASE_URL);
     }
 
-    createPlano(history, planos){
-        return super.create(history, PLANO_BASE_URL,planos);
+    createPlano(history, plano){
+        return super.create(history, PLANO_BASE_URL,plano);
     }
 
     getPlanoByCodigo(history, planoCodigo){
         return super.getByCodigo(history, PLANO_BASE_URL,planoCodigo);
     }
 
-    updatePlano(history, planos){
-        return super.update(history, PLANO_BASE_URL, planos);
+    updatePlano(history, plano){
+        return super.update(history, PLANO_BASE_URL, plano);
     }
 
     deletePlano(history, planoCodigo){
@@ -23,4 +23,4 @@ class planosService extends BaseService{
     }
 }
 
-export default new planosService()
+export default new planoService()

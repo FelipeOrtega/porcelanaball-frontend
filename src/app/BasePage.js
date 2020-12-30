@@ -8,8 +8,8 @@ const AlunoPage = lazy(() =>
 const EquipesPage = lazy(() =>
     import("./modules/Equipes/EquipesPage")
 );
-const PlanosPage = lazy(() =>
-    import("./modules/Planos/PlanosPage")
+const PlanoPage = lazy(() =>
+    import("./modules/Plano/PlanoPage")
 );
 const ModalidadePage = lazy(() =>
     import("./modules/Modalidade/ModalidadePage")
@@ -39,7 +39,7 @@ export default function BasePage() {
         <Switch > {/* Redirect from root URL to /dashboard. */ <Redirect exact from="/" to="/dashboard" />}
                 <ContentRoute path="/dashboard" component={DashboardPage} />
                 <Route path="/aluno" component={AlunoPage} />
-                <Route path="/planos" component={PlanosPage} />
+                <Route path="/plano" component={PlanoPage} />
                 <Route path="/modalidade" component={ModalidadePage} />
                 <Route path="/estoque" component={EstoquePage} />
                 <Route path="/financeiro" component={FinanceiroPage} />

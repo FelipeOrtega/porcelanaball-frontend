@@ -3,25 +3,25 @@ import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { TableSearch } from "../../../../_helpers/TableSearch";
-import planosService from "../../../../services/plano/PlanosService";
+import planoService from "../../../../services/plano/PlanoService";
 
-function GestaoPlanosPage({ match }) {
+function GestaoPlanoPage({ match }) {
     const history = useHistory();
-    const [planos, setPlanos] = useState([]);
+    const [plano, setPlano] = useState([]);
     const [isLoading, setLoading] = useState(false);
 
     const [searchVal, setSearchVal] = useState(null);
     const { filteredData, loadingSearch } = TableSearch({
       searchVal,
-      retrieve: planos
+      retrieve: plano
     });
 
     useEffect(() => {
         setLoading(true);
-        const promisse = planosService.getPlanos(history);
+        const promisse = planoService.getPlano(history);
         promisse.then(function (result) {
             if(result != null){
-                setPlanos(result.data);
+                setPlano(result.data);
                 setLoading(false);
             }
         });
@@ -102,4 +102,4 @@ function GestaoPlanosPage({ match }) {
     );
 }
 
-export { GestaoPlanosPage };
+export { GestaoPlanoPage };

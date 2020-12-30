@@ -142,32 +142,32 @@ export function HeaderMenu({ layoutProps }) {
             <li
                 data-menu-toggle={layoutProps.menuDesktopToggle}
                 aria-haspopup="true"
-                className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/planos')}`}>
-                <NavLink className="menu-link menu-toggle" to="/planos">
-                    <span className="menu-text">Planos</span>
+                className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/plano')}`}>
+                <NavLink className="menu-link menu-toggle" to="/plano">
+                    <span className="menu-text">Plano</span>
                     <i className="menu-arrow"></i>
                 </NavLink>
                 <div className="menu-submenu menu-submenu-classic menu-submenu-left">
                 <ul className="menu-subnav">
                         {/*begin::2 Level*/}
                         <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/planos/gestao')}`}
+                            className={`menu-item menu-item-submenu ${getMenuItemActive('/plano/gestao')}`}
                         >
-                            <NavLink className="menu-link" to="/planos/gestao">
+                            <NavLink className="menu-link" to="/plano/gestao">
                                 <span className="svg-icon menu-icon">
                                     <SVG src={toAbsoluteUrl("/media/svg/icons/General/User.svg")} />
                                 </span>
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">
-                                    Gestão de Planos
+                                    Gestão de Plano
                                 </span>
                             </NavLink>
                             
                         </li>
                         <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/planos/cadastro')}`}
+                            className={`menu-item menu-item-submenu ${getMenuItemActive('/plano/cadastro')}`}
                         >
-                            <NavLink className="menu-link" to="/planos/cadastro">
+                            <NavLink className="menu-link" to="/plano/cadastro">
                                 <span className="svg-icon menu-icon">
                                     <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
                                 </span>
@@ -179,7 +179,7 @@ export function HeaderMenu({ layoutProps }) {
                             className={`menu-item menu-item-submenu ${getMenuItemActive('/aluno/edicao')}`}
                             style={{display: "none"}}
                         >
-                            <NavLink className="menu-link" to="/planos/edicao">
+                            <NavLink className="menu-link" to="/plano/edicao">
                                 <span className="svg-icon menu-icon">
                                     <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
                                 </span>
