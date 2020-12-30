@@ -87,50 +87,50 @@ export function HeaderMenu({ layoutProps }) {
             <li
                 data-menu-toggle={layoutProps.menuDesktopToggle}
                 aria-haspopup="true"
-                className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/equipes')}`}>
-                <NavLink className="menu-link menu-toggle" to="/equipes">
-                    <span className="menu-text">Equipes</span>
+                className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/equipe')}`}>
+                <NavLink className="menu-link menu-toggle" to="/equipe">
+                    <span className="menu-text">Equipe</span>
                     <i className="menu-arrow"></i>
                 </NavLink>
                 <div className="menu-submenu menu-submenu-classic menu-submenu-left">
                     <ul className="menu-subnav">
                         {/*begin::2 Level*/}
                         <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/equipes/gestao')}`}
-                            data-menu-toggle="hover"
-                            aria-haspopup="true"
+                            className={`menu-item menu-item-submenu ${getMenuItemActive('/equipe/gestao')}`}
                         >
-                            <NavLink className="menu-link menu-toggle" to="/equipes/gestao">
+                            <NavLink className="menu-link" to="/equipe/gestao">
+                                <span className="svg-icon menu-icon">
+                                    <SVG src={toAbsoluteUrl("/media/svg/icons/General/User.svg")} />
+                                </span>
+                                <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                <span className="menu-text">
+                                    Gestão de equipes
+                                </span>
+                            </NavLink>
+
+                        </li>
+                        <li
+                            className={`menu-item menu-item-submenu ${getMenuItemActive('/equipe/cadastro')}`}
+                        >
+                            <NavLink className="menu-link" to="/equipe/cadastro">
                                 <span className="svg-icon menu-icon">
                                     <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
                                 </span>
-                                <span className="menu-text">
-                                    Gestão de Equipes
-                                </span>
-                                <i className="menu-arrow" />
+                                <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                <span className="menu-text">Cadastro</span>
                             </NavLink>
-                            <div className={`menu-submenu menu-submenu-classic menu-submenu-right`}>
-                                <ul className="menu-subnav">
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/equipes/gestao/cadastro')}`}>
-                                        <NavLink className="menu-link" to="/equipes/gestao/cadastro">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Cadastro</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/equipes/gestao/consulta')}`}>
-                                        <NavLink className="menu-link" to="/equipes/gestao/consulta">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Consulta</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-
-                                </ul>
-                            </div>
+                        </li>
+                        <li
+                            className={`menu-item menu-item-submenu ${getMenuItemActive('/equipe/edicao')}`}
+                            style={{ display: "none" }}
+                        >
+                            <NavLink className="menu-link" to="/equipe/edicao">
+                                <span className="svg-icon menu-icon">
+                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
+                                </span>
+                                <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                <span className="menu-text">Edição</span>
+                            </NavLink>
                         </li>
                         {/*end::2 Level*/}
                     </ul>

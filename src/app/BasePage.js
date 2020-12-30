@@ -5,8 +5,8 @@ import { DashboardPage } from "./pages/DashboardPage";
 const AlunoPage = lazy(() =>
     import("./modules/Aluno/AlunoPage")
 );
-const EquipesPage = lazy(() =>
-    import("./modules/Equipes/EquipesPage")
+const EquipePage = lazy(() =>
+    import("./modules/Equipe/EquipePage")
 );
 const PlanoPage = lazy(() =>
     import("./modules/Plano/PlanoPage")
@@ -40,6 +40,7 @@ export default function BasePage() {
                 <ContentRoute path="/dashboard" component={DashboardPage} />
                 <Route path="/aluno" component={AlunoPage} />
                 <Route path="/plano" component={PlanoPage} />
+                <Route path="/equipe" component={EquipePage} />
                 <Route path="/modalidade" component={ModalidadePage} />
                 <Route path="/estoque" component={EstoquePage} />
                 <Route path="/financeiro" component={FinanceiroPage} />
