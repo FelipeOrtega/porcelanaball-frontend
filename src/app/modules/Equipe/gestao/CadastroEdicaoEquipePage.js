@@ -119,7 +119,7 @@ function CadastroEdicaoEquipePage({ match }) {
                       <Form.Label>Modalidade / Esporte</Form.Label>
                       <Form.Control as="select"
                         name="modalidade_codigo"
-                        value={values.modalidade_codigo}//com a codio ele nao ta deixando selecionar na combo, com a seleiconada ele ta deixando
+                        value={values.modalidade_codigo}
                         onChange={handleChange}
                       >
                         {modalidades.map(mdld => (<option value={mdld.codigo}
