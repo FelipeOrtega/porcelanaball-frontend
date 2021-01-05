@@ -15,6 +15,7 @@ export default function EquipePage() {
             {/* equipes */}
             <ContentRoute from="/equipe/gestao" component={GestaoEquipePage} />
             <ContentRoute from="/equipe/edicao/:id" component={CadastroEdicaoEquipePage} />
+            <Redirect from="/equipe/edicao/" to="/equipe/gestao" exact={true}/>
             <ContentRoute from="/equipe/cadastro" component={CadastroEdicaoEquipePage} />
         </Switch>
     );

@@ -17,7 +17,6 @@ function CadastroEdicaoAlunoPage({ match }) {
       setLoading(true);
       alunoService.getalunoByCodigo(history, id).then(function (result) {
         setAluno(formataAtributos(result.data));
-        console.log(aluno)
         setLoading(false);
       });
     }
@@ -84,7 +83,7 @@ function CadastroEdicaoAlunoPage({ match }) {
         telefone_celular: "",
         telefone_residencial: "",
         celular: "",
-        ativo: false,
+        ativo: false
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
         <Form onSubmit={handleSubmit}>
@@ -116,7 +115,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="text"
                         name="apelido"
                         placeholder="Apelido (Opcional)"
-                        value={values.apelido}
+                        value={values.apelido = null? "":values.apelido}
                         onChange={handleChange} />
                     </Form.Group>
                   </Form.Row>

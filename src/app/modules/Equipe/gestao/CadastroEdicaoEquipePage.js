@@ -14,27 +14,24 @@ function CadastroEdicaoEquipePage({ match }) {
   const [equipe, setEquipe] = useState({});
   const [modalidades, setModalidades] = useState([]);
   const [modulos, setModulos] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!novaEquipe) {
-      setLoading(true);
       equipeService.getEquipeByCodigo(history, id).then(function (result) {
         setEquipe(result.data);
       });
     }
-    const promisseModalidade = modalidadeService.getModalidades(history);
-      promisseModalidade.then(function (result) {
-        if (result != null) {
-          setModalidades(result.data);
-        }
-      });
-      const promisseModulo = moduloService.getModulos(history);
-      promisseModulo.then(function (result) {
-        if (result != null) {
-          setModulos(result.data);
-        }
-      });
+    modalidadeService.getModalidades(history).then(function (result) {
+      if (result != null) {
+        setModalidades(result.data);
+      }
+    });
+    moduloService.getModulos(history).then(function (result) {
+      if (result != null) {
+        setModulos(result.data);
+      }
+    });
     setLoading(false);
     // eslint-disable-next-line
   }, []);
@@ -76,12 +73,13 @@ function CadastroEdicaoEquipePage({ match }) {
           atualizarEquipe(values, setSubmitting);
         }
       }}
+      enableReinitialize
       initialValues={equipe ? equipe : {
         descricao: "",
-        modalidade_codigo: 0,
         ativo: false,
+        modalidade_codigo: 0,
         modulo_codigo: 0,
-        codigo: 0,
+        codigo: 0
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
         <Form onSubmit={handleSubmit}>
@@ -98,16 +96,16 @@ function CadastroEdicaoEquipePage({ match }) {
                 />
                 <CardBody>
                   <Form.Row>
-                    <Form.Group as={Col} md="4" controlId="formGridNome">
+                    <Form.Group as={Col} md="4" controlId="formGridEquipeDescricao">
                       <Form.Label>Descrição</Form.Label>
                       <Form.Control
                         type="text"
-                        name="nome"
-                        placeholder="Nome"
+                        name="descricao"
+                        placeholder="descricao"
                         value={values.descricao}
                         onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group id="formGridCheckbox" style={{ marginLeft: "50px", marginTop: "30px" }}>
+                    <Form.Group id="formGridCheckboxEquipeAtivo" style={{ marginLeft: "50px", marginTop: "30px" }}>
                       <Form.Check
                         type="checkbox"
                         name="ativo"
@@ -117,19 +115,36 @@ function CadastroEdicaoEquipePage({ match }) {
                     </Form.Group>
                   </Form.Row>
                   <Form.Row>
-                    <Form.Group as={Col} controlId="formGridApelido">
+                    <Form.Group as={Col} controlId="formGridEquipeModalidade">
                       <Form.Label>Modalidade / Esporte</Form.Label>
-                      <Form.Control as="select" >
-                        {modalidades.map(mdld => (<option>{mdld.descricao}</option>))}
+                      <Form.Control as="select"
+                        name="modalidade_codigo"
+                        value={values.modalidade_codigo}//com a codio ele nao ta deixando selecionar na combo, com a seleiconada ele ta deixando
+                        onChange={handleChange}
+                      >
+                        {modalidades.map(mdld => (<option value={mdld.codigo}
+                          selected={values.modalidade_codigo === mdld.codigo}
+                          key={mdld.codigo}>
+                          {mdld.descricao}
+                        </option>))}
                       </Form.Control>
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formGridApelido">
+                    <Form.Group as={Col} controlId="formGridEquipeModulo">
                       <Form.Label>Módulo</Form.Label>
-                      <Form.Control as="select">
-                        {modulos.map(mdl => (<option key={mdl.codigo}>{mdl.descricao}</option>))}
+                      <Form.Control as="select"
+                        name="modulo_codigo"
+                        value={values.modulo_codigo}
+                        onChange={handleChange}
+                      >
+                        {modulos.map(mdl => (<option value={mdl.codigo}
+                          selected={values.modulo_codigo === mdl.codigo}
+                          key={mdl.codigo}>
+                          {mdl.descricao}
+                        </option>))}
                       </Form.Control>
                     </Form.Group>
                   </Form.Row>
+
                   <Button type="submit">Salvar</Button>
                 </CardBody>
               </Card>
