@@ -2,7 +2,7 @@ import {EQUIPE_BASE_URL, BaseService} from "../BaseService";
 
 class equipeService extends BaseService{
 
-    getEquipes(history){
+    getEquipe(history){
         return super.get(history, EQUIPE_BASE_URL);
     }
 

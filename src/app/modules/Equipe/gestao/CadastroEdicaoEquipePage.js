@@ -101,18 +101,29 @@ function CadastroEdicaoEquipePage({ match }) {
                       <Form.Control
                         type="text"
                         name="descricao"
-                        placeholder="descricao"
+                        placeholder="Nome da Equipe"
                         value={values.descricao}
                         onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group id="formGridCheckboxEquipeAtivo" style={{ marginLeft: "50px", marginTop: "30px" }}>
-                      <Form.Check
-                        type="checkbox"
-                        name="ativo"
-                        label="Ativo"
-                        defaultChecked={values.ativo}
+                    <Form.Group as={Col} md="4" controlId="formGridEquipeDescricao">
+                      <Form.Label>Atleta Responsável</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name=""
+                        placeholder=""
+                        value={values.descricao}
                         onChange={handleChange} />
                     </Form.Group>
+                    <Form.Group as={Col} md="4" controlId="formGridEquipeDescricao">
+                      <Form.Label>Valor R$</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name=""
+                        placeholder=""
+                        value={values.descricao}
+                        onChange={handleChange} />
+                    </Form.Group>
+                    
                   </Form.Row>
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridEquipeModalidade">

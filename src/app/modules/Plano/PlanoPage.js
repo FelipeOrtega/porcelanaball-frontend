@@ -15,6 +15,7 @@ export default function PlanoPage() {
             {/* Planos */}
             <ContentRoute from="/plano/gestao" component={GestaoPlanoPage} />
             <ContentRoute from="/plano/edicao/:id" component={CadastroEdicaoPlanoPage} />
+            <Redirect from="/plano/edicao/" to="/plano/gestao" exact={true}/>
             <ContentRoute from="/plano/cadastro" component={CadastroEdicaoPlanoPage} />
             
         </Switch>

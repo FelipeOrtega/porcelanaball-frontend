@@ -17,7 +17,7 @@ function GestaoEquipePage({ match }) {
 
     useEffect(() => {
         setLoading(true);
-        const promisse = equipeService.getEquipes(history);
+        const promisse = equipeService.getEquipe(history);
         promisse.then(function (result) {
             if(result != null){
                 setEquipes(result.data);

@@ -18,7 +18,7 @@ function GestaoAlunoPage({ match }) {
 
     useEffect(() => {
         setLoading(true);
-        const promisse = alunoService.getalunos(history);
+        const promisse = alunoService.getAluno(history);
         promisse.then(function (result) {
             if(result != null){
                 setAlunos(result.data);

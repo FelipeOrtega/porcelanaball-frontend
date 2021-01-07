@@ -3,41 +3,42 @@ import { Button, Form, Col } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Formik } from "formik";
 import planoService from "../../../../services/plano/PlanoService";
+import modalidadeService from "../../../../services/modalidade/ModalidadeService";
+import moduloService from "../../../../services/modulo/ModuloService";
 import { useHistory } from "react-router-dom";
 
 function CadastroEdicaoPlanoPage({ match }) {
   const history = useHistory();
   const { id } = match.params;
-  const novoPlano = !id;
+  const novaPlano = !id;
   const [plano, setPlano] = useState({});
-  const [isLoading, setLoading] = useState(false);
+  const [modalidades, setModalidades] = useState([]);
+  const [modulos, setModulos] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!novoPlano) {
-      setLoading(true);
+    if (!novaPlano) {
       planoService.getPlanoByCodigo(history, id).then(function (result) {
-        setPlano(formataAtributos(result.data));
-        console.log(plano)
-        setLoading(false);
+        setPlano(result.data);
       });
     }
+    modalidadeService.getModalidades(history).then(function (result) {
+      if (result != null) {
+        setModalidades(result.data);
+      }
+    });
+    moduloService.getModulos(history).then(function (result) {
+      if (result != null) {
+        setModulos(result.data);
+      }
+    });
+    setLoading(false);
     // eslint-disable-next-line
   }, []);
 
-  function formataAtributos(plano) {
-    var d = new Date(plano.durabilidade),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-    plano.durabilidade = `${year}-${month}-${day}`;
-    return plano;
-  };
-
   function cadastrarPlano(values, setSubmitting) {
     const promisse = planoService.createPlano(history, values);
-    promisse.then(function(result) {
+    promisse.then(function (result) {
       if (result.StatusCode === 200) {
         history.push(".");
       }
@@ -47,13 +48,12 @@ function CadastroEdicaoPlanoPage({ match }) {
 
   function atualizarPlano(values, setSubmitting) {
     const promisse = planoService.updatePlano(history, values);
-    promisse.then(function(result) {
-      console.log(result);
+    promisse.then(function (result) {
       if (result.statusCode === 200) {
         history.push(".");
       }
     });
-    
+
     setSubmitting(false);
   }
 
@@ -67,19 +67,21 @@ function CadastroEdicaoPlanoPage({ match }) {
     <Formik
       onSubmit={(values, { setStatus, setSubmitting }) => {
         setStatus();
-        if (novoPlano) {
+        if (novaPlano) {
           cadastrarPlano(values, setSubmitting);
         } else {
           atualizarPlano(values, setSubmitting);
         }
       }}
+      enableReinitialize
       initialValues={plano ? plano : {
         descricao: "",
-        modalidadeCodigo: "",
-        durabilidade: "",
-        valor: "",
-        moduloCodigo: "",
+        valor: 0,
+        modalidade_codigo: 0,
         ativo: false,
+        modulo_codigo: 0,
+        durabilidade: "",
+        codigo: 0
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
         <Form onSubmit={handleSubmit}>
@@ -89,74 +91,84 @@ function CadastroEdicaoPlanoPage({ match }) {
                 <CardHeader
                   title={
                     <>
-                      Cadastro de Plano
+                      Formulário de Plano
                     <small></small>
                     </>
                   }
                 />
                 <CardBody>
                   <Form.Row>
-                    <Form.Group as={Col} md="8" controlId="formGridDescricao">
+                    <Form.Group as={Col} md="4" controlId="formGridPlanoDescricao">
                       <Form.Label>Descrição</Form.Label>
                       <Form.Control
                         type="text"
                         name="descricao"
-                        placeholder="Nome do Plano"
+                        placeholder="Nome do plano"
                         value={values.descricao}
                         onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group as={Col} md="4" controlId="formGridModalidade">
-                      <Form.Label>Modalidade</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="modalidade"
-                        placeholder="Academias - Padrão"
-                        value={values.modalidadeCodigo}
-                        onChange={handleChange} />
-                    </Form.Group>
-                  </Form.Row>
-
-                  <Form.Row>
-                    <Form.Group as={Col} md="4" controlId="formGridDurabilidade">
-                      <Form.Label>Durabilidade</Form.Label>
-                      <Form.Control
-                        type="date"
-                        name="durabilidade"
-                        placeholder="dd/mm/aaaa"
-                        value={values.durabilidade}
-                        onChange={handleChange}
-                      />
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="formGridValor">
-                      <Form.Label>Valor</Form.Label>
+                    <Form.Group as={Col} md="4" controlId="formGridPlanoDescricao">
+                      <Form.Label>Valor R$</Form.Label>
                       <Form.Control
                         type="text"
                         name="valor"
-                        placeholder="R$0,00"
-                        value={values.valor}
+                        placeholder="R$"
+                        value={values.descricao}
+                        onChange={handleChange} />
+                    </Form.Group>
+                    <Form.Group as={Col} md="4" controlId="formGridDataNas">
+                      <Form.Label>Durabilidade</Form.Label>
+                      <Form.Control
+                        type="date"
+                        name="data_nascimento"
+                        placeholder="dd/mm/aaaa"
+                        value={values.data_nascimento}
                         onChange={handleChange}
                       />
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formGridModulo">
-                      <Form.Label>Módulo Cód.</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="modulo"
-                        placeholder=""
-                        value={values.moduloCodigo}
+                   
+                  </Form.Row>
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formGridPlanoModalidade">
+                      <Form.Label>Modalidade / Esporte</Form.Label>
+                      <Form.Control as="select"
+                        name="modalidade_codigo"
+                        value={values.modalidade_codigo}
                         onChange={handleChange}
-                      />
+                      >
+                        {modalidades.map(mdld => (<option value={mdld.codigo}
+                          selected={values.modalidade_codigo === mdld.codigo}
+                          key={mdld.codigo}>
+                          {mdld.descricao}
+                        </option>))}
+                      </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formGridPlanoModulo">
+                      <Form.Label>Módulo</Form.Label>
+                      <Form.Control as="select"
+                        name="modulo_codigo"
+                        value={values.modulo_codigo}
+                        onChange={handleChange}
+                      >
+                        {modulos.map(mdl => (<option value={mdl.codigo}
+                          selected={values.modulo_codigo === mdl.codigo}
+                          key={mdl.codigo}>
+                          {mdl.descricao}
+                        </option>))}
+                      </Form.Control>
                     </Form.Group>
                   </Form.Row>
-
-                  <Form.Group id="formGridCheckbox">
-                    <Form.Check 
-                        type="checkbox" 
-                        name="ativo" 
-                        label="Ativo" 
+                  <Form.Row>
+                  <Form.Group id="formGridCheckboxPlanoAtivo">
+                      <Form.Check
+                        type="checkbox"
+                        name="ativo"
+                        label="Ativo"
                         defaultChecked={values.ativo}
                         onChange={handleChange} />
-                  </Form.Group>
+                    </Form.Group>
+                  
+                  </Form.Row>
 
                   <Button type="submit">Salvar</Button>
                 </CardBody>

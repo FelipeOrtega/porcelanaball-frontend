@@ -9,7 +9,6 @@ function GestaoPlanoPage({ match }) {
     const history = useHistory();
     const [plano, setPlano] = useState([]);
     const [isLoading, setLoading] = useState(false);
-
     const [searchVal, setSearchVal] = useState(null);
     const { filteredData, loadingSearch } = TableSearch({
       searchVal,
@@ -42,7 +41,7 @@ function GestaoPlanoPage({ match }) {
                         <CardHeader
                             title={
                                 <>
-                                    Gestão de Planos
+                                    Planos
                                         <small>
                                     </small>
                                 </>
@@ -57,9 +56,7 @@ function GestaoPlanoPage({ match }) {
                                     <thead>
                                         <tr>
                                             <th style={{ width: '30%' }}>Descrição</th>
-                                            <th style={{ width: '30%' }}>Valor</th>
-                                            <th style={{ width: '30%' }}>Modalidade</th>
-                                            <th style={{ width: '10%' }}>Ativo</th> 
+                                            <th style={{ width: '10%' }}>Ativo</th>
                                             <th style={{ width: '10%' }}></th>
                                         </tr>
                                     </thead>
@@ -67,8 +64,6 @@ function GestaoPlanoPage({ match }) {
                                         {filteredData && filteredData.map(plano =>
                                             <tr key={plano.codigo}>
                                                 <td>{plano.descricao}</td>
-                                                <td>{plano.valor}</td>
-                                                <td>{plano.modalidade}</td>
                                                 <td>{plano.ativo ? "Sim" : "Nao"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
                                                     <Link to={`/plano/edicao/${plano.codigo}`} className="btn btn-sm btn-primary mr-1">Editar</Link>
