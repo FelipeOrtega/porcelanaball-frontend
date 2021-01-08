@@ -6,6 +6,7 @@ import equipeService from "../../../../services/equipe/EquipeService";
 import modalidadeService from "../../../../services/modalidade/ModalidadeService";
 import moduloService from "../../../../services/modulo/ModuloService";
 import { useHistory } from "react-router-dom";
+import {ListagemAluno} from "../../Aluno/ListagemAluno"
 
 function CadastroEdicaoEquipePage({ match }) {
   const history = useHistory();
@@ -101,29 +102,18 @@ function CadastroEdicaoEquipePage({ match }) {
                       <Form.Control
                         type="text"
                         name="descricao"
-                        placeholder="Nome da Equipe"
+                        placeholder="descricao"
                         value={values.descricao}
                         onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group as={Col} md="4" controlId="formGridEquipeDescricao">
-                      <Form.Label>Atleta Responsável</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        value={values.descricao}
+                    <Form.Group id="formGridCheckboxEquipeAtivo" style={{ marginLeft: "50px", marginTop: "30px" }}>
+                      <Form.Check
+                        type="checkbox"
+                        name="ativo"
+                        label="Ativo"
+                        defaultChecked={values.ativo}
                         onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group as={Col} md="4" controlId="formGridEquipeDescricao">
-                      <Form.Label>Valor R$</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        value={values.descricao}
-                        onChange={handleChange} />
-                    </Form.Group>
-                    
                   </Form.Row>
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridEquipeModalidade">
@@ -134,7 +124,7 @@ function CadastroEdicaoEquipePage({ match }) {
                         onChange={handleChange}
                       >
                         {modalidades.map(mdld => (<option value={mdld.codigo}
-                          selected={values.modalidade_codigo === mdld.codigo}
+                          defaultValue={values.modalidade_codigo === mdld.codigo}
                           key={mdld.codigo}>
                           {mdld.descricao}
                         </option>))}
@@ -148,14 +138,14 @@ function CadastroEdicaoEquipePage({ match }) {
                         onChange={handleChange}
                       >
                         {modulos.map(mdl => (<option value={mdl.codigo}
-                          selected={values.modulo_codigo === mdl.codigo}
+                          defaultValue={values.modulo_codigo === mdl.codigo}
                           key={mdl.codigo}>
                           {mdl.descricao}
                         </option>))}
                       </Form.Control>
                     </Form.Group>
                   </Form.Row>
-
+                  <ListagemAluno />
                   <Button type="submit">Salvar</Button>
                 </CardBody>
               </Card>

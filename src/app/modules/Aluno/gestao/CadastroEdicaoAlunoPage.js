@@ -115,7 +115,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="text"
                         name="apelido"
                         placeholder="Apelido (Opcional)"
-                        value={values.apelido = null? "":values.apelido}
+                        value={!values.apelido? "":values.apelido}
                         onChange={handleChange} />
                     </Form.Group>
                   </Form.Row>
@@ -182,7 +182,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="text"
                         name="telefone_residencial"
                         placeholder="(00) 0000-0000"
-                        value={values.telefone_residencial}
+                        value={!values.telefone_residencial?"":values.telefone_residencial}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -193,7 +193,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="text"
                         name="telefone_celular"
                         placeholder="(00) 0 0000-0000"
-                        value={values.telefone_celular}
+                        value={!values.telefone_celular?"":values.telefone_celular}
                         onChange={handleChange}
                       />
                     </Form.Group>
