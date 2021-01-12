@@ -15,7 +15,7 @@ function CadastroEdicaoAlunoPage({ match }) {
   useEffect(() => {
     if (!novoAluno) {
       setLoading(true);
-      alunoService.getalunoByCodigo(history, id).then(function (result) {
+      alunoService.getAlunoByCodigo(history, id).then(function (result) {
         setAluno(formataAtributos(result.data));
         setLoading(false);
       });
@@ -35,7 +35,7 @@ function CadastroEdicaoAlunoPage({ match }) {
   };
 
   function cadastrarAluno(values, setSubmitting) {
-    const promisse = alunoService.createaluno(history, values);
+    const promisse = alunoService.createAluno(history, values);
     promisse.then(function(result) {
       if (result.StatusCode === 200) {
         history.push(".");
@@ -45,7 +45,7 @@ function CadastroEdicaoAlunoPage({ match }) {
   }
 
   function atualizarAluno(values, setSubmitting) {
-    const promisse = alunoService.updatealuno(history, values);
+    const promisse = alunoService.updateAluno(history, values);
     promisse.then(function(result) {
       console.log(result);
       if (result.statusCode === 200) {
