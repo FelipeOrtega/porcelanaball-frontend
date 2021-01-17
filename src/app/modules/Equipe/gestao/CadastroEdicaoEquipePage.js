@@ -6,7 +6,6 @@ import equipeService from "../../../../services/equipe/EquipeService";
 import modalidadeService from "../../../../services/modalidade/ModalidadeService";
 import moduloService from "../../../../services/modulo/ModuloService";
 import { useHistory } from "react-router-dom";
-import {ListagemAluno} from "../../Aluno/ListagemAluno"
 
 function CadastroEdicaoEquipePage({ match }) {
   const history = useHistory();
@@ -38,9 +37,16 @@ function CadastroEdicaoEquipePage({ match }) {
   }, []);
 
   function cadastrarEquipe(values, setSubmitting) {
+    if (!values.modalidade_codigo) {
+      values.modalidade_codigo = 1;
+    }
+    if (!values.modulo_codigo) {
+      values.modulo_codigo = 1;
+    }
     const promisse = equipeService.createEquipe(history, values);
+    console.log(promisse)
     promisse.then(function (result) {
-      if (result.StatusCode === 200) {
+      if (result.statusCode === 200) {
         history.push(".");
       }
     });
@@ -77,10 +83,10 @@ function CadastroEdicaoEquipePage({ match }) {
       enableReinitialize
       initialValues={equipe ? equipe : {
         descricao: "",
-        ativo: false,
-        modalidade_codigo: 0,
+        modalidade_codigo: 0, //o ativo ta dando bo no aluno e na equipe tbm, ta mandando como array ao inves de boolean
         modulo_codigo: 0,
-        codigo: 0
+        codigo: 0,
+        ativo: false
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
         <Form onSubmit={handleSubmit}>
@@ -103,15 +109,16 @@ function CadastroEdicaoEquipePage({ match }) {
                         type="text"
                         name="descricao"
                         placeholder="descricao"
-                        value={values.descricao}
+                        value={values.descricao || ""}
                         onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group id="formGridCheckboxEquipeAtivo" style={{ marginLeft: "50px", marginTop: "30px" }}>
+                    <Form.Group id="formGridCheckbox" style={{ marginLeft: "50px", marginTop: "30px" }}>
                       <Form.Check
                         type="checkbox"
                         name="ativo"
                         label="Ativo"
                         defaultChecked={values.ativo}
+                        value={values.ativo}
                         onChange={handleChange} />
                     </Form.Group>
                   </Form.Row>
@@ -145,7 +152,7 @@ function CadastroEdicaoEquipePage({ match }) {
                       </Form.Control>
                     </Form.Group>
                   </Form.Row>
-                  <ListagemAluno />
+                  
                   <Button type="submit">Salvar</Button>
                 </CardBody>
               </Card>

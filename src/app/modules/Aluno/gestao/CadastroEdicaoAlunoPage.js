@@ -35,9 +35,11 @@ function CadastroEdicaoAlunoPage({ match }) {
   };
 
   function cadastrarAluno(values, setSubmitting) {
+    console.log(values)
     const promisse = alunoService.createAluno(history, values);
     promisse.then(function(result) {
-      if (result.StatusCode === 200) {
+      console.log(result);
+      if (result.statusCode === 200) {
         history.push(".");
       }
     });
@@ -47,7 +49,6 @@ function CadastroEdicaoAlunoPage({ match }) {
   function atualizarAluno(values, setSubmitting) {
     const promisse = alunoService.updateAluno(history, values);
     promisse.then(function(result) {
-      console.log(result);
       if (result.statusCode === 200) {
         history.push(".");
       }
@@ -106,7 +107,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="text"
                         name="nome"
                         placeholder="Nome"
-                        value={values.nome}
+                        value={values.nome || ""}
                         onChange={handleChange} />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridApelido">
@@ -205,6 +206,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         name="ativo" 
                         label="Ativo" 
                         defaultChecked={values.ativo}
+                        value={values.ativo}
                         onChange={handleChange} />
                   </Form.Group>
 
