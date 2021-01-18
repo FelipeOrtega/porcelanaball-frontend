@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { TableSearch } from "../../../../_helpers/TableSearch";
 import equipeService from "../../../../services/equipe/EquipeService";
+import  PaginationHelper  from "../../../../_helpers/PaginationHelper";
+import {Table} from "react-bootstrap";
 
 function GestaoEquipePage({ match }) {
     const history = useHistory();
     const [equipes, setEquipes] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [searchVal, setSearchVal] = useState(null);
+    const [paginationData, setPaginationData] = useState([]);
     const { filteredData, loadingSearch } = TableSearch({
       searchVal,
       retrieve: equipes
@@ -26,6 +29,10 @@ function GestaoEquipePage({ match }) {
         });
 
     }, []);
+
+    function onChangePage(paginationData) {
+        setPaginationData(paginationData);
+    }
 
     if (isLoading || loadingSearch) {
         return <div className="d-flex flex-wrap justify-content-between align-items-center">
@@ -52,7 +59,7 @@ function GestaoEquipePage({ match }) {
                             <input type="text" placeholder="Pesquisar" onChange={(e) => setSearchVal(e.target.value)} />
                             </div>
                             <div>
-                                <table className="table table-striped">
+                                <Table className="table table-striped">
                                     <thead>
                                         <tr>
                                             <th style={{ width: '30%' }}>Descrição</th>
@@ -61,7 +68,7 @@ function GestaoEquipePage({ match }) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {filteredData && filteredData.map(equipe =>
+                                        {paginationData && paginationData.map(equipe =>
                                             <tr key={equipe.codigo}>
                                                 <td>{equipe.descricao}</td>
                                                 <td>{equipe.ativo ? "Sim" : "Nao"}</td>
@@ -70,14 +77,14 @@ function GestaoEquipePage({ match }) {
                                                 </td>
                                             </tr>
                                         )}
-                                        {!filteredData &&
+                                        {!paginationData &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
                                                     <div className="spinner-border spinner-border-lg align-center"></div>
                                                 </td>
                                             </tr>
                                         }
-                                        {filteredData && !filteredData.length &&
+                                        {paginationData && !paginationData.length &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
                                                     <div className="p-2">Nenhum equipe encontrado</div>
@@ -85,7 +92,10 @@ function GestaoEquipePage({ match }) {
                                             </tr>
                                         }
                                     </tbody>
-                                </table>
+                                </Table>
+                                <PaginationHelper
+                                    items={filteredData} onChangePage={onChangePage} 
+                                />
                             </div>
                         </CardBody>
                     </Card>

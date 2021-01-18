@@ -6,6 +6,7 @@ import equipeService from "../../../../services/equipe/EquipeService";
 import modalidadeService from "../../../../services/modalidade/ModalidadeService";
 import moduloService from "../../../../services/modulo/ModuloService";
 import { useHistory } from "react-router-dom";
+import { ListagemAluno } from "../../Aluno/ListagemAluno"
 
 function CadastroEdicaoEquipePage({ match }) {
   const history = useHistory();
@@ -152,7 +153,7 @@ function CadastroEdicaoEquipePage({ match }) {
                       </Form.Control>
                     </Form.Group>
                   </Form.Row>
-                  
+                  <ListagemAluno />
                   <Button type="submit">Salvar</Button>
                 </CardBody>
               </Card>

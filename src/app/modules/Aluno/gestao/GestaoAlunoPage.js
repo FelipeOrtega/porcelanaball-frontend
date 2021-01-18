@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { TableSearch } from "../../../../_helpers/TableSearch";
 import alunoService from "../../../../services/aluno/AlunoService";
+import  PaginationHelper  from "../../../../_helpers/PaginationHelper";
+import {Table} from "react-bootstrap";
 
 function GestaoAlunoPage({ match }) {
     const history = useHistory();
     const [alunos, setAlunos] = useState([]);
     const [isLoading, setLoading] = useState(false);
-
+    const [paginationData, setPaginationData] = useState([]);
     const [searchVal, setSearchVal] = useState(null);
     const { filteredData, loadingSearch } = TableSearch({
       searchVal,
@@ -19,6 +21,7 @@ function GestaoAlunoPage({ match }) {
     useEffect(() => {
         setLoading(true);
         const promisse = alunoService.getAluno(history);
+        console.log(promisse)
         promisse.then(function (result) {
             if(result != null){
                 setAlunos(result.data);
@@ -27,6 +30,10 @@ function GestaoAlunoPage({ match }) {
         });
 
     }, []);
+
+    function onChangePage(paginationData) {
+        setPaginationData(paginationData);
+    }
 
     if (isLoading || loadingSearch) {
         return <div className="d-flex flex-wrap justify-content-between align-items-center">
@@ -53,7 +60,7 @@ function GestaoAlunoPage({ match }) {
                             <input type="text" placeholder="Pesquisar" onChange={(e) => setSearchVal(e.target.value)} />
                             </div>
                             <div>
-                                <table className="table table-striped">
+                                <Table className="table table-striped">
                                     <thead>
                                         <tr>
                                             <th style={{ width: '30%' }}>Nome</th>
@@ -64,7 +71,7 @@ function GestaoAlunoPage({ match }) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {filteredData && filteredData.map(aluno =>
+                                        {paginationData && paginationData.map(aluno =>
                                             <tr key={aluno.codigo}>
                                                 <td>{aluno.nome}</td>
                                                 <td>{aluno.apelido}</td>
@@ -75,14 +82,14 @@ function GestaoAlunoPage({ match }) {
                                                 </td>
                                             </tr>
                                         )}
-                                        {!filteredData &&
+                                        {!paginationData &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
                                                     <div className="spinner-border spinner-border-lg align-center"></div>
                                                 </td>
                                             </tr>
                                         }
-                                        {filteredData && !filteredData.length &&
+                                        {paginationData && !paginationData.length &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
                                                     <div className="p-2">Nenhum aluno encontrado</div>
@@ -90,7 +97,10 @@ function GestaoAlunoPage({ match }) {
                                             </tr>
                                         }
                                     </tbody>
-                                </table>
+                                </Table>
+                                <PaginationHelper
+                                    items={filteredData} onChangePage={onChangePage} 
+                                />
                             </div>
                         </CardBody>
                     </Card>

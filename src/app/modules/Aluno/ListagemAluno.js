@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader } from "../../../_partials/controls";
 import { useHistory } from "react-router-dom";
-import { TableSearch } from "../../../_helpers/TableSearch";
 import  PaginationHelper  from "../../../_helpers/PaginationHelper";
 import alunoService from "../../../services/aluno/AlunoService";
 import {Table} from "react-bootstrap";
 import { Form } from "react-bootstrap";
+import { TableSearch } from "../../../_helpers/TableSearch";
 
 function ListagemAluno() {
     const history = useHistory();
     const [alunos, setAlunos] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [searchVal, setSearchVal] = useState(null);
-    const { filteredData, loadingSearch } = TableSearch({
-      searchVal,
-      retrieve: alunos
-    });
     const [paginationData, setPaginationData] = useState([]);
     const [alunosSelecionados, setAlunosSelecionados] = useState([]);
-    const [teste, setTeste] = useState(false);
-
+    const { filteredData, loadingSearch } = TableSearch({
+        searchVal,
+        retrieve: alunos
+      });
+    
     useEffect(() => {
         setLoading(true);
         const promisse = alunoService.getAluno(history);
@@ -44,7 +43,7 @@ function ListagemAluno() {
         console.log(alunosSelecionados);
     }
 
-    if (isLoading || loadingSearch) {
+    if (isLoading) {
         return <div className="d-flex flex-wrap justify-content-between align-items-center">
           <span className="ml-3 spinner spinner-white"></span>
         </div>
@@ -68,7 +67,7 @@ function ListagemAluno() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {paginationData && paginationData.map(aluno =>
+                                        {paginationData.map(aluno =>
                                             <tr key={aluno.codigo}>
                                                 <td><Form.Check type="checkbox" onChange={(e) => handleChange(e, aluno)} /></td>
                                                 <td>{aluno.nome}</td>
@@ -77,7 +76,7 @@ function ListagemAluno() {
                                                 <td>{aluno.ativo ? "Sim" : "Não"}</td>
                                             </tr>
                                         )}
-                                        {filteredData && !filteredData.length &&
+                                        {paginationData && !paginationData.length &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
                                                     <div className="p-2">Nenhum aluno encontrado</div>

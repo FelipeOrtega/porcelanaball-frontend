@@ -11,7 +11,7 @@ const propTypes = {
 
 const defaultProps = {
     initialPage: 1,
-    pageSize: 10
+    pageSize: 3
 }
 
 class PaginationHelper extends React.Component {
@@ -59,22 +59,22 @@ class PaginationHelper extends React.Component {
         // default to first page
         currentPage = currentPage || 1;
 
-        // default page size is 10
-        pageSize = pageSize || 10;
+        // default page size is 3
+        pageSize = pageSize || 3;
 
         // calculate total pages
         var totalPages = Math.ceil(totalItems / pageSize);
 
         var startPage, endPage;
-        if (totalPages <= 10) {
-            // less than 10 total pages so show all
+        if (totalPages <= 3) {
+            // less than 3 total pages so show all
             startPage = 1;
             endPage = totalPages;
         } else {
-            // more than 10 total pages so calculate start and end pages
+            // more than 3 total pages so calculate start and end pages
             if (currentPage <= 6) {
                 startPage = 1;
-                endPage = 10;
+                endPage = 3;
             } else if (currentPage + 4 >= totalPages) {
                 startPage = totalPages - 9;
                 endPage = totalPages;
@@ -115,13 +115,21 @@ class PaginationHelper extends React.Component {
 
         return (
             <Pagination >
-                <Pagination.First onClick={() => this.setPage(1)}></Pagination.First>
-                <Pagination.Prev onClick={() => this.setPage(pager.currentPage - 1)}></Pagination.Prev>
+                 <li className={pager.currentPage === 1 ? 'disabled' : ''}>
+                    <Pagination.First onClick={() => this.setPage(1)}></Pagination.First>
+                 </li>
+                 <li className={pager.currentPage === 1 ? 'disabled' : ''}>
+                    <Pagination.Prev onClick={() => this.setPage(pager.currentPage - 1)}></Pagination.Prev>
+                 </li>
                 {pager.pages.map((page, index) =>
-                    <Pagination.Item key={pager.currentPage} onClick={() => this.setPage(page)} active={pager.currentPage === page} >{page}</Pagination.Item>
+                    <Pagination.Item key={pager.index} onClick={() => this.setPage(page)} active={pager.currentPage === page} >{page}</Pagination.Item>
                 )}
-                <Pagination.Next onClick={() => this.setPage(pager.currentPage + 1)}></Pagination.Next>
-                <Pagination.Last onClick={() => this.setPage(pager.totalPages)}></Pagination.Last>
+                <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
+                    <Pagination.Next onClick={() => this.setPage(pager.currentPage + 1)}></Pagination.Next>
+                </li>
+                <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
+                    <Pagination.Last onClick={() => this.setPage(pager.totalPages)}></Pagination.Last>
+                </li>
             </Pagination>
         );
     }
