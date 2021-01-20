@@ -35,7 +35,6 @@ function CadastroEdicaoAlunoPage({ match }) {
   };
 
   function cadastrarAluno(values, setSubmitting) {
-    console.log(values)
     const promisse = alunoService.createAluno(history, values);
     promisse.then(function(result) {
       console.log(result);
@@ -84,7 +83,8 @@ function CadastroEdicaoAlunoPage({ match }) {
         telefone_celular: "",
         telefone_residencial: "",
         celular: "",
-        ativo: false
+        ativo: false,
+        email: ""
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
         <Form onSubmit={handleSubmit}>
