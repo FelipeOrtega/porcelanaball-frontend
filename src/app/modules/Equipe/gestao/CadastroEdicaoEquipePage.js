@@ -3,6 +3,7 @@ import { Button, Form, Col } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Formik } from "formik";
 import equipeService from "../../../../services/equipe/EquipeService";
+import equipeAlunoService from "../../../../services/equipe/EquipeAlunoService";
 import modalidadeService from "../../../../services/modalidade/ModalidadeService";
 import moduloService from "../../../../services/modulo/ModuloService";
 import { useHistory } from "react-router-dom";
@@ -16,6 +17,7 @@ function CadastroEdicaoEquipePage({ match }) {
   const [modalidades, setModalidades] = useState([]);
   const [modulos, setModulos] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [alunosSelecionados, setAlunosSelecionados] = useState([]);
 
   useEffect(() => {
     if (!novaEquipe) {
@@ -38,15 +40,33 @@ function CadastroEdicaoEquipePage({ match }) {
   }, []);
 
   function cadastrarEquipe(values, setSubmitting) {
+    console.log(alunosSelecionados)
+
     if (!values.modalidade_codigo) {
       values.modalidade_codigo = 1;
     }
     if (!values.modulo_codigo) {
       values.modulo_codigo = 1;
     }
-    const promisse = equipeService.createEquipe(history, values);
-    console.log(promisse)
-    promisse.then(function (result) {
+    equipeService.createEquipe(history, values).then(function (result) {
+      if (result.statusCode === 200) {
+        history.push(".");
+      }
+    });
+
+    equipeAlunoService.createEquipeAluno(history, values).then(function (result) {
+      if (result.statusCode === 200) {
+        history.push(".");
+      }
+    });
+    
+    setSubmitting(false);
+  }
+
+  function atualizarEquipe(values, setSubmitting) {
+    console.log(alunosSelecionados);
+
+    equipeService.updateEquipe(history, values).then(function (result) {
       if (result.statusCode === 200) {
         history.push(".");
       }
@@ -54,15 +74,11 @@ function CadastroEdicaoEquipePage({ match }) {
     setSubmitting(false);
   }
 
-  function atualizarEquipe(values, setSubmitting) {
-    const promisse = equipeService.updateEquipe(history, values);
-    promisse.then(function (result) {
-      if (result.statusCode === 200) {
-        history.push(".");
-      }
-    });
-
-    setSubmitting(false);
+  const handleAlunosSelecionados = (event, aluno) => {
+    if(event.target.checked){
+      setAlunosSelecionados([...alunosSelecionados,aluno]);
+    }
+    console.log(alunosSelecionados)
   }
 
   if (isLoading) {
@@ -153,7 +169,7 @@ function CadastroEdicaoEquipePage({ match }) {
                       </Form.Control>
                     </Form.Group>
                   </Form.Row>
-                  <ListagemAluno />
+                  <ListagemAluno alunosSelecionadosCallBack={alunosSelecionados} handleChange={handleAlunosSelecionados}/>
                   <Button type="submit">Salvar</Button>
                 </CardBody>
               </Card>

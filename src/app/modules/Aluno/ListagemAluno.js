@@ -7,13 +7,12 @@ import {Table} from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { TableSearch } from "../../../_helpers/TableSearch";
 
-function ListagemAluno() {
+function ListagemAluno({alunosSelecionadosCallBack, handleChange}) {
     const history = useHistory();
     const [alunos, setAlunos] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [searchVal, setSearchVal] = useState(null);
     const [paginationData, setPaginationData] = useState([]);
-    const [alunosSelecionados, setAlunosSelecionados] = useState([]);
     const { filteredData, loadingSearch } = TableSearch({
         searchVal,
         retrieve: alunos
@@ -35,13 +34,12 @@ function ListagemAluno() {
         setPaginationData(paginationData);
     }
 
-    const handleChange = (event, aluno) => {
-        console.log(aluno);
-        if(event.target.checked){
-            setAlunosSelecionados([...alunosSelecionados,aluno]);
-        }
-        console.log(alunosSelecionados);
-    }
+    // const handleChange = (event, aluno) => {
+    //     if(event.target.checked){
+    //         //setAlunosSelecionados([...alunosSelecionados,aluno]);
+    //         alunosSelecionadosCallBack = [...alunosSelecionadosCallBack,aluno];
+    //     }
+    // }
 
     if (isLoading) {
         return <div className="d-flex flex-wrap justify-content-between align-items-center">
@@ -89,7 +87,6 @@ function ListagemAluno() {
                                     items={filteredData} onChangePage={onChangePage} 
                                 />
                             <div className="d-flex flex-row py-4 justify-content-end">
-                                
                             </div>
                         </CardBody>
                     </Card>
