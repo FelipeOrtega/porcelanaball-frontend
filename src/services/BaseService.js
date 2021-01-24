@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-export const BASE_URL = "http://localhost:5000/";
+export const BASE_URL = "https://localhost:44319/";
 export const AUTENTICACAO_BASE_URL = "Autenticacao/";
 export const ALUNO_BASE_URL = "Aluno/";
 export const FUNCIONARIO_BASE_URL = "Funcionario/";
 export const PLANO_BASE_URL = "Plano/";
 export const LANCAMENTO_BASE_URL = "Lancamento/";
 export const EQUIPE_BASE_URL = "Equipe/";
+export const EQUIPE_ALUNO_BASE_URL = "EquipeAluno/";
 export const MODALIDADE_BASE_URL = "Modalidade/";
 export const MODULO_BASE_URL = "Modulo/";
 
