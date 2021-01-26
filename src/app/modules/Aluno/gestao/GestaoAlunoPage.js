@@ -49,7 +49,7 @@ function GestaoAlunoPage({ match }) {
                         <CardHeader
                             title={
                                 <>
-                                    Atletas / Clientes
+                                    CLIENTES CADASTRADOS
                                         <small>
                                     </small>
                                 </>
@@ -57,16 +57,16 @@ function GestaoAlunoPage({ match }) {
                         />
                         <CardBody>
                             <div>
-                            <input type="text" placeholder="Pesquisar" onChange={(e) => setSearchVal(e.target.value)} />
+                            <input type="text" placeholder="&nbsp;PESQUISAR..." onChange={(e) => setSearchVal(e.target.value)} />
                             </div>
                             <div>
                                 <Table className="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th style={{ width: '30%' }}>Nome</th>
-                                            <th style={{ width: '30%' }}>Apelido</th>
+                                            <th style={{ width: '30%' }}>NOME</th>
+                                            <th style={{ width: '30%' }}>APELIDO</th>
                                             <th style={{ width: '30%' }}>CPF</th>
-                                            <th style={{ width: '10%' }}>Ativo</th>
+                                            <th style={{ width: '10%' }}>ATIVO</th>
                                             <th style={{ width: '10%' }}></th>
                                         </tr>
                                     </thead>
@@ -76,9 +76,9 @@ function GestaoAlunoPage({ match }) {
                                                 <td>{aluno.nome}</td>
                                                 <td>{aluno.apelido}</td>
                                                 <td>{aluno.cpf}</td>
-                                                <td>{aluno.ativo ? "Sim" : "Nao"}</td>
+                                                <td>{aluno.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                                    <Link to={`/aluno/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">Editar</Link>
+                                                    <Link to={`/aluno/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
                                                 </td>
                                             </tr>
                                         )}

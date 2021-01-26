@@ -62,6 +62,18 @@ function CadastroEdicaoAlunoPage({ match }) {
     </div>
   }
 
+  function onlynumber(evt) {
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    //var regex = /^[0-9.,]+$/;
+    var regex = /^[0-9.]+$/;
+    if( !regex.test(key) ) {
+       theEvent.returnValue = false;
+       if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+ }
+
   return (
     <Formik
       onSubmit={(values, { setStatus, setSubmitting }) => {
@@ -94,7 +106,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                 <CardHeader
                   title={
                     <>
-                      Formulário de Atleta / Cliente
+                      CADASTRO E EDIÇÃO DE CLIENTES
                     <small></small>
                     </>
                   }
@@ -102,7 +114,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                 <CardBody>
                   <Form.Row>
                     <Form.Group as={Col} md="4" controlId="formGridNome">
-                      <Form.Label>Nome</Form.Label>
+                    <Form.Label><b>*NOME COMPLETO</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="nome"
@@ -110,8 +122,8 @@ function CadastroEdicaoAlunoPage({ match }) {
                         value={values.nome || ""}
                         onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formGridApelido">
-                      <Form.Label>Apelido</Form.Label>
+                    <Form.Group as={Col} md="4" controlId="formGridApelido">
+                      <Form.Label><b>*APELIDO</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="apelido"
@@ -119,11 +131,9 @@ function CadastroEdicaoAlunoPage({ match }) {
                         value={values.apelido || ""}
                         onChange={handleChange} />
                     </Form.Group>
-                  </Form.Row>
-
-                  <Form.Row>
+             
                     <Form.Group as={Col} md="4" controlId="formGridDataNas">
-                      <Form.Label>Data Nasc.</Form.Label>
+                    <Form.Label><b>DATA NASC.</b></Form.Label>
                       <Form.Control
                         type="date"
                         name="data_nascimento"
@@ -132,8 +142,12 @@ function CadastroEdicaoAlunoPage({ match }) {
                         onChange={handleChange}
                       />
                     </Form.Group>
+                    </Form.Row>
+
+                    <Form.Row>
+
                     <Form.Group as={Col} controlId="formGridRG">
-                      <Form.Label>RG</Form.Label>
+                       <Form.Label><b>RG</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="rg"
@@ -143,7 +157,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                       />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridCPF">
-                      <Form.Label>CPF</Form.Label>
+                    <Form.Label><b>CPF/CNPJ</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="cpf"
@@ -156,7 +170,7 @@ function CadastroEdicaoAlunoPage({ match }) {
 
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridAltura">
-                      <Form.Label>Altura</Form.Label>
+                    <Form.Label><b>ALTURA</b></Form.Label>
                       <Form.Control
                         type="number" 
                         name="altura"
@@ -165,7 +179,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                       />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridPeso">
-                      <Form.Label>Peso</Form.Label>
+                    <Form.Label><b>PESO</b></Form.Label>
                       <Form.Control
                         type="number" 
                         name="peso"
@@ -177,18 +191,18 @@ function CadastroEdicaoAlunoPage({ match }) {
 
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridTel">
-                      <Form.Label>Telefone</Form.Label>
+                    <Form.Label><b>TELEFONE/CELULAR</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="telefone_residencial"
-                        placeholder="(00) 0000-0000"
+                        placeholder="(00) 00000-0000"
                         value={values.telefone_residencial || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridCel">
-                      <Form.Label>Celular</Form.Label>
+                    <Form.Label><b>E-MAIL</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="telefone_celular"
@@ -203,13 +217,13 @@ function CadastroEdicaoAlunoPage({ match }) {
                     <Form.Check 
                         type="checkbox" 
                         name="ativo" 
-                        label="Ativo" 
+                        label="ATIVO" 
                         defaultChecked={values.ativo || false}
                         value={values.ativo}
                         onChange={handleChange} />
                   </Form.Group>
 
-                  <Button type="submit">Salvar</Button>
+                  <Button type="submit">SALVAR</Button>
                 </CardBody>
               </Card>
             </div>

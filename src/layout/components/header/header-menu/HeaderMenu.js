@@ -22,19 +22,19 @@ export function HeaderMenu({ layoutProps }) {
             {/*Menu DASHBOARD*/}
             <li className={`menu-item menu-item-rel ${getMenuItemActive('/dashboard')}`}>
                 <NavLink className="menu-link" to="/dashboard">
-                    <span className="menu-text">Agenda</span>
+                <span className="menu-text">INÍCIO</span>
                     {layoutProps.rootArrowEnabled && (<i className="menu-arrow" />)}
                 </NavLink>
             </li>
             {/*Menu DASHBOARD*/}
 
-            {/*Menu ATLETA - ALUNO - CLIENTE */}
+             {/*Menu CLIENTE - ALUNO - ATLETA */}
             <li
                 data-menu-toggle={layoutProps.menuDesktopToggle}
                 aria-haspopup="true"
                 className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/aluno')}`}>
                 <NavLink className="menu-link menu-toggle" to="/aluno">
-                    <span className="menu-text">Atleta</span>
+                <span className="menu-text">CLIENTE</span>
                     <i className="menu-arrow"></i>
                 </NavLink>
                 <div className="menu-submenu menu-submenu-classic menu-submenu-left">
@@ -45,11 +45,11 @@ export function HeaderMenu({ layoutProps }) {
                         >
                             <NavLink className="menu-link" to="/aluno/gestao">
                                 <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/General/User.svg")} />
+                                <SVG src={toAbsoluteUrl("/media/svg/icons/General/Binocular.svg")} />
                                 </span>
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">
-                                    Gestão do Atleta
+                                GESTÃO
                                 </span>
                             </NavLink>
                             
@@ -59,10 +59,10 @@ export function HeaderMenu({ layoutProps }) {
                         >
                             <NavLink className="menu-link" to="/aluno/cadastro">
                                 <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
+                                <SVG src={toAbsoluteUrl("/media/svg/icons/General/User.svg")} />
                                 </span>
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Cadastro</span>
+                                <span className="menu-text">CADASTRO</span>
                             </NavLink>
                         </li>
                         <li
@@ -71,25 +71,25 @@ export function HeaderMenu({ layoutProps }) {
                         >
                             <NavLink className="menu-link" to="/aluno/edicao">
                                 <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
+                                <SVG src={toAbsoluteUrl("/media/svg/icons/General/User.svg")} />
                                 </span>
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Edição</span>
+                                <span className="menu-text">EDIÇÃO</span>
                             </NavLink>
                         </li>
                         {/*end::2 Level*/}
                     </ul>
                 </div>
             </li>
-            {/*Menu ALUNO*/}
+            {/*Menu CLIENTE*/}
 
-            {/*Menu EQUIPE*/}
+             {/*Menu EQUIPE - QUADRAS */}
             <li
                 data-menu-toggle={layoutProps.menuDesktopToggle}
                 aria-haspopup="true"
                 className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/equipe')}`}>
                 <NavLink className="menu-link menu-toggle" to="/equipe">
-                    <span className="menu-text">Equipe</span>
+                <span className="menu-text">QUADRAS</span>
                     <i className="menu-arrow"></i>
                 </NavLink>
                 <div className="menu-submenu menu-submenu-classic menu-submenu-left">
@@ -100,11 +100,11 @@ export function HeaderMenu({ layoutProps }) {
                         >
                             <NavLink className="menu-link" to="/equipe/gestao">
                                 <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/General/User.svg")} />
+                                <SVG src={toAbsoluteUrl("/media/svg/icons/General/Binocular.svg")} />
                                 </span>
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">
-                                    Gestão de equipes
+                                GESTÃO
                                 </span>
                             </NavLink>
 
@@ -114,10 +114,10 @@ export function HeaderMenu({ layoutProps }) {
                         >
                             <NavLink className="menu-link" to="/equipe/cadastro">
                                 <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
+                                <SVG src={toAbsoluteUrl("/media/svg/icons/Communication/Group.svg")} />
                                 </span>
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Cadastro</span>
+                                <span className="menu-text">CADASTRO DE EQUIPE</span>
                             </NavLink>
                         </li>
                         <li
@@ -129,7 +129,7 @@ export function HeaderMenu({ layoutProps }) {
                                     <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
                                 </span>
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Edição</span>
+                                <span className="menu-text">EDIÇÃO</span>
                             </NavLink>
                         </li>
                         {/*end::2 Level*/}
@@ -138,218 +138,13 @@ export function HeaderMenu({ layoutProps }) {
             </li>
             {/*Menu EQUIPE*/}
 
-            {/*Menu PLANO*/}
-            <li
-                data-menu-toggle={layoutProps.menuDesktopToggle}
-                aria-haspopup="true"
-                className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/plano')}`}>
-                <NavLink className="menu-link menu-toggle" to="/plano">
-                    <span className="menu-text">Plano</span>
-                    <i className="menu-arrow"></i>
-                </NavLink>
-                <div className="menu-submenu menu-submenu-classic menu-submenu-left">
-                <ul className="menu-subnav">
-                        {/*begin::2 Level*/}
-                        <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/plano/gestao')}`}
-                        >
-                            <NavLink className="menu-link" to="/plano/gestao">
-                                <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/General/User.svg")} />
-                                </span>
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">
-                                    Gestão de Plano
-                                </span>
-                            </NavLink>
-                            
-                        </li>
-                        <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/plano/cadastro')}`}
-                        >
-                            <NavLink className="menu-link" to="/plano/cadastro">
-                                <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
-                                </span>
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Cadastro</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/aluno/edicao')}`}
-                            style={{display: "none"}}
-                        >
-                            <NavLink className="menu-link" to="/plano/edicao">
-                                <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Design/PenAndRuller.svg")} />
-                                </span>
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Edição</span>
-                            </NavLink>
-                        </li>
-                        {/*end::2 Level*/}
-                    </ul>
-                </div>
-            </li>
-            {/*Menu PLANO*/}
-
-            {/*Menu MODALIDADE*/}
-            <li
-                data-menu-toggle={layoutProps.menuDesktopToggle}
-                aria-haspopup="true"
-                className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/modalidade')}`}>
-                <NavLink className="menu-link menu-toggle" to="/modalidade">
-                    <span className="menu-text">Business</span>
-                    <i className="menu-arrow"></i>
-                </NavLink>
-                <div className="menu-submenu menu-submenu-classic menu-submenu-left">
-                    <ul className="menu-subnav">
-                        {/*begin::2 Level*/}
-                        <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/modalidade/gestao')}`}
-                            data-menu-toggle="hover"
-                            aria-haspopup="true"
-                        >
-                            <NavLink className="menu-link menu-toggle" to="/modalidade/gestao">
-                                <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Communication/Flag.svg")} />
-                                </span>
-                                <span className="menu-text">
-                                    Gestão
-                                </span>
-                                <i className="menu-arrow" />
-                            </NavLink>
-                            <div className={`menu-submenu menu-submenu-classic menu-submenu-right`}>
-                                <ul className="menu-subnav">
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/modalidade/gestao/cadastro')}`}>
-                                        <NavLink className="menu-link" to="/modalidade/gestao/cadastro">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Cadastro</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/modalidade/gestao/consulta')}`}>
-                                        <NavLink className="menu-link" to="/modalidade/gestao/consulta">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Consulta</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-
-                                </ul>
-                            </div>
-                        </li>
-                        {/*end::2 Level*/}
-
-                    </ul>
-                </div>
-            </li>
-            {/*Menu MODALIDADE*/}
-
-            {/*Menu ESTOQUE*/}
-            <li
-                data-menu-toggle={layoutProps.menuDesktopToggle}
-                aria-haspopup="true"
-                className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/estoque')}`}>
-                <NavLink className="menu-link menu-toggle" to="/estoque">
-                    <span className="menu-text">Estoque</span>
-                    <i className="menu-arrow"></i>
-                </NavLink>
-                <div className="menu-submenu menu-submenu-classic menu-submenu-left">
-                    <ul className="menu-subnav">
-
-                        {/*begin::2 Level*/}
-                        <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/estoque/produtos')}`}
-                            data-menu-toggle="hover"
-                            aria-haspopup="true"
-                        >
-                            <NavLink className="menu-link menu-toggle" to="/estoque/produtos">
-                                <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Box2.svg")} />
-                                </span>
-                                <span className="menu-text">
-                                    Produtos
-                                </span>
-                                <i className="menu-arrow" />
-                            </NavLink>
-                            <div className={`menu-submenu menu-submenu-classic menu-submenu-right`}>
-                                <ul className="menu-subnav">
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/estoque/produtos/cadastro')}`}>
-                                        <NavLink className="menu-link" to="/estoque/produtos/cadastro">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Cadastro</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/estoque/produtos/consulta')}`}>
-                                        <NavLink className="menu-link" to="/estoque/produtos/consulta">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Consulta</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-
-                                </ul>
-                            </div>
-                        </li>
-                        {/*end::2 Level*/}
-                        {/*begin::2 Level*/}
-                        <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/estoque/categorias')}`}
-                            data-menu-toggle="hover"
-                            aria-haspopup="true"
-                        >
-                            <NavLink className="menu-link menu-toggle" to="/estoque/categorias">
-                                <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Box1.svg")} />
-                                </span>
-                                <span className="menu-text">
-                                    Categorias
-                                </span>
-                                <i className="menu-arrow" />
-                            </NavLink>
-                            <div className={`menu-submenu menu-submenu-classic menu-submenu-right`}>
-                                <ul className="menu-subnav">
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/estoque/categorias/cadastro')}`}>
-                                        <NavLink className="menu-link" to="/estoque/categorias/cadastro">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Cadastro</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/estoque/categorias/consulta')}`}>
-                                        <NavLink className="menu-link" to="/estoque/categorias/consulta">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Consulta</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-                                </ul>
-                            </div>
-                        </li>
-                        {/*end::2 Level*/}
-                    </ul>
-                </div>
-            </li>
-            {/*Menu ESTOQUE*/}
-
             {/*Menu FINANCEIRO*/}
             <li
                 data-menu-toggle={layoutProps.menuDesktopToggle}
                 aria-haspopup="true"
                 className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/financeiro')}`}>
                 <NavLink className="menu-link menu-toggle" to="/financeiro">
-                    <span className="menu-text">Financeiro</span>
+                <span className="menu-text">FINANCEIRO</span>
                     <i className="menu-arrow"></i>
                 </NavLink>
                 <div className="menu-submenu menu-submenu-classic menu-submenu-left">
@@ -365,7 +160,7 @@ export function HeaderMenu({ layoutProps }) {
                                     <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Dollar.svg")} />
                                 </span>
                                 <span className="menu-text">
-                                    Lançamentos
+                                LANÇAMENTOS
                                 </span>
                                 <i className="menu-arrow" />
                             </NavLink>
@@ -375,7 +170,7 @@ export function HeaderMenu({ layoutProps }) {
                                     <li className={`menu-item ${getMenuItemActive('/financeiro/lancamentos/NovoLancamento')}`}>
                                         <NavLink className="menu-link" to="/financeiro/lancamentos/NovoLancamento">
                                             <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Novo Lançamento</span>
+                                            <span className="menu-text">NOVO LANÇAMENTO</span>
                                         </NavLink>
                                     </li>
                                     {/*end::3 Level*/}
@@ -384,7 +179,7 @@ export function HeaderMenu({ layoutProps }) {
                                     <li className={`menu-item ${getMenuItemActive('/financeiro/lancamentos/ConsultaLancamentos')}`}>
                                         <NavLink className="menu-link" to="/financeiro/lancamentos/ConsultaLancamentos">
                                             <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">Consulta Lançamento</span>
+                                            <span className="menu-text">CONSULTAS</span>
                                         </NavLink>
                                     </li>
                                     {/*end::3 Level*/}
@@ -400,7 +195,7 @@ export function HeaderMenu({ layoutProps }) {
             {/*Menu SAIR*/}
             <li className={`menu-item menu-item-rel ${getMenuItemActive('/logout')}`}>
                 <NavLink className="menu-link" to="/logout">
-                    <span className="menu-text">Sair</span>
+                <span className="menu-text">SAIR</span>
                     {layoutProps.rootArrowEnabled && (<i className="menu-arrow" />)}
                 </NavLink>
             </li>

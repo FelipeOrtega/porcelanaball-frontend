@@ -80,7 +80,7 @@ function Login(props) {
       {/* begin::Head */}
       <div className="text-center mb-10 mb-lg-20">
         <h3 className="font-size-h1">
-          Bem Vindo!
+          Olá!
         </h3>
         <p className="text-muted font-weight-bold">
           Entre com seu login e senha.
