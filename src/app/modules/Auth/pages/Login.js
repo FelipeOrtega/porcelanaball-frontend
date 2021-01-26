@@ -80,10 +80,10 @@ function Login(props) {
       {/* begin::Head */}
       <div className="text-center mb-10 mb-lg-20">
         <h3 className="font-size-h1">
-          Login
+          Bem Vindo!
         </h3>
         <p className="text-muted font-weight-bold">
-          Entre com seu login e senha!
+          Entre com seu login e senha.
         </p>
       </div>
       {/* end::Head */}
@@ -107,7 +107,7 @@ function Login(props) {
 
         <div className="form-group fv-plugins-icon-container">
           <input
-            placeholder="username"
+            placeholder="LOGIN"
             type="username"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
               "username"
@@ -123,7 +123,7 @@ function Login(props) {
         </div>
         <div className="form-group fv-plugins-icon-container">
           <input
-            placeholder="Password"
+            placeholder="SENHA"
             type="password"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
               "password"
@@ -138,20 +138,14 @@ function Login(props) {
           ) : null}
         </div>
         <div className="form-group d-flex flex-wrap justify-content-between align-items-center">
-          <Link
-            to="/auth/forgot-password"
-            className="text-dark-50 text-hover-primary my-3 mr-2"
-            id="kt_login_forgot"
-          >
-            Esqueci a senha.
-          </Link>
+          
           <button
             id="kt_login_signin_submit"
             type="submit"
             disabled={formik.isSubmitting}
             className={`btn btn-primary font-weight-bold px-9 py-4 my-3`}
           >
-            <span>Entrar</span>
+            <span>ACESSAR</span>
             {loading && <span className="ml-3 spinner spinner-white"></span>}
           </button>
         </div>

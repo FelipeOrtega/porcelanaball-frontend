@@ -1,7 +1,7 @@
 import { toAbsoluteUrl } from "../../_helpers";
 export function getInitLayoutConfig() {
   return {
-    demo: "demo2",
+    demo: "porcelanaball",
     // Javascript Settings
     js: {
       breakpoints: {
@@ -65,7 +65,7 @@ export function getInitLayoutConfig() {
     self: {
       layout: "default", // blank/default page mode
       body: {
-        backgroundImage: "bg/bg-10.jpg",
+        backgroundImage: "bg/bg-11.jpg",
       },
     },
     // == Page Splash Screen loading
@@ -73,7 +73,7 @@ export function getInitLayoutConfig() {
       enabled: true,
       type: "", // default|spinner-message|spinner-logo
       logo: toAbsoluteUrl("/media/logos/logo-dark-sm.png"),
-      message: "Please wait...",
+      message: "Carrengando...",
     },
     header: {
       self: {
@@ -94,7 +94,7 @@ export function getInitLayoutConfig() {
           arrow: true,
           toggle: "click",
           submenu: {
-            theme: "light", // light|dark
+            theme: "dark", // light|dark
             arrow: true,
           },
         },
