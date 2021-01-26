@@ -34,13 +34,6 @@ function ListagemAluno({alunosSelecionadosCallBack, handleChange}) {
         setPaginationData(paginationData);
     }
 
-    // const handleChange = (event, aluno) => {
-    //     if(event.target.checked){
-    //         //setAlunosSelecionados([...alunosSelecionados,aluno]);
-    //         alunosSelecionadosCallBack = [...alunosSelecionadosCallBack,aluno];
-    //     }
-    // }
-
     if (isLoading) {
         return <div className="d-flex flex-wrap justify-content-between align-items-center">
           <span className="ml-3 spinner spinner-white"></span>

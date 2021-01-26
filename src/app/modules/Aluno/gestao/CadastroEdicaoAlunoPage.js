@@ -116,7 +116,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="text"
                         name="apelido"
                         placeholder="Apelido (Opcional)"
-                        value={!values.apelido? "":values.apelido}
+                        value={values.apelido || ""}
                         onChange={handleChange} />
                     </Form.Group>
                   </Form.Row>
@@ -128,7 +128,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="date"
                         name="data_nascimento"
                         placeholder="dd/mm/aaaa"
-                        value={values.data_nascimento}
+                        value={values.data_nascimento || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -138,7 +138,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="text"
                         name="rg"
                         placeholder="00.000.000-0"
-                        value={values.rg}
+                        value={values.rg || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -148,7 +148,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="text"
                         name="cpf"
                         placeholder="000.000.000-00"
-                        value={values.cpf}
+                        value={values.cpf || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -158,19 +158,18 @@ function CadastroEdicaoAlunoPage({ match }) {
                     <Form.Group as={Col} controlId="formGridAltura">
                       <Form.Label>Altura</Form.Label>
                       <Form.Control
-                        type="text"
+                        type="number" 
                         name="altura"
-                        placeholder="Ex.: 1.75m"
-                        value={values.altura}
+                        value={values.altura || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridPeso">
                       <Form.Label>Peso</Form.Label>
                       <Form.Control
-                        type="text"
+                        type="number" 
                         name="peso"
-                        value={values.peso}
+                        value={values.peso || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -183,7 +182,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="text"
                         name="telefone_residencial"
                         placeholder="(00) 0000-0000"
-                        value={!values.telefone_residencial?"":values.telefone_residencial}
+                        value={values.telefone_residencial || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -194,7 +193,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="text"
                         name="telefone_celular"
                         placeholder="(00) 0 0000-0000"
-                        value={!values.telefone_celular?"":values.telefone_celular}
+                        value={values.telefone_celular || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -205,7 +204,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="checkbox" 
                         name="ativo" 
                         label="Ativo" 
-                        defaultChecked={values.ativo}
+                        defaultChecked={values.ativo || false}
                         value={values.ativo}
                         onChange={handleChange} />
                   </Form.Group>
