@@ -2,7 +2,7 @@
     "name": "porcelanaball",
     "version": "1.0.0",
     "private": true,
-    "homepage": "http://localhost:3000/porcelanaball",
+    "homepage": "",
     "scripts": {
         "start": "react-scripts start -o",
         "build": "react-scripts build",

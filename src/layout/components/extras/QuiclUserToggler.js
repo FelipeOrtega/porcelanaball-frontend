@@ -30,7 +30,7 @@ export function QuickUserToggler() {
               id="kt_quick_user_toggle"
             >
               <span className="text-white opacity-70 font-weight-bold font-size-base d-none d-md-inline mr-1">
-                Olá,
+              
               </span>
               <span className="text-white opacity-90 font-weight-bolder font-size-base d-none d-md-inline mr-4">
                 {user.firsname} {user.lastname}
