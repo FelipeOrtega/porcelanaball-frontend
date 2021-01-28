@@ -17,7 +17,7 @@ function CadastroEdicaoEquipePage({ match }) {
   const [modalidades, setModalidades] = useState([]);
   const [modulos, setModulos] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const [alunosSelecionados, setAlunosSelecionados] = useState([]);
+  const [alunos, setAlunos] = useState([]);
 
   useEffect(() => {
     if (!novaEquipe) {
@@ -40,8 +40,6 @@ function CadastroEdicaoEquipePage({ match }) {
   }, []);
 
   function cadastrarEquipe(values, setSubmitting) {
-    console.log(alunosSelecionados)
-
     if (!values.modalidade_codigo) {
       values.modalidade_codigo = 1;
     }
@@ -54,17 +52,11 @@ function CadastroEdicaoEquipePage({ match }) {
       }
     });
 
-    equipeAlunoService.createEquipeAluno(history, values).then(function (result) {
-      if (result.statusCode === 200) {
-        history.push(".");
-      }
-    });
-    
     setSubmitting(false);
   }
 
   function atualizarEquipe(values, setSubmitting) {
-    console.log(alunosSelecionados);
+    console.log(alunos);
 
     equipeService.updateEquipe(history, values).then(function (result) {
       if (result.statusCode === 200) {
@@ -76,9 +68,10 @@ function CadastroEdicaoEquipePage({ match }) {
 
   const handleAlunosSelecionados = (event, aluno) => {
     if(event.target.checked){
-      setAlunosSelecionados([...alunosSelecionados,aluno]);
+      setAlunos([...alunos,aluno]);
+    }else{
+      setAlunos(alunos.filter(a => a.codigo !== aluno.codigo))
     }
-    console.log(alunosSelecionados)
   }
 
   if (isLoading) {
@@ -100,7 +93,7 @@ function CadastroEdicaoEquipePage({ match }) {
       enableReinitialize
       initialValues={equipe ? equipe : {
         descricao: "",
-        modalidade_codigo: 0, //o ativo ta dando bo no aluno e na equipe tbm, ta mandando como array ao inves de boolean
+        modalidade_codigo: 0,
         modulo_codigo: 0,
         codigo: 0,
         ativo: false
@@ -169,7 +162,7 @@ function CadastroEdicaoEquipePage({ match }) {
                       </Form.Control>
                     </Form.Group>
                   </Form.Row>
-                  <ListagemAluno alunosSelecionadosCallBack={alunosSelecionados} handleChange={handleAlunosSelecionados}/>
+                  <ListagemAluno alunosCallBack={alunos} handleChange={handleAlunosSelecionados}/>
                   <Button type="submit">Salvar</Button>
                 </CardBody>
               </Card>
