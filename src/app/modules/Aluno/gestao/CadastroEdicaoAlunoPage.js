@@ -4,6 +4,7 @@ import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Formik } from "formik";
 import alunoService from "../../../../services/aluno/AlunoService";
 import { useHistory } from "react-router-dom";
+import NumberFormat from "react-number-format";
 
 function CadastroEdicaoAlunoPage({ match }) {
   const history = useHistory();
@@ -52,7 +53,7 @@ function CadastroEdicaoAlunoPage({ match }) {
         history.push(".");
       }
     });
-    
+
     setSubmitting(false);
   }
 
@@ -61,18 +62,6 @@ function CadastroEdicaoAlunoPage({ match }) {
       <span className="ml-3 spinner spinner-white"></span>
     </div>
   }
-
-  function onlynumber(evt) {
-    var theEvent = evt || window.event;
-    var key = theEvent.keyCode || theEvent.which;
-    key = String.fromCharCode( key );
-    //var regex = /^[0-9.,]+$/;
-    var regex = /^[0-9.]+$/;
-    if( !regex.test(key) ) {
-       theEvent.returnValue = false;
-       if(theEvent.preventDefault) theEvent.preventDefault();
-    }
- }
 
   return (
     <Formik
@@ -131,7 +120,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         value={values.apelido || ""}
                         onChange={handleChange} />
                     </Form.Group>
-             
+
                     <Form.Group as={Col} md="4" controlId="formGridDataNas">
                     <Form.Label><b>DATA NASC.</b></Form.Label>
                       <Form.Control
@@ -172,7 +161,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                     <Form.Group as={Col} controlId="formGridAltura">
                     <Form.Label><b>ALTURA</b></Form.Label>
                       <Form.Control
-                        type="number" 
+                        type="number"
                         name="altura"
                         value={values.altura || ""}
                         onChange={handleChange}
@@ -181,7 +170,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                     <Form.Group as={Col} controlId="formGridPeso">
                     <Form.Label><b>PESO</b></Form.Label>
                       <Form.Control
-                        type="number" 
+                        type="number"
                         name="peso"
                         value={values.peso || ""}
                         onChange={handleChange}
@@ -205,8 +194,8 @@ function CadastroEdicaoAlunoPage({ match }) {
                     <Form.Label><b>E-MAIL</b></Form.Label>
                       <Form.Control
                         type="text"
-                        name="telefone_celular"
-                        placeholder="(00) 0 0000-0000"
+                        name="email"
+                        placeholder=""
                         value={values.telefone_celular || ""}
                         onChange={handleChange}
                       />
@@ -214,14 +203,17 @@ function CadastroEdicaoAlunoPage({ match }) {
                   </Form.Row>
 
                   <Form.Group id="formGridCheckbox">
-                    <Form.Check 
-                        type="checkbox" 
-                        name="ativo" 
-                        label="ATIVO" 
+                    <Form.Check
+                        type="checkbox"
+                        name="ativo"
+                        label="ATIVO"
                         defaultChecked={values.ativo || false}
                         value={values.ativo}
                         onChange={handleChange} />
                   </Form.Group>
+
+
+                   <NumberFormat thousandSeparator="."  decimalSeparator=","  decimalScale={2} />
 
                   <Button type="submit">SALVAR</Button>
                 </CardBody>
