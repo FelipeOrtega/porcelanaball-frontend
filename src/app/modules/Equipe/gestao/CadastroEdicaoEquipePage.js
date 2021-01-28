@@ -56,8 +56,6 @@ function CadastroEdicaoEquipePage({ match }) {
   }
 
   function atualizarEquipe(values, setSubmitting) {
-    console.log(alunos);
-
     equipeService.updateEquipe(history, values).then(function (result) {
       if (result.statusCode === 200) {
         history.push(".");
