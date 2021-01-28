@@ -8,6 +8,7 @@ import modalidadeService from "../../../../services/modalidade/ModalidadeService
 import moduloService from "../../../../services/modulo/ModuloService";
 import { useHistory } from "react-router-dom";
 import { ListagemAluno } from "../../Aluno/ListagemAluno"
+import { CadastroEdicaoAlunoPage } from "../../Aluno/gestao/CadastroEdicaoAlunoPage";
 
 function CadastroEdicaoEquipePage({ match }) {
   const history = useHistory();
@@ -18,6 +19,7 @@ function CadastroEdicaoEquipePage({ match }) {
   const [modulos, setModulos] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [alunos, setAlunos] = useState([]);
+  const [showAlunoForm, setShowAlunoForm] = useState(false);
 
   useEffect(() => {
     if (!novaEquipe) {
@@ -65,12 +67,16 @@ function CadastroEdicaoEquipePage({ match }) {
   }
 
   const handleAlunosSelecionados = (event, aluno) => {
-    if(event.target.checked){
-      setAlunos([...alunos,aluno]);
-    }else{
+    if (event.target.checked) {
+      setAlunos([...alunos, aluno]);
+    } else {
       setAlunos(alunos.filter(a => a.codigo !== aluno.codigo))
     }
   }
+
+   const handleCadastroAluno = () => {
+     setShowAlunoForm(false);
+   }
 
   if (isLoading) {
     return <div className="d-flex flex-wrap justify-content-between align-items-center">
@@ -160,8 +166,17 @@ function CadastroEdicaoEquipePage({ match }) {
                       </Form.Control>
                     </Form.Group>
                   </Form.Row>
-                  <ListagemAluno alunosCallBack={alunos} handleChange={handleAlunosSelecionados}/>
                   <Button type="submit">Salvar</Button>
+                </CardBody>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <Button variant="outline-info" onClick={e => setShowAlunoForm(false)}>Listar</Button>
+                  <Button variant="outline-info" onClick={e => setShowAlunoForm(true)}>Novo</Button>
+                </CardHeader>
+                <CardBody>
+                  {showAlunoForm? <CadastroEdicaoAlunoPage match={match} handleOnParent={handleCadastroAluno}/> : 
+                                  <ListagemAluno alunosCallBack={alunos} handleChange={handleAlunosSelecionados} />}
                 </CardBody>
               </Card>
             </div>

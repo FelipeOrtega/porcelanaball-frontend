@@ -6,7 +6,7 @@ import alunoService from "../../../../services/aluno/AlunoService";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
 
-function CadastroEdicaoAlunoPage({ match }) {
+function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
   const history = useHistory();
   const { id } = match.params;
   const novoAluno = !id; 
@@ -41,7 +41,11 @@ function CadastroEdicaoAlunoPage({ match }) {
     promisse.then(function(result) {
       console.log(result);
       if (result.statusCode === 200) {
-        history.push(".");
+        if(match.path === '/aluno/cadastro'){
+            history.push(".");
+        }else{
+          handleOnParent();
+        }
       }
     });
     setSubmitting(false);
@@ -169,7 +173,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                     <Form.Label><b>ALTURA</b></Form.Label>
                     <NumberFormat
                       customInput={Form.Control}
-                      format="#.##"
+                      format={novoAluno? "#.##" : undefined}
                       type="text"
                       name="altura"
                       value={values.altura || ""}
@@ -181,7 +185,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                     <Form.Label><b>PESO</b></Form.Label>
                     <NumberFormat
                       customInput={Form.Control}
-                      format="###.##"
+                      format={novoAluno? "##.##": undefined}
                       type="text"
                       name="peso"
                       value={values.peso || ""}
@@ -196,9 +200,9 @@ function CadastroEdicaoAlunoPage({ match }) {
                         customInput={Form.Control}
                         format="(##) #####-####"
                         type="text"
-                        name="telefone_residencial"
+                        name="telefone_celular"
                         placeholder="(00) 00000-0000"
-                        value={values.telefone_residencial || ""}
+                        value={values.telefone_celular || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -209,7 +213,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         type="text"
                         name="email"
                         placeholder=""
-                        value={values.telefone_celular || ""}
+                        value={values.email || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
