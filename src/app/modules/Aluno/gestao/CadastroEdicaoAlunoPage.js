@@ -9,7 +9,7 @@ import NumberFormat from "react-number-format";
 function CadastroEdicaoAlunoPage({ match }) {
   const history = useHistory();
   const { id } = match.params;
-  const novoAluno = !id;
+  const novoAluno = !id; 
   const [aluno, setAluno] = useState({});
   const [isLoading, setLoading] = useState(false);
 
@@ -17,6 +17,7 @@ function CadastroEdicaoAlunoPage({ match }) {
     if (!novoAluno) {
       setLoading(true);
       alunoService.getAlunoByCodigo(history, id).then(function (result) {
+        console.log(result);
         setAluno(formataAtributos(result.data));
         setLoading(false);
       });
@@ -112,7 +113,7 @@ function CadastroEdicaoAlunoPage({ match }) {
                         onChange={handleChange} />
                     </Form.Group>
                     <Form.Group as={Col} md="4" controlId="formGridApelido">
-                      <Form.Label><b>*APELIDO</b></Form.Label>
+                      <Form.Label><b>APELIDO</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="apelido"
@@ -137,17 +138,23 @@ function CadastroEdicaoAlunoPage({ match }) {
 
                     <Form.Group as={Col} controlId="formGridRG">
                        <Form.Label><b>RG</b></Form.Label>
-                      <Form.Control
+                       <NumberFormat
+                        customInput={Form.Control}
+                        format="##.###.###-#"
                         type="text"
                         name="rg"
                         placeholder="00.000.000-0"
+                        removeFormatting="numericString"
                         value={values.rg || ""}
                         onChange={handleChange}
-                      />
+                        />
                     </Form.Group>
+
                     <Form.Group as={Col} controlId="formGridCPF">
                     <Form.Label><b>CPF/CNPJ</b></Form.Label>
-                      <Form.Control
+                    <NumberFormat
+                        customInput={Form.Control}
+                        format="###.###.###-##"
                         type="text"
                         name="cpf"
                         placeholder="000.000.000-00"
@@ -160,28 +167,34 @@ function CadastroEdicaoAlunoPage({ match }) {
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridAltura">
                     <Form.Label><b>ALTURA</b></Form.Label>
-                      <Form.Control
-                        type="number"
-                        name="altura"
-                        value={values.altura || ""}
-                        onChange={handleChange}
+                    <NumberFormat
+                      customInput={Form.Control}
+                      format="#.##"
+                      type="text"
+                      name="altura"
+                      value={values.altura || ""}
+                      onChange={handleChange}
                       />
+                   
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridPeso">
                     <Form.Label><b>PESO</b></Form.Label>
-                      <Form.Control
-                        type="number"
-                        name="peso"
-                        value={values.peso || ""}
-                        onChange={handleChange}
-                      />
+                    <NumberFormat
+                      customInput={Form.Control}
+                      format="###.##"
+                      type="text"
+                      name="peso"
+                      value={values.peso || ""}
+                      onChange={handleChange}/>
                     </Form.Group>
                   </Form.Row>
 
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridTel">
                     <Form.Label><b>TELEFONE/CELULAR</b></Form.Label>
-                      <Form.Control
+                    <NumberFormat
+                        customInput={Form.Control}
+                        format="(##) #####-####"
                         type="text"
                         name="telefone_residencial"
                         placeholder="(00) 00000-0000"
@@ -211,9 +224,6 @@ function CadastroEdicaoAlunoPage({ match }) {
                         value={values.ativo}
                         onChange={handleChange} />
                   </Form.Group>
-
-
-                   <NumberFormat thousandSeparator="."  decimalSeparator=","  decimalScale={2} />
 
                   <Button type="submit">SALVAR</Button>
                 </CardBody>

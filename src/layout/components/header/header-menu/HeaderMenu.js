@@ -104,7 +104,7 @@ export function HeaderMenu({ layoutProps }) {
                                 </span>
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">
-                                GESTÃO
+                                GESTÃO DE EQUIPE
                                 </span>
                             </NavLink>
 
