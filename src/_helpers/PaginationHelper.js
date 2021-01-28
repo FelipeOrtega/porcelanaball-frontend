@@ -118,7 +118,7 @@ class PaginationHelper extends React.Component {
                     <Pagination.First onClick={() => this.setPage(1)}></Pagination.First>
                     <Pagination.Prev onClick={() => this.setPage(pager.currentPage - 1)}></Pagination.Prev>
                 {pager.pages.map((page, index) =>
-                    <Pagination.Item key={pager.index} onClick={() => this.setPage(page)} active={pager.currentPage === page} >{page}</Pagination.Item>
+                    <Pagination.Item key={index} onClick={() => this.setPage(page)} active={pager.currentPage === page} >{page}</Pagination.Item>
                 )}
                     <Pagination.Next onClick={() => this.setPage(pager.currentPage + 1)}></Pagination.Next>
                     <Pagination.Last onClick={() => this.setPage(pager.totalPages)}></Pagination.Last>
