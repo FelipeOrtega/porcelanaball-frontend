@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export const BASE_URL = "https://localhost:44319/";
+//export const BASE_URL = "http://api.porcelanaball.com.br";
+export const BASE_URL = "http://localhost:5000/";
 export const AUTENTICACAO_BASE_URL = "Autenticacao/";
 export const ALUNO_BASE_URL = "Aluno/";
 export const FUNCIONARIO_BASE_URL = "Funcionario/";

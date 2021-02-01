@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Col } from "react-bootstrap";
+import { Button, Form, Col, ButtonGroup } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Formik } from "formik";
 import equipeService from "../../../../services/equipe/EquipeService";
@@ -100,6 +100,9 @@ function CadastroEdicaoEquipePage({ match }) {
         modalidade_codigo: 0,
         modulo_codigo: 0,
         codigo: 0,
+        valor: "",
+        quantidade_parcelas_mensais: "",
+        data_primeiro_jogo: "",
         ativo: false
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
@@ -110,7 +113,7 @@ function CadastroEdicaoEquipePage({ match }) {
                 <CardHeader
                   title={
                     <>
-                      Formulário de Equipe
+                      CADASTRO DE EQUIPES
                     <small></small>
                     </>
                   }
@@ -118,27 +121,16 @@ function CadastroEdicaoEquipePage({ match }) {
                 <CardBody>
                   <Form.Row>
                     <Form.Group as={Col} md="4" controlId="formGridEquipeDescricao">
-                      <Form.Label>Descrição</Form.Label>
+                      <Form.Label><b>*DESCRIÇÃO</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="descricao"
-                        placeholder="descricao"
+                        placeholder="Nome da Equipe"
                         value={values.descricao || ""}
                         onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group id="formGridCheckbox" style={{ marginLeft: "50px", marginTop: "30px" }}>
-                      <Form.Check
-                        type="checkbox"
-                        name="ativo"
-                        label="Ativo"
-                        defaultChecked={values.ativo}
-                        value={values.ativo}
-                        onChange={handleChange} />
-                    </Form.Group>
-                  </Form.Row>
-                  <Form.Row>
                     <Form.Group as={Col} controlId="formGridEquipeModalidade">
-                      <Form.Label>Modalidade / Esporte</Form.Label>
+                      <Form.Label><b>*MODALIDADE / ESPORTE</b></Form.Label>
                       <Form.Control as="select"
                         name="modalidade_codigo"
                         value={values.modalidade_codigo}
@@ -152,7 +144,7 @@ function CadastroEdicaoEquipePage({ match }) {
                       </Form.Control>
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridEquipeModulo">
-                      <Form.Label>Módulo</Form.Label>
+                      <Form.Label><b>*MÓDULO</b></Form.Label>
                       <Form.Control as="select"
                         name="modulo_codigo"
                         value={values.modulo_codigo}
@@ -165,16 +157,78 @@ function CadastroEdicaoEquipePage({ match }) {
                         </option>))}
                       </Form.Control>
                     </Form.Group>
+                 
                   </Form.Row>
-                  <Button type="submit">Salvar</Button>
+
+                  <Form.Row>
+                    <Form.Group as={Col} md="4" controlId="formGridValor">
+                    <Form.Label><b>*VALOR R$</b></Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="valor"
+                        placeholder=""
+                        value={values.valor || ""}
+                        onChange={handleChange} />
+                    </Form.Group>
+                    <Form.Group as={Col} md="4" controlId="formGridQuantidadeParcelas">
+                      <Form.Label><b>QTD. PARCELAS</b></Form.Label>
+                      <Form.Control
+                        type="number"
+                        name="quantidade_parcelas_mensais"
+                        placeholder=""
+                        value={values.quantidade_parcelas_mensais || ""}
+                        onChange={handleChange} />
+                    </Form.Group>
+
+                    <Form.Group as={Col} md="4" controlId="formGridDataPrimeiroJogo">
+                    <Form.Label><b>DATA 1º JOGO</b></Form.Label>
+                      <Form.Control
+                        type="date"
+                        name="data_primeiro_jogo"
+                        placeholder="dd/mm/aaaa"
+                        value={values.data_primeiro_jogo || ""}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    </Form.Row>
+
+                    <Form.Group id="formGridCheckbox">
+                    <Form.Check
+                        type="checkbox"
+                        name="ativo"
+                        label="ATIVO"
+                        defaultChecked={values.ativo || false}
+                        value={values.ativo}
+                        onChange={handleChange} />
+                  </Form.Group>
+                  <Form.Group id="formGridCheckbox">
+                    <Form.Check
+                        type="checkbox"
+                        name="ativo"
+                        label="ADERE ACADEMIA"
+                        defaultChecked={values.ativo || false}
+                        value={values.ativo}
+                        onChange={handleChange} />
+                  </Form.Group>
+
+                  <Button type="submit">SALVAR</Button>
                 </CardBody>
               </Card>
               <Card>
-                <CardHeader>
-                  <Button variant="outline-info" onClick={e => setShowAlunoForm(false)}>Listar</Button>
-                  <Button variant="outline-info" onClick={e => setShowAlunoForm(true)}>Novo</Button>
+                <CardHeader title={
+                    <>
+                      SELECIONE OU CADASTRE O CLIENTE RESPONSÁVEL
+                    <small></small>
+                    </>
+                  }
+                  >
+               
                 </CardHeader>
-                <CardBody>
+                <ButtonGroup>
+                <Button variant="primary" size="sm" onClick={e => setShowAlunoForm(false)}><b>LISTAR</b></Button>
+                <Button variant="info" size="sm" onClick={e => setShowAlunoForm(true)}><b>CADASTRAR</b></Button>
+                </ButtonGroup>
+                <CardBody> 
                   {showAlunoForm? <CadastroEdicaoAlunoPage match={match} handleOnParent={handleCadastroAluno}/> : 
                                   <ListagemAluno alunosCallBack={alunos} handleChange={handleAlunosSelecionados} />}
                 </CardBody>

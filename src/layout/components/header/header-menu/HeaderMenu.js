@@ -138,59 +138,6 @@ export function HeaderMenu({ layoutProps }) {
             </li>
             {/*Menu EQUIPE*/}
 
-            {/*Menu FINANCEIRO*/}
-            <li
-                data-menu-toggle={layoutProps.menuDesktopToggle}
-                aria-haspopup="true"
-                className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/financeiro')}`}>
-                <NavLink className="menu-link menu-toggle" to="/financeiro">
-                <span className="menu-text">FINANCEIRO</span>
-                    <i className="menu-arrow"></i>
-                </NavLink>
-                <div className="menu-submenu menu-submenu-classic menu-submenu-left">
-                    <ul className="menu-subnav">
-                        {/*begin::2 Level*/}
-                        <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/financeiro/lancamentos')}`}
-                            data-menu-toggle="hover"
-                            aria-haspopup="true"
-                        >
-                            <NavLink className="menu-link menu-toggle" to="/financeiro/lancamentos">
-                                <span className="svg-icon menu-icon">
-                                    <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Dollar.svg")} />
-                                </span>
-                                <span className="menu-text">
-                                LANÇAMENTOS
-                                </span>
-                                <i className="menu-arrow" />
-                            </NavLink>
-                            <div className={`menu-submenu menu-submenu-classic menu-submenu-right`}>
-                                <ul className="menu-subnav">
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/financeiro/lancamentos/NovoLancamento')}`}>
-                                        <NavLink className="menu-link" to="/financeiro/lancamentos/NovoLancamento">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">NOVO LANÇAMENTO</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-
-                                    {/*begin::3 Level*/}
-                                    <li className={`menu-item ${getMenuItemActive('/financeiro/lancamentos/ConsultaLancamentos')}`}>
-                                        <NavLink className="menu-link" to="/financeiro/lancamentos/ConsultaLancamentos">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">CONSULTAS</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
-                                </ul>
-                            </div>
-                        </li>
-                        {/*end::2 Level*/}
-                    </ul>
-                </div>
-            </li>
-            {/*Menu FINANCEIRO*/}
 
             {/*Menu SAIR*/}
             <li className={`menu-item menu-item-rel ${getMenuItemActive('/logout')}`}>
