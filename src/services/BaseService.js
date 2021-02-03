@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-//export const BASE_URL = "http://api.porcelanaball.com.br";
-export const BASE_URL = "http://localhost:5000/";
+export const BASE_URL = "https://api.porcelanaball.com.br/";
+//export const BASE_URL = "https://localhost:44319/";
 export const AUTENTICACAO_BASE_URL = "Autenticacao/";
 export const ALUNO_BASE_URL = "Aluno/";
 export const FUNCIONARIO_BASE_URL = "Funcionario/";
@@ -15,7 +15,14 @@ export const MODULO_BASE_URL = "Modulo/";
 class BaseService {
 
     get(history, URL) {
-        return axios.get(`${BASE_URL}${URL}`).then((response) => {
+        return axios.get(`${BASE_URL}${URL}`, {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Authorization",
+                "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        }).then((response) => {
             return response.data;
         }).catch((error) => {
             this.handleErrors(error, history);
@@ -23,7 +30,14 @@ class BaseService {
     }
 
     create(history, URL, object) {
-        return axios.post(`${BASE_URL}${URL}`, object).then((response) => {
+        return axios.post(`${BASE_URL}${URL}`, {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Authorization",
+                "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        }, object).then((response) => {
             return response.data;
         }).catch((error) => {
             this.handleErrors(error, history);
@@ -31,11 +45,19 @@ class BaseService {
     }
 
     getByCodigo(history, URL, object) {
-        return axios.get(`${BASE_URL}${URL}${object}`).then((response) => {
-            return response.data;
-        }).catch((error) => {
-            this.handleErrors(error, history);
-        });
+        return axios.get(`${BASE_URL}${URL}${object}`,
+            {
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "Authorization",
+                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+                    "Content-Type": "application/json;charset=UTF-8"
+                }
+            }).then((response) => {
+                return response.data;
+            }).catch((error) => {
+                this.handleErrors(error, history);
+            });
     }
 
     update(history, URL, object) {
@@ -47,7 +69,14 @@ class BaseService {
     }
 
     delete(history, URL, object) {
-        return axios.delete(`${BASE_URL}${URL}${object}`).then((response) => {
+        return axios.delete(`${BASE_URL}${URL}${object}`, {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Authorization",
+                "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        }).then((response) => {
             return response.data;
         }).catch((error) => {
             this.handleErrors(error, history);
