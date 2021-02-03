@@ -23,13 +23,13 @@ export function AuthPage() {
                 }}
             >
               {/*begin: Aside Container*/}
-              <div className="d-flex flex-row-fluid flex-column justify-content-between">
+              <div className="d-flex flex-row-fluid flex-column justify-content-center">
                 {/* start:: Aside header */}
-                <Link to="/" className="flex-column-auto mt-5">
+                <Link to="/" className="flex-column-auto mb-10 mb-lg-20">
                   <img
                       alt="Logo"
-                      className="max-h-70px"
-                      src={toAbsoluteUrl("/media/logos/logoBall.png")}
+                      className="max-h-200px"
+                      src={toAbsoluteUrl("/media/logos/logo_porcelanaball02.png")}
                   />
                 </Link>
                 {/* end:: Aside header */}
@@ -39,8 +39,8 @@ export function AuthPage() {
                   <h3 className="font-size-h1 mb-5 text-white">
                    Porcelana Ball ADM
                   </h3>
-                  <p className="font-weight-lighter text-white opacity-80">
-                   SISTEMA GERAL
+                  <p className="text-white opacity-80">
+                  &copy; AESPINA - VPS.21.02.B
                   </p>
                 </div>
                 {/* end:: Aside content */}
@@ -48,7 +48,7 @@ export function AuthPage() {
                 {/* start:: Aside footer for desktop */}
                 <div className="d-none flex-column-auto d-lg-flex justify-content-between mt-10">
                   <div className="opacity-70 font-weight-bold	text-white">
-                    &copy; 2021 Porcelana Ball
+                  R. Dr. João Rodrigues de Abreu, 546 - Vila Caiuba, São Paulo - SP CEP 05.202-090
                   </div>
                   <div className="d-flex">
 

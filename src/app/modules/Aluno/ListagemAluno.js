@@ -46,15 +46,16 @@ function ListagemAluno({alunosSelecionadosCallBack, handleChange}) {
                 <div className="col-md-12">
                     <Card className="mt-4">
                         <CardBody>
-                        <input type="text" style={{width:'20%'}} className="form-control" placeholder="Pesquisar" onChange={(e) => setSearchVal(e.target.value)} />
+                        <input type="text" style={{width:'20%'}} className="form-control" placeholder="PESQUISAR..." onChange={(e) => setSearchVal(e.target.value)} />
+                        <br />
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
                                             <th style={{ width: '0.05%' }}></th>
-                                            <th style={{ width: '20%' }}>Nome</th>
-                                            <th style={{ width: '20%' }}>Apelido</th>
+                                            <th style={{ width: '20%' }}>NOME</th>
+                                            <th style={{ width: '20%' }}>APELIDO</th>
                                             <th style={{ width: '10%' }}>CPF</th>
-                                            <th style={{ width: '5%' }}>Ativo</th>
+                                            <th style={{ width: '5%' }}>ATIVO</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -64,13 +65,13 @@ function ListagemAluno({alunosSelecionadosCallBack, handleChange}) {
                                                 <td>{aluno.nome}</td>
                                                 <td>{aluno.apelido}</td>
                                                 <td>{aluno.cpf}</td>
-                                                <td>{aluno.ativo ? "Sim" : "Não"}</td>
+                                                <td>{aluno.ativo ? "SIM" : "NÃO"}</td>
                                             </tr>
                                         )}
                                         {paginationData && !paginationData.length &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
-                                                    <div className="p-2">Nenhum aluno encontrado</div>
+                                                    <div className="p-2">NENHUM 'CLIENTE / ATLETA' ENCONTRADO.</div>
                                                 </td>
                                             </tr>
                                         }

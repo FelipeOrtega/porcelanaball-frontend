@@ -22,7 +22,7 @@ export function HeaderMenu({ layoutProps }) {
             {/*Menu DASHBOARD*/}
             <li className={`menu-item menu-item-rel ${getMenuItemActive('/dashboard')}`}>
                 <NavLink className="menu-link" to="/dashboard">
-                <span className="menu-text">INÍCIO</span>
+                <span className="menu-text">CALENDÁRIO</span>
                     {layoutProps.rootArrowEnabled && (<i className="menu-arrow" />)}
                 </NavLink>
             </li>
@@ -34,7 +34,7 @@ export function HeaderMenu({ layoutProps }) {
                 aria-haspopup="true"
                 className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/aluno')}`}>
                 <NavLink className="menu-link menu-toggle" to="/aluno">
-                <span className="menu-text">CLIENTE</span>
+                <span className="menu-text">CLIENTES</span>
                     <i className="menu-arrow"></i>
                 </NavLink>
                 <div className="menu-submenu menu-submenu-classic menu-submenu-left">
@@ -132,12 +132,49 @@ export function HeaderMenu({ layoutProps }) {
                                 <span className="menu-text">EDIÇÃO</span>
                             </NavLink>
                         </li>
+                        <li
+                            className={`menu-item menu-item-submenu ${getMenuItemActive('/equipe/gestao')}`}
+                        >
+                            <NavLink className="menu-link" to="/equipe/gestao">
+                                <span className="svg-icon menu-icon">
+                                <SVG src={toAbsoluteUrl("/media/svg/icons/Navigation/Check.svg")} />
+                                </span>
+                                <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                <span className="menu-text">
+                                RECEBIMENTOS
+                                </span>
+                            </NavLink>
+
+                        </li>
                         {/*end::2 Level*/}
                     </ul>
                 </div>
             </li>
             {/*Menu EQUIPE*/}
 
+             {/*Menu PLANO*/}
+             <li
+                data-menu-toggle={layoutProps.menuDesktopToggle}
+                aria-haspopup="true"
+                className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/plano')}`}>
+            <NavLink className="menu-link menu-toggle" to="/academia">
+                <span className="menu-text">ACADEMIA</span>
+                <i className="menu-arrow"></i>
+            </NavLink>
+            </li>
+            {/*Menu PLANO*/}
+
+             {/*Menu PLANO*/}
+             <li
+                data-menu-toggle={layoutProps.menuDesktopToggle}
+                aria-haspopup="true"
+                className={`menu-item menu-item-submenu menu-item-rel ${getMenuItemActive('/plano')}`}>
+            <NavLink className="menu-link menu-toggle" to="/relatorios">
+                <span className="menu-text">RELATÓRIOS</span>
+                <i className="menu-arrow"></i>
+            </NavLink>
+            </li>
+            {/*Menu PLANO*/}
 
             {/*Menu SAIR*/}
             <li className={`menu-item menu-item-rel ${getMenuItemActive('/logout')}`}>

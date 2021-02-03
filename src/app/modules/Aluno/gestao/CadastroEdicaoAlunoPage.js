@@ -88,8 +88,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
         peso: 0,
         telefone_celular: "",
         telefone_residencial: "",
-        celular: "",
-        ativo: false,
+        ativo: true,
         email: ""
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
@@ -112,7 +111,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                       <Form.Control
                         type="text"
                         name="nome"
-                        placeholder="Nome"
+                        placeholder="NOME COMPLETO"
                         value={values.nome || ""}
                         onChange={handleChange} />
                     </Form.Group>

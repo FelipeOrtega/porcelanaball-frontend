@@ -57,10 +57,11 @@ function GestaoAlunoPage({ match }) {
                         />
                         <CardBody>
                             <div>
-                            <input type="text" placeholder="&nbsp;PESQUISAR..." onChange={(e) => setSearchVal(e.target.value)} />
+                            <input type="text" style={{width:'20%'}} className="form-control" placeholder="PESQUISAR..." onChange={(e) => setSearchVal(e.target.value)} />
                             </div>
+                            <br />
                             <div>
-                                <Table className="table table-striped">
+                            <Table striped bordered hover>
                                     <thead>
                                         <tr>
                                             <th style={{ width: '30%' }}>NOME</th>
@@ -92,7 +93,7 @@ function GestaoAlunoPage({ match }) {
                                         {paginationData && !paginationData.length &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
-                                                    <div className="p-2">Nenhum aluno encontrado</div>
+                                                <div className="p-2">NENHUM 'CLIENTE / ATLETA' ENCONTRADO.</div>
                                                 </td>
                                             </tr>
                                         }

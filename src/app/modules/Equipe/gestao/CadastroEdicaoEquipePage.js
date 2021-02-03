@@ -98,12 +98,12 @@ function CadastroEdicaoEquipePage({ match }) {
       initialValues={equipe ? equipe : {
         descricao: "",
         modalidade_codigo: 0,
-        modulo_codigo: 0,
+        modulo_codigo: 2,
         codigo: 0,
         valor: "",
         quantidade_parcelas_mensais: "",
         data_primeiro_jogo: "",
-        ativo: false
+        ativo: true
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
         <Form onSubmit={handleSubmit}>

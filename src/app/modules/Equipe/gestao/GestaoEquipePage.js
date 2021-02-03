@@ -48,7 +48,7 @@ function GestaoEquipePage({ match }) {
                         <CardHeader
                             title={
                                 <>
-                                    Atletas / Clientes
+                                    EQUIPES CADASTRADAS
                                         <small>
                                     </small>
                                 </>
@@ -56,14 +56,15 @@ function GestaoEquipePage({ match }) {
                         />
                         <CardBody>
                             <div>
-                            <input type="text" placeholder="Pesquisar" onChange={(e) => setSearchVal(e.target.value)} />
+                            <input type="text" style={{width:'20%'}} className="form-control" placeholder="PESQUISAR..." onChange={(e) => setSearchVal(e.target.value)} />
                             </div>
+                            <br />
                             <div>
-                                <Table className="table table-striped">
+                            <Table striped bordered hover>
                                     <thead>
                                         <tr>
-                                            <th style={{ width: '30%' }}>Descrição</th>
-                                            <th style={{ width: '10%' }}>Ativo</th>
+                                            <th style={{ width: '30%' }}>DESCRIÇÃO</th>
+                                            <th style={{ width: '10%' }}>ATIVO</th>
                                             <th style={{ width: '10%' }}></th>
                                         </tr>
                                     </thead>
@@ -71,9 +72,9 @@ function GestaoEquipePage({ match }) {
                                         {paginationData && paginationData.map(equipe =>
                                             <tr key={equipe.codigo}>
                                                 <td>{equipe.descricao}</td>
-                                                <td>{equipe.ativo ? "Sim" : "Nao"}</td>
+                                                <td>{equipe.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                                    <Link to={`/equipe/edicao/${equipe.codigo}`} className="btn btn-sm btn-primary mr-1">Editar</Link>
+                                                    <Link to={`/equipe/edicao/${equipe.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
                                                 </td>
                                             </tr>
                                         )}
@@ -87,7 +88,7 @@ function GestaoEquipePage({ match }) {
                                         {paginationData && !paginationData.length &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
-                                                    <div className="p-2">Nenhum equipe encontrado</div>
+                                                    <div className="p-2">NENHUMA 'EQUIPE' ENCONTRADA.</div>
                                                 </td>
                                             </tr>
                                         }

@@ -28,6 +28,22 @@ function Login(props) {
 
   const { intl } = props;
   const [loading, setLoading] = useState(false);
+  const LoginSchema = Yup.object().shape({
+    username: Yup.string()
+      .required(
+        intl.formatMessage({
+          id: "AUTH.VALIDATION.REQUIRED_FIELD",
+        })
+      ),
+    password: Yup.string()
+      .min(3, "Minimum 3 symbols")
+      .max(50, "Maximum 50 symbols")
+      .required(
+        intl.formatMessage({
+          id: "AUTH.VALIDATION.REQUIRED_FIELD",
+        })
+      ),
+  });
 
   const enableLoading = () => {
     setLoading(true);
@@ -51,6 +67,7 @@ function Login(props) {
 
   const formik = useFormik({
     initialValues,
+    validationSchema: LoginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
       setTimeout(() => {
