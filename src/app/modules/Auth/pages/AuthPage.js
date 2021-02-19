@@ -40,7 +40,7 @@ export function AuthPage() {
                    Porcelana Ball ADM
                   </h3>
                   <p className="text-white opacity-80">
-                  &copy; AESPINA - VPS.21.02.B
+                  VERSÃO 21.06
                   </p>
                 </div>
                 {/* end:: Aside content */}
