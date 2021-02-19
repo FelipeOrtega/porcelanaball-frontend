@@ -3,27 +3,28 @@ import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { TableSearch } from "../../../../_helpers/TableSearch";
-import equipeService from "../../../../services/equipe/EquipeService";
+import alunoService from "../../../../services/aluno/AlunoService";
 import PaginationHelper  from "../../../../_helpers/PaginationHelper";
 import {Table} from "react-bootstrap";
 
-function GestaoEquipePage({ match }) {
+function GestaoAlunoPage({ match }) {
     const history = useHistory();
-    const [equipes, setEquipes] = useState([]);
+    const [alunos, setAlunos] = useState([]);
     const [isLoading, setLoading] = useState(false);
-    const [searchVal, setSearchVal] = useState(null);
     const [paginationData, setPaginationData] = useState([]);
+    const [searchVal, setSearchVal] = useState(null);
     const { filteredData, loadingSearch } = TableSearch({
       searchVal,
-      retrieve: equipes
+      retrieve: alunos
     });
 
     useEffect(() => {
         setLoading(true);
-        const promisse = equipeService.getEquipe(history);
+        const promisse = alunoService.getAluno(history);
+        console.log(promisse)
         promisse.then(function (result) {
             if(result != null){
-                setEquipes(result.data);
+                setAlunos(result.data);
                 setLoading(false);
             }
         });
@@ -48,7 +49,7 @@ function GestaoEquipePage({ match }) {
                         <CardHeader
                             title={
                                 <>
-                                    EQUIPES CADASTRADAS
+                                    CLIENTES CADASTRADOS
                                         <small>
                                     </small>
                                 </>
@@ -63,24 +64,24 @@ function GestaoEquipePage({ match }) {
                             <Table striped bordered hover>
                                     <thead>
                                         <tr>
-                                            <th style={{ width: '30%' }}>NOME DA EQUIPE</th>
-                                            <th style={{ width: '30%' }}>CLIENTE RESPONSÁVEL</th>
-                                            <th style={{ width: '30%' }}>DIA DA SEMANA</th>
+                                            <th style={{ width: '30%' }}>NOME</th>
+                                            <th style={{ width: '30%' }}>APELIDO</th>
+                                            <th style={{ width: '30%' }}>CPF</th>
                                             <th style={{ width: '10%' }}>ATIVO</th>
-                                            <th style={{ width: '10%' }}>AÇÕES</th>
+                                            <th style={{ width: '10%' }}></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {paginationData && paginationData.map(equipe =>
-                                            <tr key={equipe.codigo}>
-                                                <td>{equipe.descricao}</td>
-                                                <td>{equipe.descricao}</td>
-                                                <td>{equipe.data_primeiro_jogo}</td>
-                                                <td>{equipe.ativo ? "SIM" : "NÃO"}</td>
+                                        {paginationData && paginationData.map(aluno =>
+                                            <tr key={aluno.codigo}>
+                                                <td>{aluno.nome}</td>
+                                                <td>{aluno.apelido}</td>
+                                                <td>{aluno.cpf}</td>
+                                                <td>{aluno.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                                    <Link to={`/equipe/edicao/${equipe.codigo}`} className="btn btn-sm btn-primary mr-1">VISUALIZAR</Link>
-                                                    <Link to={`/equipe/edicao/${equipe.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
-                                                    
+                                                <Link to={`/aluno/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">VISUALIZAR</Link>
+                                                <Link to={`/aluno/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
+                                                
                                                 </td>
                                             </tr>
                                         )}
@@ -94,7 +95,7 @@ function GestaoEquipePage({ match }) {
                                         {paginationData && !paginationData.length &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
-                                                    <div className="p-2">NENHUMA 'EQUIPE' ENCONTRADA.</div>
+                                                <div className="p-2">NENHUM 'CLIENTE / ATLETA' ENCONTRADO.</div>
                                                 </td>
                                             </tr>
                                         }
@@ -114,7 +115,7 @@ function GestaoEquipePage({ match }) {
     );
 }
 
-export { GestaoEquipePage };
+export { GestaoAlunoPage };
 
 
 

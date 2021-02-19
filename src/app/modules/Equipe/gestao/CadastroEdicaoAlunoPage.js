@@ -17,6 +17,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
     if (!novoAluno) {
       setLoading(true);
       alunoService.getAlunoByCodigo(history, id).then(function (result) {
+        console.log(result);
         setAluno(formataAtributos(result.data));
         setLoading(false);
       });
@@ -36,21 +37,27 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
   };
 
   function cadastrarAluno(values, setSubmitting) {
-    alunoService.createAluno(history, values).then(function (result) {
+    const promisse = alunoService.createAluno(history, values);
+    promisse.then(function(result) {
       if (result.statusCode === 200) {
-        history.push(".");
+        if(match.path === '/equipe/cliente'){
+            history.push(".");
+        }else{
+          handleOnParent();
+        }
       }
     });
-
     setSubmitting(false);
   }
 
   function atualizarAluno(values, setSubmitting) {
-    alunoService.updateAluno(history, values).then(function (result) {
+    const promisse = alunoService.updateAluno(history, values);
+    promisse.then(function(result) {
       if (result.statusCode === 200) {
         history.push(".");
       }
     });
+
     setSubmitting(false);
   }
 
@@ -78,6 +85,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
         cpf: "",
         altura: 0,
         peso: 0,
+        endereco: "",
         telefone_celular: "",
         telefone_residencial: "",
         celular: "",
@@ -92,7 +100,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                 <CardHeader
                   title={
                     <>
-                      CADASTRO DE CLIENTE 
+                      CADASTRO DE CLIENTE
                     <small></small>
                     </>
                   }
@@ -105,6 +113,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         type="text"
                         name="nome"
                         placeholder="NOME COMPLETO"
+                        autoComplete="off"
                         value={values.nome || ""}
                         onChange={handleChange} />
                     </Form.Group>
@@ -113,7 +122,8 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                       <Form.Control
                         type="text"
                         name="apelido"
-                        placeholder="Apelido (Opcional)"
+                        placeholder="APELIDO (OPCIONAL)"
+                        autoComplete="off"
                         value={values.apelido || ""}
                         onChange={handleChange} />
                     </Form.Group>
@@ -140,6 +150,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         type="text"
                         name="rg"
                         placeholder="00.000.000-0"
+                        autoComplete="off"
                         removeFormatting="numericString"
                         value={values.rg || ""}
                         onChange={handleChange}
@@ -154,38 +165,10 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         type="text"
                         name="cpf"
                         placeholder="000.000.000-00"
+                        autoComplete="off"
                         value={values.cpf || ""}
                         onChange={handleChange}
                       />
-                    </Form.Group>
-                  </Form.Row>
-
-                  <Form.Row>
-                    <Form.Group as={Col} controlId="formGridAltura">
-                      <Form.Label>Altura</Form.Label>
-                      <NumberFormat
-                        customInput={Form.Control}
-                        format="#.##"
-                        type="text"
-                        name="altura"
-                        placeholder=""
-                        removeFormatting="numericString"
-                        value={values.altura || ""}
-                        onChange={handleChange}
-                        />
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="formGridPeso">
-                      <Form.Label>Peso</Form.Label>
-                      <NumberFormat
-                        customInput={Form.Control}
-                        format="###.##"
-                        type="text"
-                        name="peso"
-                        placeholder=""
-                        removeFormatting="numericString"
-                        value={values.peso || ""}
-                        onChange={handleChange}
-                        />
                     </Form.Group>
                   </Form.Row>
 
@@ -196,8 +179,8 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         type="text"
                         name="endereco"
                         placeholder=""
-                        value={values.endereco || ""}
-                        onChange={handleChange} />
+                        autoComplete="off"
+                        />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridNumero">
@@ -206,6 +189,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         type="text"
                         name=""
                         placeholder=""
+                        autoComplete="off"
                          />
                     </Form.Group>
 
@@ -215,6 +199,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         type="text"
                         name=""
                         placeholder=""
+                        autoComplete="off"
                          />
                     </Form.Group>
                   </Form.Row>
@@ -226,6 +211,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         type="text"
                         name=""
                         placeholder=""
+                        autoComplete="off"
                          />
                     </Form.Group>
 
@@ -235,6 +221,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         type="text"
                         name=""
                         placeholder=""
+                        autoComplete="off"
                          />
                     </Form.Group>
 
@@ -244,30 +231,45 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         type="text"
                         name=""
                         placeholder=""
+                        autoComplete="off"
                          />
                     </Form.Group>
                   </Form.Row>
 
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridTel">
-                    <Form.Label><b>TELEFONE/CELULAR</b></Form.Label>
+                    <Form.Label><b>CELULAR</b></Form.Label>
                     <NumberFormat
                         customInput={Form.Control}
                         format="(##) #####-####"
                         type="text"
                         name="telefone_celular"
                         placeholder="(00) 00000-0000"
+                        autoComplete="off"
                         value={values.telefone_celular || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
-
+                    <Form.Group as={Col} controlId="formGridTel">
+                    <Form.Label><b>TELEFONE</b></Form.Label>
+                    <NumberFormat
+                        customInput={Form.Control}
+                        format="(##) ####-####"
+                        type="text"
+                        name="telefone_residencial"
+                        placeholder="(00) 0000-0000"
+                        autoComplete="off"
+                        value={values.telefone_residencial || ""}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
                     <Form.Group as={Col} controlId="formGridCel">
                     <Form.Label><b>E-MAIL</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="email"
                         placeholder=""
+                        autoComplete="off"
                         value={values.email || ""}
                         onChange={handleChange}
                       />

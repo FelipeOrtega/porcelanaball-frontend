@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { TableSearch } from "../../../../_helpers/TableSearch";
 import alunoService from "../../../../services/aluno/AlunoService";
-import  PaginationHelper  from "../../../../_helpers/PaginationHelper";
+import PaginationHelper  from "../../../../_helpers/PaginationHelper";
 import {Table} from "react-bootstrap";
 
 function GestaoAlunoPage({ match }) {
@@ -21,7 +21,6 @@ function GestaoAlunoPage({ match }) {
     useEffect(() => {
         setLoading(true);
         const promisse = alunoService.getAluno(history);
-        console.log(promisse)
         promisse.then(function (result) {
             if(result != null){
                 setAlunos(result.data);
@@ -79,7 +78,9 @@ function GestaoAlunoPage({ match }) {
                                                 <td>{aluno.cpf}</td>
                                                 <td>{aluno.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                                    <Link to={`/aluno/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
+                                                <Link to={`/aluno/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">VISUALIZAR</Link>
+                                                <Link to={`/aluno/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
+                                                
                                                 </td>
                                             </tr>
                                         )}
