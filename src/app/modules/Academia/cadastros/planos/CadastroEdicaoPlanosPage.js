@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Col } from "react-bootstrap";
-import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
+import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Formik } from "formik";
-import planoService from "../../../../services/plano/PlanoService";
-import modalidadeService from "../../../../services/modalidade/ModalidadeService";
-import moduloService from "../../../../services/modulo/ModuloService";
+import planoService from "../../../../../services/plano/PlanoService";
+import modalidadeService from "../../../../../services/modalidade/ModalidadeService";
+import moduloService from "../../../../../services/modulo/ModuloService";
 import { useHistory } from "react-router-dom";
 
-function CadastroEdicaoPlanoPage({ match }) {
+function CadastroEdicaoPlanosPage({ match }) {
   const history = useHistory();
   const { id } = match.params;
   const novaPlano = !id;
@@ -77,11 +77,9 @@ function CadastroEdicaoPlanoPage({ match }) {
       initialValues={plano ? plano : {
         descricao: "",
         valor: 0,
-        modalidade_codigo: 0,
+        modalidade_codigo: 2,
         ativo: false,
-        modulo_codigo: 0,
-        durabilidade: "",
-        codigo: 0
+        modulo_codigo: 2
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
         <Form onSubmit={handleSubmit}>
@@ -91,86 +89,47 @@ function CadastroEdicaoPlanoPage({ match }) {
                 <CardHeader
                   title={
                     <>
-                      Formulário de Plano
-                    <small></small>
+                      CADASTRO DE PLANOS
+                    <small> ACADEMIA</small>
                     </>
                   }
                 />
                 <CardBody>
                   <Form.Row>
-                    <Form.Group as={Col} md="4" controlId="formGridPlanoDescricao">
-                      <Form.Label>Descrição</Form.Label>
+                    <Form.Group as={Col} md="8" controlId="formGridPlanoDescricao">
+                      <Form.Label><b>*DESCRIÇÃO</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="descricao"
-                        placeholder="Nome do plano"
+                        placeholder="DESCRIÇÃO DO PLANO"
                         value={values.descricao}
                         onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group as={Col} md="4" controlId="formGridPlanoDescricao">
-                      <Form.Label>Valor R$</Form.Label>
+                    <Form.Group as={Col} md="4" controlId="formGridPlanoValor">
+                      <Form.Label><b>*VALOR R$</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="valor"
                         placeholder="R$"
-                        value={values.descricao}
+                        value={values.valor}
                         onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group as={Col} md="4" controlId="formGridDataNas">
-                      <Form.Label>Durabilidade</Form.Label>
-                      <Form.Control
-                        type="date"
-                        name="data_nascimento"
-                        placeholder="dd/mm/aaaa"
-                        value={values.data_nascimento}
-                        onChange={handleChange}
-                      />
-                    </Form.Group>
-                   
                   </Form.Row>
-                  <Form.Row>
-                    <Form.Group as={Col} controlId="formGridPlanoModalidade">
-                      <Form.Label>Modalidade / Esporte</Form.Label>
-                      <Form.Control as="select"
-                        name="modalidade_codigo"
-                        value={values.modalidade_codigo}
-                        onChange={handleChange}
-                      >
-                        {modalidades.map(mdld => (<option value={mdld.codigo}
-                          selected={values.modalidade_codigo === mdld.codigo}
-                          key={mdld.codigo}>
-                          {mdld.descricao}
-                        </option>))}
-                      </Form.Control>
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="formGridPlanoModulo">
-                      <Form.Label>Módulo</Form.Label>
-                      <Form.Control as="select"
-                        name="modulo_codigo"
-                        value={values.modulo_codigo}
-                        onChange={handleChange}
-                      >
-                        {modulos.map(mdl => (<option value={mdl.codigo}
-                          selected={values.modulo_codigo === mdl.codigo}
-                          key={mdl.codigo}>
-                          {mdl.descricao}
-                        </option>))}
-                      </Form.Control>
-                    </Form.Group>
-                  </Form.Row>
+
+                  
                   <Form.Row>
                   <Form.Group id="formGridCheckboxPlanoAtivo">
                       <Form.Check
                         type="checkbox"
                         name="ativo"
-                        label="Ativo"
+                        label="ATIVO"
                         defaultChecked={values.ativo}
                         onChange={handleChange} />
                     </Form.Group>
                   
                   </Form.Row>
 
-                  <Button type="submit">Salvar</Button>
+                  <Button type="submit">SALVAR</Button>
                 </CardBody>
               </Card>
             </div>
@@ -183,4 +142,4 @@ function CadastroEdicaoPlanoPage({ match }) {
   );
 }
 
-export { CadastroEdicaoPlanoPage };
+export { CadastroEdicaoPlanosPage };

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
+import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-import { TableSearch } from "../../../../_helpers/TableSearch";
-import planoService from "../../../../services/plano/PlanoService";
+import { TableSearch } from "../../../../../_helpers/TableSearch";
+import planoService from "../../../../../services/plano/PlanoService";
 
-function GestaoPlanoPage({ match }) {
+function RelatorioPlanosPage({ match }) {
     const history = useHistory();
     const [plano, setPlano] = useState([]);
     const [isLoading, setLoading] = useState(false);
@@ -41,32 +41,33 @@ function GestaoPlanoPage({ match }) {
                         <CardHeader
                             title={
                                 <>
-                                    Planos
-                                        <small>
-                                    </small>
+                                    RELATÓRIO DE PLANOS
+                                        <small> ACADEMIA</small>
                                 </>
                             }
                         />
                         <CardBody>
                             <div>
-                            <input type="text" placeholder="Pesquisar" onChange={(e) => setSearchVal(e.target.value)} />
+                            <input type="text" placeholder="PESQUISAR..." onChange={(e) => setSearchVal(e.target.value)} />
                             </div>
                             <div>
                                 <table className="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th style={{ width: '30%' }}>Descrição</th>
-                                            <th style={{ width: '10%' }}>Ativo</th>
-                                            <th style={{ width: '10%' }}></th>
+                                            <th style={{ width: '30%' }}>DESCRIÇÃO</th>
+                                            <th style={{ width: '30%' }}>VALOR</th>
+                                            <th style={{ width: '10%' }}>ATIVO</th>
+                                            <th style={{ width: '10%' }}>AÇÕES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {filteredData && filteredData.map(plano =>
                                             <tr key={plano.codigo}>
                                                 <td>{plano.descricao}</td>
-                                                <td>{plano.ativo ? "Sim" : "Nao"}</td>
+                                                <td>{plano.valor}</td>
+                                                <td>{plano.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                                    <Link to={`/plano/edicao/${plano.codigo}`} className="btn btn-sm btn-primary mr-1">Editar</Link>
+                                                    <Link to={`/plano/edicao/${plano.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
                                                 </td>
                                             </tr>
                                         )}
@@ -80,7 +81,7 @@ function GestaoPlanoPage({ match }) {
                                         {filteredData && !filteredData.length &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
-                                                    <div className="p-2">Nenhum plano encontrado</div>
+                                                    <div className="p-2">NENHUM 'PLANO' ENCONTRADO.</div>
                                                 </td>
                                             </tr>
                                         }
@@ -97,4 +98,4 @@ function GestaoPlanoPage({ match }) {
     );
 }
 
-export { GestaoPlanoPage };
+export { RelatorioPlanosPage };

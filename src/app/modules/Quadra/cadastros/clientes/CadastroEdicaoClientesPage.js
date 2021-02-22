@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Col } from "react-bootstrap";
-import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
+import { Button, Form, Col, Alert, Badge } from "react-bootstrap";
+import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Formik } from "formik";
-import alunoService from "../../../../services/aluno/AlunoService";
+import alunoService from "../../../../../services/aluno/AlunoService";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
 
-function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
+function CadastroEdicaoClientesPage({ match, handleOnParent}) {
   const history = useHistory();
   const { id } = match.params;
   const novoAluno = !id; 
@@ -37,16 +37,12 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
   };
 
   function cadastrarAluno(values, setSubmitting) {
-    const promisse = alunoService.createAluno(history, values);
-    promisse.then(function(result) {
+    alunoService.createAluno(history, values).then(function (result) {
       if (result.statusCode === 200) {
-        if(match.path === '/equipe/cliente'){
-            history.push(".");
-        }else{
-          handleOnParent();
-        }
+        history.push(".");
       }
     });
+
     setSubmitting(false);
   }
 
@@ -86,30 +82,55 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
         altura: 0,
         peso: 0,
         endereco: "",
+        numero: "",
+        bairro: "",
+        cidade: "",
+        cep: "",
+        uf: "",
+        complemento: "",
         telefone_celular: "",
         telefone_residencial: "",
         celular: "",
-        ativo: false,
-        email: ""
+        email: "",
+        ativo: false
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} autocomplete="off">
           <div className="row">
             <div className="col-md-12">
-              <Card className="mt-4">
+              <Card className="mt-4 justify-content-end">
                 <CardHeader
                   title={
                     <>
-                      CADASTRO DE CLIENTE
-                    <small></small>
+                    CADASTRO DE CLIENTES
+                    <small> QUADRAS</small>
+                   
                     </>
+                    
                   }
+                  
                 />
+              
                 <CardBody>
+
+                <Alert variant="secondary">
+                  <Alert.Heading>INFORMAÇÃO <i class="fas fa-info-circle"></i></Alert.Heading>
+                  <hr />
+                    <p>
+                     Preencha corretamente os campos do cadastro de <b>CLIENTES</b> e clique em <b>SALVAR</b>.
+                    </p>
+                    <p>
+                     Marque <b>ADERE ACADEMIA</b> para vinclular o <b>CLIENTE</b> com o módulo de <b>ACADEMIA</b>.
+                    </p>
+                </Alert>
+
+                <br />
+
                   <Form.Row>
                     <Form.Group as={Col} md="4" controlId="formGridNome">
-                    <Form.Label><b>*NOME DO CLIENTE</b></Form.Label>
+                    <Form.Label><b>NOME DO CLIENTE</b></Form.Label>
                       <Form.Control
+                        required
                         type="text"
                         name="nome"
                         placeholder="NOME COMPLETO"
@@ -131,8 +152,10 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                     <Form.Group as={Col} md="4" controlId="formGridDataNas">
                     <Form.Label><b>DATA NASC.</b></Form.Label>
                       <Form.Control
+                        required
                         type="date"
                         name="data_nascimento"
+                        autoComplete="off"
                         placeholder="dd/mm/aaaa"
                         value={values.data_nascimento || ""}
                         onChange={handleChange}
@@ -146,6 +169,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                        <Form.Label><b>RG</b></Form.Label>
                        <NumberFormat
                         customInput={Form.Control}
+                        required
                         format="##.###.###-#"
                         type="text"
                         name="rg"
@@ -156,11 +180,11 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         onChange={handleChange}
                         />
                     </Form.Group>
-
                     <Form.Group as={Col} controlId="formGridCPF">
                     <Form.Label><b>CPF/CNPJ</b></Form.Label>
                     <NumberFormat
                         customInput={Form.Control}
+                        required
                         format="###.###.###-##"
                         type="text"
                         name="cpf"
@@ -170,75 +194,8 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         onChange={handleChange}
                       />
                     </Form.Group>
-                  </Form.Row>
-
-                  <Form.Row>
-                    <Form.Group as={Col} controlId="formGridEndereco">
-                    <Form.Label><b>ENDEREÇO</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="endereco"
-                        placeholder=""
-                        autoComplete="off"
-                        />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridNumero">
-                    <Form.Label><b>NÚMERO</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        autoComplete="off"
-                         />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridBairro">
-                    <Form.Label><b>BAIRRO</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        autoComplete="off"
-                         />
-                    </Form.Group>
-                  </Form.Row>
-
-                  <Form.Row>
-                    <Form.Group as={Col} controlId="formGridCidade">
-                    <Form.Label><b>CIDADE</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        autoComplete="off"
-                         />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridCep">
-                    <Form.Label><b>CEP</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        autoComplete="off"
-                         />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridEstadoUf">
-                    <Form.Label><b>ESTADO (UF)</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        autoComplete="off"
-                         />
-                    </Form.Group>
-                  </Form.Row>
-
-                  <Form.Row>
                     <Form.Group as={Col} controlId="formGridTel">
-                    <Form.Label><b>CELULAR</b></Form.Label>
+                    <Form.Label><b>CELULAR / TELEFONE</b></Form.Label>
                     <NumberFormat
                         customInput={Form.Control}
                         format="(##) #####-####"
@@ -246,20 +203,8 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         name="telefone_celular"
                         placeholder="(00) 00000-0000"
                         autoComplete="off"
+                        required
                         value={values.telefone_celular || ""}
-                        onChange={handleChange}
-                      />
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="formGridTel">
-                    <Form.Label><b>TELEFONE</b></Form.Label>
-                    <NumberFormat
-                        customInput={Form.Control}
-                        format="(##) ####-####"
-                        type="text"
-                        name="telefone_residencial"
-                        placeholder="(00) 0000-0000"
-                        autoComplete="off"
-                        value={values.telefone_residencial || ""}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -268,7 +213,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                       <Form.Control
                         type="text"
                         name="email"
-                        placeholder=""
+                        placeholder="cliente@email.com.br"
                         autoComplete="off"
                         value={values.email || ""}
                         onChange={handleChange}
@@ -276,7 +221,88 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                     </Form.Group>
                   </Form.Row>
 
-                  <Form.Group id="formGridCheckbox">
+                  <Form.Row>
+                    <Form.Group as={Col} md="10" controlId="formGridEndereco">
+                    <Form.Label><b>ENDEREÇO</b></Form.Label>
+                    <Form.Control
+                        type="endereco"
+                        name="endereco"
+                        placeholder="RUA DUQUE DE CAXIAS"
+                        autoComplete="off"
+                        value={values.endereco || ""}
+                        onChange={handleChange}
+                        />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridNumero">
+                    <Form.Label><b>NÚMERO</b></Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="numero"
+                        placeholder="15"
+                        autoComplete="off"
+                        value={values.numero || ""}
+                        onChange={handleChange}
+                         />
+                    </Form.Group>
+
+                   
+                  </Form.Row>
+
+                  <Form.Row>
+                  <Form.Group as={Col} controlId="formGridBairro">
+                    <Form.Label><b>BAIRRO</b></Form.Label>
+                    <Form.Control
+                        type="text"
+                        name=""
+                        placeholder="JARDIM SANTANA"
+                        autoComplete="off"
+                        value={values.bairro || ""}
+                        onChange={handleChange}
+                         />
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formGridCidade">
+                    <Form.Label><b>CIDADE</b></Form.Label>
+                    <Form.Control
+                        type="text"
+                        name=""
+                        placeholder="CABREÚVA"
+                        autoComplete="off"
+                        value={values.cidade || ""}
+                        onChange={handleChange}
+                         />
+                    </Form.Group>
+
+                    <Form.Group as={Col} md="2" controlId="formGridCep">
+                    <Form.Label><b>CEP</b></Form.Label>
+                    <Form.Control
+                        type="cep"
+                        name="cep"
+                        format="##.###-###"
+                        placeholder="13.315-000"
+                        autoComplete="off"
+                        value={values.cep || ""}
+                        onChange={handleChange}
+                         />
+                    </Form.Group>
+
+                    <Form.Group as={Col} md="1" controlId="formGridEstadoUf">
+                    <Form.Label><b>UF</b></Form.Label>
+                    <Form.Control
+                        type="text"
+                        name=""
+                        placeholder="SP"
+                        autoComplete="off"
+                        value={values.uf || ""}
+                        onChange={handleChange}
+                         />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <hr /><br />
+
+                  <Form.Row>
+                  <Form.Group id="formGridCheckboxAtivo">
                     <Form.Check
                         type="checkbox"
                         name="ativo"
@@ -286,9 +312,10 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
                         onChange={handleChange} />
                   </Form.Group>
                 
-
-                  <Button type="submit">SALVAR</Button>
+                  </Form.Row>
+                  
                 </CardBody>
+                <Button type="submit" variant="success">SALVAR</Button>
               </Card>
             </div>
           </div>
@@ -296,8 +323,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
       )}
     </Formik>
 
-
   );
 }
 
-export { CadastroEdicaoAlunoPage };
+export { CadastroEdicaoClientesPage };

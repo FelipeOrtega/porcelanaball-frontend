@@ -2,7 +2,6 @@
 import React, { useMemo, useLayoutEffect, useEffect } from "react";
 import objectPath from "object-path";
 import { useLocation } from "react-router-dom";
-import { QuickActions } from "./components/QuickActions";
 import { BreadCrumbs } from "./components/BreadCrumbs";
 import {
   getBreadcrumbsAndTitle,
@@ -79,7 +78,14 @@ export function SubHeader() {
 
         {/* Toolbar */}
         <div className="d-flex align-items-center">
-
+        <button
+            onClick={() => window.print()}
+            type="button"
+            className="btn btn-transparent-white font-weight-bold  py-3 px-6 mr-4"
+          >
+          <i className="fas fa-print"></i>
+          </button>
+          
         </div>
       </div>
     </div>

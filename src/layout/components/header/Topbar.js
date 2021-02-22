@@ -16,7 +16,7 @@ export function Topbar() {
   return (
     <div className="topbar">
 
-      {layoutProps.viewUserDisplay && <QuickUserToggler />}
+     
     </div>
   );
 }

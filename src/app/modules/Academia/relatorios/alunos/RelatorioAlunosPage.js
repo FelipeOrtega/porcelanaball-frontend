@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
+import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-import { TableSearch } from "../../../../_helpers/TableSearch";
-import alunoService from "../../../../services/aluno/AlunoService";
-import PaginationHelper  from "../../../../_helpers/PaginationHelper";
+import { TableSearch } from "../../../../../_helpers/TableSearch";
+import alunoService from "../../../../../services/aluno/AlunoService";
+import PaginationHelper  from "../../../../../_helpers/PaginationHelper";
 import {Table} from "react-bootstrap";
 
-function GestaoAlunoPage({ match }) {
+function RelatorioAlunosPage({ match }) {
     const history = useHistory();
     const [alunos, setAlunos] = useState([]);
     const [isLoading, setLoading] = useState(false);
@@ -49,9 +49,8 @@ function GestaoAlunoPage({ match }) {
                         <CardHeader
                             title={
                                 <>
-                                    CLIENTES CADASTRADOS
-                                        <small>
-                                    </small>
+                                    RELATÓRIO DE ALUNOS
+                                        <small> ACADEMIA</small>
                                 </>
                             }
                         />
@@ -68,7 +67,7 @@ function GestaoAlunoPage({ match }) {
                                             <th style={{ width: '30%' }}>APELIDO</th>
                                             <th style={{ width: '30%' }}>CPF</th>
                                             <th style={{ width: '10%' }}>ATIVO</th>
-                                            <th style={{ width: '10%' }}></th>
+                                            <th style={{ width: '10%' }}>AÇÕES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -79,8 +78,8 @@ function GestaoAlunoPage({ match }) {
                                                 <td>{aluno.cpf}</td>
                                                 <td>{aluno.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                                <Link to={`/aluno/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">VISUALIZAR</Link>
-                                                <Link to={`/aluno/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
+                                                <Link to={`/academia/cadastros/alunos/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">VISUALIZAR</Link>
+                                                <Link to={`/academia/cadastros/alunos/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
                                                 
                                                 </td>
                                             </tr>
@@ -95,7 +94,7 @@ function GestaoAlunoPage({ match }) {
                                         {paginationData && !paginationData.length &&
                                             <tr>
                                                 <td colSpan="4" className="text-center">
-                                                <div className="p-2">NENHUM 'CLIENTE / ATLETA' ENCONTRADO.</div>
+                                                <div className="p-2">NENHUM 'ALUNO / ATLETA' ENCONTRADO.</div>
                                                 </td>
                                             </tr>
                                         }
@@ -115,7 +114,7 @@ function GestaoAlunoPage({ match }) {
     );
 }
 
-export { GestaoAlunoPage };
+export { RelatorioAlunosPage };
 
 
 

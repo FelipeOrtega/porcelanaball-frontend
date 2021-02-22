@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import PaginationHelper  from "../../../../_helpers/PaginationHelper";
 import { TableSearch } from "../../../../_helpers/TableSearch";
 
-function PagamentoEquipePage({ match }) {
+function PagamentoPlanoAlunoPage({ match }) {
   const history = useHistory();
   const [equipes, setEquipes] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -271,7 +271,7 @@ function PagamentoEquipePage({ match }) {
   );
 }
 
-export { PagamentoEquipePage };
+export { PagamentoPlanoAlunoPage };
 
 
 

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
-import { Link } from 'react-router-dom';
+import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { TableSearch } from "../../../../_helpers/TableSearch";
-import equipeService from "../../../../services/equipe/EquipeService";
-import PaginationHelper  from "../../../../_helpers/PaginationHelper";
 import {Table} from "react-bootstrap";
+import PaginationHelper  from "../../../../../_helpers/PaginationHelper";
+import { TableSearch } from "../../../../../_helpers/TableSearch";
+import equipeService from "../../../../../services/equipe/EquipeService";
 
-function GestaoEquipePage({ match }) {
+function RelatorioEquipesPage({ match }) {
     const history = useHistory();
     const [equipes, setEquipes] = useState([]);
     const [isLoading, setLoading] = useState(false);
@@ -48,8 +48,8 @@ function GestaoEquipePage({ match }) {
                         <CardHeader
                             title={
                                 <>
-                                    EQUIPES CADASTRADAS
-                                        <small>
+                                    RELATÓRIO DE EQUIPES
+                                        <small> QUADRAS
                                     </small>
                                 </>
                             }
@@ -78,8 +78,8 @@ function GestaoEquipePage({ match }) {
                                                 <td>{equipe.data_primeiro_jogo}</td>
                                                 <td>{equipe.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                                    <Link to={`/equipe/edicao/${equipe.codigo}`} className="btn btn-sm btn-primary mr-1">VISUALIZAR</Link>
-                                                    <Link to={`/equipe/edicao/${equipe.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
+                        
+                                                    <Link to={`/quadra/cadastros/equipes/edicao/${equipe.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
                                                     
                                                 </td>
                                             </tr>
@@ -114,7 +114,7 @@ function GestaoEquipePage({ match }) {
     );
 }
 
-export { GestaoEquipePage };
+export { RelatorioEquipesPage };
 
 
 
