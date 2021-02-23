@@ -238,7 +238,7 @@ export function HeaderMenu({ layoutProps }) {
                                 </ul>
                             </div>
                         </li>
-                        {/*end::2 Level*/}
+                        {/*end::2 Level
                         <li
                             className={`menu-item menu-item-submenu ${getMenuItemActive('/academia/pagamentos')}`}
                         >
@@ -253,7 +253,7 @@ export function HeaderMenu({ layoutProps }) {
                             </NavLink>
 
                         </li>
-                        {/*begin::2 Level*/}
+                        begin::2 Level*/}
                         <li
                             className={`menu-item menu-item-submenu ${getMenuItemActive('/academia/relatorios')}`}
                             data-menu-toggle="hover"

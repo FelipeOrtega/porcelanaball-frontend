@@ -1,32 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Col } from "react-bootstrap";
+import { Button, Form, Col, Alert } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Formik } from "formik";
 import alunoService from "../../../../../services/aluno/AlunoService";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
-import equipeService from "../../../../../services/equipe/EquipeService";
 
-function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
+function CadastroEdicaoAlunosPage({ match }) {
   const history = useHistory();
   const { id } = match.params;
   const novoAluno = !id; 
   const [aluno, setAluno] = useState({});
-  const [equipe, setEquipe] = useState({});
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!novoAluno) {
       setLoading(true);
       alunoService.getAlunoByCodigo(history, id).then(function (result) {
-        console.log(result);
         setAluno(formataAtributos(result.data));
         setLoading(false);
-      });
-      equipeService.getEquipe(history).then(function (result) {
-        if (result != null) {
-          setEquipe(result.data);
-        }
       });
     }
     // eslint-disable-next-line
@@ -44,16 +36,12 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
   };
 
   function cadastrarAluno(values, setSubmitting) {
-    const promisse = alunoService.createAluno(history, values);
-    promisse.then(function(result) {
+    alunoService.createAluno(history, values).then(function (result) {
       if (result.statusCode === 200) {
-        if(match.path === '/academia/cadastros/alunos'){
-            history.push(".");
-        }else{
-          handleOnParent();
-        }
+        history.push("/academia/relatorios/clientes");
       }
     });
+
     setSubmitting(false);
   }
 
@@ -61,7 +49,7 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
     const promisse = alunoService.updateAluno(history, values);
     promisse.then(function(result) {
       if (result.statusCode === 200) {
-        history.push(".");
+        history.push("/academia/relatorios/clientes");
       }
     });
 
@@ -102,27 +90,44 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
         telefone_celular: "",
         telefone_residencial: "",
         celular: "",
-        ativo: false,
-        email: ""
+        email: "",
+        ativo: false
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} autocomplete="off">
           <div className="row">
             <div className="col-md-12">
-              <Card className="mt-4">
+              <Card className="mt-4 justify-content-end">
                 <CardHeader
                   title={
                     <>
-                   CADASTRO DE ALUNOS
+                    CADASTRO DE ALUNOS
                     <small> ACADEMIA</small>
+                   
                     </>
+                    
                   }
+                  
                 />
+              
                 <CardBody>
+
+                <Alert variant="secondary">
+                  <Alert.Heading>INFORMAÇÃO <i class="fas fa-info-circle"></i></Alert.Heading>
+                  <hr />
+                    <p>
+                     Preencha corretamente os campos do cadastro de <b>ALUNOS</b> e selecione a <b>EQUIPE</b>, em seguida clique em <b>SALVAR</b>.
+                    </p>
+                
+                </Alert>
+
+                <br />
+
                   <Form.Row>
                     <Form.Group as={Col} md="4" controlId="formGridNome">
-                    <Form.Label><b>*NOME DO ALUNO</b></Form.Label>
+                    <Form.Label><b>NOME DO CLIENTE</b></Form.Label>
                       <Form.Control
+                        required
                         type="text"
                         name="nome"
                         placeholder="NOME COMPLETO"
@@ -144,8 +149,10 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
                     <Form.Group as={Col} md="4" controlId="formGridDataNas">
                     <Form.Label><b>DATA NASC.</b></Form.Label>
                       <Form.Control
+                        required
                         type="date"
                         name="data_nascimento"
+                        autoComplete="off"
                         placeholder="dd/mm/aaaa"
                         value={values.data_nascimento || ""}
                         onChange={handleChange}
@@ -159,6 +166,7 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
                        <Form.Label><b>RG</b></Form.Label>
                        <NumberFormat
                         customInput={Form.Control}
+                        required
                         format="##.###.###-#"
                         type="text"
                         name="rg"
@@ -169,11 +177,11 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
                         onChange={handleChange}
                         />
                     </Form.Group>
-
                     <Form.Group as={Col} controlId="formGridCPF">
                     <Form.Label><b>CPF/CNPJ</b></Form.Label>
                     <NumberFormat
                         customInput={Form.Control}
+                        required
                         format="###.###.###-##"
                         type="text"
                         name="cpf"
@@ -183,85 +191,6 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
                         onChange={handleChange}
                       />
                     </Form.Group>
-                  </Form.Row>
-
-                  <Form.Row>
-                    <Form.Group as={Col} controlId="formGridEndereco">
-                    <Form.Label><b>ENDEREÇO</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="endereco"
-                        placeholder=""
-                        autoComplete="off"
-                        value={values.endereco || ""}
-                        onChange={handleChange}
-                        />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridNumero">
-                    <Form.Label><b>NÚMERO</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        autoComplete="off"
-                        value={values.numero || ""}
-                        onChange={handleChange}
-                         />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridBairro">
-                    <Form.Label><b>BAIRRO</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        autoComplete="off"
-                        value={values.bairro || ""}
-                        onChange={handleChange}
-                         />
-                    </Form.Group>
-                  </Form.Row>
-
-                  <Form.Row>
-                    <Form.Group as={Col} controlId="formGridCidade">
-                    <Form.Label><b>CIDADE</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        autoComplete="off"
-                        value={values.cidade || ""}
-                        onChange={handleChange}
-                         />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridCep">
-                    <Form.Label><b>CEP</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        autoComplete="off"
-                        value={values.cep || ""}
-                        onChange={handleChange}
-                         />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridEstadoUf">
-                    <Form.Label><b>ESTADO (UF)</b></Form.Label>
-                    <Form.Control
-                        type="text"
-                        name=""
-                        placeholder=""
-                        autoComplete="off"
-                        value={values.uf || ""}
-                        onChange={handleChange}
-                         />
-                    </Form.Group>
-                  </Form.Row>
-
-                  <Form.Row>
                     <Form.Group as={Col} controlId="formGridTel">
                     <Form.Label><b>CELULAR / TELEFONE</b></Form.Label>
                     <NumberFormat
@@ -271,6 +200,7 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
                         name="telefone_celular"
                         placeholder="(00) 00000-0000"
                         autoComplete="off"
+                        required
                         value={values.telefone_celular || ""}
                         onChange={handleChange}
                       />
@@ -278,9 +208,9 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
                     <Form.Group as={Col} controlId="formGridCel">
                     <Form.Label><b>E-MAIL</b></Form.Label>
                       <Form.Control
-                        type="text"
+                        type="email"
                         name="email"
-                        placeholder=""
+                        placeholder="cliente@email.com.br"
                         autoComplete="off"
                         value={values.email || ""}
                         onChange={handleChange}
@@ -289,21 +219,106 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
                   </Form.Row>
 
                   <Form.Row>
-                    <Form.Group as={Col} controlId="formGridTel">
-                    <Form.Label><b>EQUIPE</b></Form.Label>
+                    <Form.Group as={Col} md="10" controlId="formGridEndereco">
+                    <Form.Label><b>ENDEREÇO</b></Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="endereco"
+                        placeholder="RUA DUQUE DE CAXIAS"
+                        autoComplete="off"
+                        value={values.endereco || ""}
+                        onChange={handleChange}
+                        />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridNumero">
+                    <Form.Label><b>NÚMERO</b></Form.Label>
+                    <Form.Control
+                        type="number"
+                        name="numero"
+                        placeholder="15"
+                        autoComplete="off"
+                        value={values.numero || ""}
+                        onChange={handleChange}
+                         />
+                    </Form.Group>
+
+                   
+                  </Form.Row>
+
+                  <Form.Row>
+                  <Form.Group as={Col} controlId="formGridBairro">
+                    <Form.Label><b>BAIRRO</b></Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="bairro"
+                        placeholder="JARDIM SANTANA"
+                        autoComplete="off"
+                        value={values.bairro || ""}
+                        onChange={handleChange}
+                         />
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formGridCidade">
+                    <Form.Label><b>CIDADE</b></Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="cidade"
+                        placeholder="CABREÚVA"
+                        autoComplete="off"
+                        value={values.cidade || ""}
+                        onChange={handleChange}
+                         />
+                    </Form.Group>
+
+                    <Form.Group as={Col} md="2" controlId="formGridCep">
+                    <Form.Label><b>CEP</b></Form.Label>
                     <NumberFormat
                         customInput={Form.Control}
-                        format="(##) #####-####"
                         type="text"
-                        name="telefone_celular"
-                        placeholder=""
+                        name="cep"
+                        format="##.###-###"
+                        placeholder="13.315-000"
                         autoComplete="off"
-                        value={values.telefone_celular || ""}
+                        value={values.cep || ""}
                         onChange={handleChange}
-                      />
+                         />
+                    </Form.Group>
+
+                    <Form.Group as={Col} md="1" controlId="formGridEstadoUf">
+                    <Form.Label><b>UF</b></Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="uf"
+                        placeholder="SP"
+                        autoComplete="off"
+                        value={values.uf || ""}
+                        onChange={handleChange}
+                         />
                     </Form.Group>
                   </Form.Row>
 
+                  <hr /><br />
+
+                  <Form.Row>
+                    <Form.Group as={Col} md="6" controlId="formGridEquipeDescricao">
+                      <Form.Label><b>EQUIPE</b></Form.Label>
+                       <Form.Control as="select">
+                      <option>SELECIONE A EQUIPE</option>
+                    </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col} md="6" controlId="formGridEquipeDescricao">
+                      <Form.Label><b>PLANO</b></Form.Label>
+                       <Form.Control as="select"
+                       disabled
+                       >
+                      <option>NENHUM PLANO CADASTRADO</option>
+                    </Form.Control>
+                    </Form.Group>
+                </Form.Row>
+
+                <hr /><br />
+
+                  <Form.Row>
                   <Form.Group id="formGridCheckboxAtivo">
                     <Form.Check
                         type="checkbox"
@@ -313,7 +328,7 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
                         value={values.ativo}
                         onChange={handleChange} />
                   </Form.Group>
-
+                  &nbsp;&nbsp;
                   <Form.Group id="formGridCheckboxBiometria">
                     <Form.Check
                         type="checkbox"
@@ -323,17 +338,16 @@ function CadastroEdicaoAlunosPage({ match, handleOnParent}) {
                         value={values.ativo}
                         onChange={handleChange} />
                   </Form.Group>
-                
-
-                  <Button type="submit">SALVAR</Button>
+                  </Form.Row>
+                  
                 </CardBody>
+                <Button type="submit" variant="success">SALVAR</Button>
               </Card>
             </div>
           </div>
         </Form>
       )}
     </Formik>
-
 
   );
 }

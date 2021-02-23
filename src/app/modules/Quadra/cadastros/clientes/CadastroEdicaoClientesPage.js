@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Col, Alert, Badge } from "react-bootstrap";
+import { Button, Form, Col, Alert } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Formik } from "formik";
 import alunoService from "../../../../../services/aluno/AlunoService";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
 
-function CadastroEdicaoClientesPage({ match, handleOnParent}) {
+function CadastroEdicaoClientesPage({ match }) {
   const history = useHistory();
   const { id } = match.params;
   const novoAluno = !id; 
@@ -17,7 +17,6 @@ function CadastroEdicaoClientesPage({ match, handleOnParent}) {
     if (!novoAluno) {
       setLoading(true);
       alunoService.getAlunoByCodigo(history, id).then(function (result) {
-        console.log(result);
         setAluno(formataAtributos(result.data));
         setLoading(false);
       });
@@ -39,7 +38,7 @@ function CadastroEdicaoClientesPage({ match, handleOnParent}) {
   function cadastrarAluno(values, setSubmitting) {
     alunoService.createAluno(history, values).then(function (result) {
       if (result.statusCode === 200) {
-        history.push(".");
+        history.push("/quadra/relatorios/clientes");
       }
     });
 
@@ -50,7 +49,7 @@ function CadastroEdicaoClientesPage({ match, handleOnParent}) {
     const promisse = alunoService.updateAluno(history, values);
     promisse.then(function(result) {
       if (result.statusCode === 200) {
-        history.push(".");
+        history.push("/quadra/relatorios/clientes");
       }
     });
 
@@ -211,7 +210,7 @@ function CadastroEdicaoClientesPage({ match, handleOnParent}) {
                     <Form.Group as={Col} controlId="formGridCel">
                     <Form.Label><b>E-MAIL</b></Form.Label>
                       <Form.Control
-                        type="text"
+                        type="email"
                         name="email"
                         placeholder="cliente@email.com.br"
                         autoComplete="off"
@@ -225,7 +224,7 @@ function CadastroEdicaoClientesPage({ match, handleOnParent}) {
                     <Form.Group as={Col} md="10" controlId="formGridEndereco">
                     <Form.Label><b>ENDEREÇO</b></Form.Label>
                     <Form.Control
-                        type="endereco"
+                        type="text"
                         name="endereco"
                         placeholder="RUA DUQUE DE CAXIAS"
                         autoComplete="off"
@@ -237,7 +236,7 @@ function CadastroEdicaoClientesPage({ match, handleOnParent}) {
                     <Form.Group as={Col} controlId="formGridNumero">
                     <Form.Label><b>NÚMERO</b></Form.Label>
                     <Form.Control
-                        type="text"
+                        type="number"
                         name="numero"
                         placeholder="15"
                         autoComplete="off"
@@ -254,7 +253,7 @@ function CadastroEdicaoClientesPage({ match, handleOnParent}) {
                     <Form.Label><b>BAIRRO</b></Form.Label>
                     <Form.Control
                         type="text"
-                        name=""
+                        name="bairro"
                         placeholder="JARDIM SANTANA"
                         autoComplete="off"
                         value={values.bairro || ""}
@@ -265,7 +264,7 @@ function CadastroEdicaoClientesPage({ match, handleOnParent}) {
                     <Form.Label><b>CIDADE</b></Form.Label>
                     <Form.Control
                         type="text"
-                        name=""
+                        name="cidade"
                         placeholder="CABREÚVA"
                         autoComplete="off"
                         value={values.cidade || ""}
@@ -275,8 +274,9 @@ function CadastroEdicaoClientesPage({ match, handleOnParent}) {
 
                     <Form.Group as={Col} md="2" controlId="formGridCep">
                     <Form.Label><b>CEP</b></Form.Label>
-                    <Form.Control
-                        type="cep"
+                    <NumberFormat
+                        customInput={Form.Control}
+                        type="text"
                         name="cep"
                         format="##.###-###"
                         placeholder="13.315-000"
@@ -290,7 +290,7 @@ function CadastroEdicaoClientesPage({ match, handleOnParent}) {
                     <Form.Label><b>UF</b></Form.Label>
                     <Form.Control
                         type="text"
-                        name=""
+                        name="uf"
                         placeholder="SP"
                         autoComplete="off"
                         value={values.uf || ""}

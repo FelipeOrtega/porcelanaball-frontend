@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Col, Badge, Alert } from "react-bootstrap";
+import { InputGroup, FormControl, Button, Form, Col, Badge, Alert } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Formik } from "formik";
 import equipeService from "../../../../services/equipe/EquipeService";
@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import { ListagemAluno } from "../../Aluno/ListagemAluno"
 import { CadastroEdicaoAlunoPage } from "../../Aluno/gestao/CadastroEdicaoAlunoPage";
 import { TableSearch } from "../../../../_helpers/TableSearch";
+import NumberFormat from "react-number-format";
 
 function PagamentoEquipePage({ match }) {
   const history = useHistory();
@@ -82,23 +83,25 @@ function PagamentoEquipePage({ match }) {
                     <Form.Group as={Col} md="6" controlId="formGridEquipeDescricao">
                       <Form.Label><b>EQUIPE</b></Form.Label>
                        <Form.Control as="select">
-                      <option>AVULSO - NÃO É EQUIPE RECORRENTE</option>
+                      <option>SELECIONE UMA EQUIPE</option>
                     </Form.Control>
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="formGridEquipeDescricao">
                       <Form.Label><b>VENCIMENTO</b></Form.Label>
                       <Form.Control
-                        type="date"
-                        name="data_01"
-                        placeholder=""
-                      />
+                        type="text"
+                        name="valor"
+                        placeholder="05"
+                        readOnly
+                        />
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="formGridEquipeDescricao">
                       <Form.Label><b>VALOR TOTAL</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="valor"
-                        placeholder="R$"
+                        placeholder="R$0,00"
+                        readOnly
                         />
                     </Form.Group>
                 </Form.Row>
@@ -129,13 +132,27 @@ function PagamentoEquipePage({ match }) {
                         placeholder="NOME DO CLIENTE"
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="3" controlId="formGridEquipeDescricao">
-                      <Form.Label><b>VALOR PAGO</b></Form.Label>
-                      <Form.Control
-                        type="text"
+                    <Form.Group as={Col} md="3" controlId="formGridValor">
+                    <Form.Label><b>MENSALIDADE</b></Form.Label>
+                    <InputGroup className="mb-3">
+                    <InputGroup.Prepend>
+                    <InputGroup.Text>R$</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <NumberFormat
+                    customInput={Form.Control}
+                        required
+                        format="####"
+                        type="valor"
                         name="valor"
-                        placeholder="R$"
+                        placeholder="700"
+                        autoComplete="off"
+                        removeFormatting="numericString"
                         />
+                    <InputGroup.Append>
+                    <InputGroup.Text>,00</InputGroup.Text>
+                    </InputGroup.Append>
+                    </InputGroup>
+                   
                     </Form.Group>
                   </Form.Row>
                   <hr /><br />

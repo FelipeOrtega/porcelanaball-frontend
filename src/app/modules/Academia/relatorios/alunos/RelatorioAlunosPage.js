@@ -64,7 +64,7 @@ function RelatorioAlunosPage({ match }) {
                                     <thead>
                                         <tr>
                                             <th style={{ width: '30%' }}>NOME</th>
-                                            <th style={{ width: '30%' }}>APELIDO</th>
+                                            <th style={{ width: '30%' }}>EQUIPE</th>
                                             <th style={{ width: '30%' }}>CPF</th>
                                             <th style={{ width: '10%' }}>ATIVO</th>
                                             <th style={{ width: '10%' }}>AÇÕES</th>
@@ -78,7 +78,7 @@ function RelatorioAlunosPage({ match }) {
                                                 <td>{aluno.cpf}</td>
                                                 <td>{aluno.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                                <Link to={`/academia/cadastros/alunos/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">VISUALIZAR</Link>
+
                                                 <Link to={`/academia/cadastros/alunos/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
                                                 
                                                 </td>

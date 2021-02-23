@@ -53,7 +53,7 @@ function CadastroEdicaoEquipesPage({ match }) {
     }
     equipeService.createEquipe(history, values).then(function (result) {
       if (result.statusCode === 200) {
-        history.push(".");
+        history.push("/quadra/relatorios/equipes");
       }
     });
 
@@ -63,7 +63,7 @@ function CadastroEdicaoEquipesPage({ match }) {
   function atualizarEquipe(values, setSubmitting) {
     equipeService.updateEquipe(history, values).then(function (result) {
       if (result.statusCode === 200) {
-        history.push(".");
+        history.push("/quadra/relatorios/equipes");
       }
     });
     setSubmitting(false);
@@ -172,8 +172,8 @@ function CadastroEdicaoEquipesPage({ match }) {
                     <InputGroup.Text>,00</InputGroup.Text>
                     </InputGroup.Append>
                     </InputGroup>
-                   
                     </Form.Group>
+                    
                     <Form.Group as={Col} md="3" controlId="formGridDataPrimeiroJogo">
                     <Form.Label><b>DIA DE VENCIMENTO</b></Form.Label>
                     <Form.Control as="select">
