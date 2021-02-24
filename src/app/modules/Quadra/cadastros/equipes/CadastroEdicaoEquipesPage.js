@@ -53,6 +53,7 @@ function CadastroEdicaoEquipesPage({ match }) {
     }
     equipeService.createEquipe(history, values).then(function (result) {
       if (result.statusCode === 200) {
+        console.log(result);
         history.push("/quadra/relatorios/equipes");
       }
     });
@@ -63,6 +64,7 @@ function CadastroEdicaoEquipesPage({ match }) {
   function atualizarEquipe(values, setSubmitting) {
     equipeService.updateEquipe(history, values).then(function (result) {
       if (result.statusCode === 200) {
+        console.log(result);
         history.push("/quadra/relatorios/equipes");
       }
     });
@@ -92,9 +94,13 @@ function CadastroEdicaoEquipesPage({ match }) {
         modulo_codigo: 0,
         codigo: 0,
         valor: "",
-        quantidade_parcelas_mensais: "",
-        data_primeiro_jogo: "",
-        ativo: false
+        jogo_dia_da_semana: "",
+        jogo_horario_inicial: "",
+        jogo_horario_final: "",
+        dia_vencimento: "",
+        quadra_codigo: 1,
+        ativo: false,
+        adere_academia: false
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
         <Form onSubmit={handleSubmit}>
@@ -176,39 +182,13 @@ function CadastroEdicaoEquipesPage({ match }) {
                     
                     <Form.Group as={Col} md="3" controlId="formGridDataPrimeiroJogo">
                     <Form.Label><b>DIA DE VENCIMENTO</b></Form.Label>
-                    <Form.Control as="select">
-                      <option>01</option>
-                      <option>02</option>
-                      <option>03</option>
-                      <option>04</option>
-                      <option>05</option>
-                      <option>06</option>
-                      <option>07</option>
-                      <option>08</option>
-                      <option>09</option>
-                      <option>10</option>
-                      <option>11</option>
-                      <option>12</option>
-                      <option>13</option>
-                      <option>14</option>
-                      <option>15</option>
-                      <option>16</option>
-                      <option>17</option>
-                      <option>18</option>
-                      <option>19</option>
-                      <option>20</option>
-                      <option>21</option>
-                      <option>22</option>
-                      <option>23</option>
-                      <option>24</option>
-                      <option>25</option>
-                      <option>26</option>
-                      <option>27</option>
-                      <option>28</option>
-                      <option>29</option>
-                      <option>30</option>
-                      <option>31</option>
-                    </Form.Control>
+                    <Form.Control
+                        type="number"
+                        name="dia_vencimento"
+                        placeholder="1"
+                        autoComplete="off"
+                        value={values.dia_vencimento || ""}
+                        onChange={handleChange} />
                     </Form.Group>
                   </Form.Row>
 
@@ -217,44 +197,43 @@ function CadastroEdicaoEquipesPage({ match }) {
                   <Form.Row>
                     <Form.Group as={Col} md="3" controlId="formGridDataPrimeiroJogo">
                     <Form.Label><b>DIA DE JOGO</b></Form.Label>
-                    <Form.Control as="select">
-                      <option>SEGUNDA-FEIRA</option>
-                      <option>TERÇA-FEIRA</option>
-                      <option>QUARTA-FEIRA</option>
-                      <option>QUINTA-FEIRA</option>
-                      <option>SEXTA-FEIRA</option>
-                      <option>SÁBADO</option>
-                      <option>DOMINGO</option>
-                    </Form.Control>
+                    <Form.Control
+                        type="text"
+                        name="jogo_dia_da_semana"
+                        placeholder="segunda"
+                        autoComplete="off"
+                        value={values.jogo_dia_da_semana || ""}
+                        onChange={handleChange} />
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="formGridValor">
                     <Form.Label><b>INÍCIO DA PARTIDA</b></Form.Label>
                     <Form.Control
-                        required
-                        type="time"
-                        name="hr_inicio_partida"
+                        type="text"
+                        name="jogo_horario_inicial"
+                        placeholder=""
                         autoComplete="off"
-                        placeholder="dd/mm/aaaa"
-                       
-                      />
+                        value={values.jogo_horario_inicial || ""}
+                        onChange={handleChange} />
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="formGridValor">
                     <Form.Label><b>FIM DA PARTIDA</b></Form.Label>
                     <Form.Control
-                        required
-                        type="time"
-                        name="hr_fim_partida"
+                        type="text"
+                        name="jogo_horario_final"
+                        placeholder=""
                         autoComplete="off"
-                        placeholder="dd/mm/aaaa"
-                       
-                      />
+                        value={values.jogo_horario_final || ""}
+                        onChange={handleChange} />
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="formGridQuadra">
                     <Form.Label><b>QUADRA</b></Form.Label>
-                    <Form.Control as="select">
-                      <option>Q-01</option>
-                      <option>Q-02</option>
-                    </Form.Control>
+                    <Form.Control
+                        type="number"
+                        name="quadra_codigo"
+                        placeholder=""
+                        autoComplete="off"
+                        value={values.quadra_codigo || ""}
+                        onChange={handleChange} />
                     </Form.Group>
                     </Form.Row>
 
@@ -281,7 +260,7 @@ function CadastroEdicaoEquipesPage({ match }) {
                         name="ativo"
                         label="ADERE ACADEMIA"
                         defaultChecked={values.ativo || false}
-                        value={values.ativo}
+                        value={values.adere_academia}
                         onChange={handleChange} />
                   </Form.Group>
                  

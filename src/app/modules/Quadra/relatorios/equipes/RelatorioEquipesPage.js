@@ -64,8 +64,8 @@ function RelatorioEquipesPage({ match }) {
                                     <thead>
                                         <tr>
                                             <th style={{ width: '30%' }}>NOME DA EQUIPE</th>
-                                            <th style={{ width: '30%' }}>CLIENTE RESPONSÁVEL</th>
-                                            <th style={{ width: '30%' }}>DIA DA SEMANA</th>
+                                            <th style={{ width: '30%' }}>JOGO DIA</th>
+                                            <th style={{ width: '30%' }}>VALOR</th>
                                             <th style={{ width: '10%' }}>ATIVO</th>
                                             <th style={{ width: '10%' }}>AÇÕES</th>
                                         </tr>
@@ -74,8 +74,8 @@ function RelatorioEquipesPage({ match }) {
                                         {paginationData && paginationData.map(equipe =>
                                             <tr key={equipe.codigo}>
                                                 <td>{equipe.descricao}</td>
-                                                <td>{equipe.descricao}</td>
-                                                <td>{equipe.data_primeiro_jogo}</td>
+                                                <td>{equipe.adere_academia}</td>
+                                                <td>{equipe.valor}</td>
                                                 <td>{equipe.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
                         
