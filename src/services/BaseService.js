@@ -11,6 +11,8 @@ export const EQUIPE_BASE_URL = "Equipe/";
 export const EQUIPE_ALUNO_BASE_URL = "EquipeAluno/";
 export const MODALIDADE_BASE_URL = "Modalidade/";
 export const MODULO_BASE_URL = "Modulo/";
+export const QUADRA_BASE_URL = "Quadra/";
+export const DIA_SEMANA_BASE_URL = "DiaSemana/";
 
 class BaseService {
 

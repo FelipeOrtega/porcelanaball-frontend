@@ -74,7 +74,7 @@ function RelatorioEquipesPage({ match }) {
                                         {paginationData && paginationData.map(equipe =>
                                             <tr key={equipe.codigo}>
                                                 <td>{equipe.descricao}</td>
-                                                <td>{equipe.adere_academia}</td>
+                                                <td>{equipe.jogo_dia_da_semana}</td>
                                                 <td>{equipe.valor}</td>
                                                 <td>{equipe.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
