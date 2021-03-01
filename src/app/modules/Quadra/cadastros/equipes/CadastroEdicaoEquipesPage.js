@@ -147,7 +147,7 @@ function CadastroEdicaoEquipesPage({ match }) {
                         onChange={handleChange} />
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="formGridEquipeClienteResponsavel">
-                      {/* <Form.Label><b>CLIENTE RESPONSÁVEL</b></Form.Label>
+                      <Form.Label><b>CLIENTE RESPONSÁVEL</b></Form.Label>
                       <Form.Control as="select"
                         required
                         name="aluno_codigo"
@@ -159,7 +159,7 @@ function CadastroEdicaoEquipesPage({ match }) {
                           key={aluno.codigo}>
                           {aluno.nome}
                         </option>))}
-                      </Form.Control> */}
+                      </Form.Control>
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="formGridValor">
                     <Form.Label><b>MENSALIDADE</b></Form.Label>
