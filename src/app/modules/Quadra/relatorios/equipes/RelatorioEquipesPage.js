@@ -20,8 +20,7 @@ function RelatorioEquipesPage({ match }) {
 
     useEffect(() => {
         setLoading(true);
-        const promisse = equipeService.getEquipe(history);
-        promisse.then(function (result) {
+        equipeService.getEquipe(history).then(function (result) {
             if(result != null){
                 setEquipes(result.data);
                 setLoading(false);

@@ -20,9 +20,8 @@ function RelatorioAlunosPage({ match }) {
 
     useEffect(() => {
         setLoading(true);
-        const promisse = alunoService.getAluno(history);
-        console.log(promisse)
-        promisse.then(function (result) {
+        alunoService.getAluno(history).then(function (result) {
+            console.log(result);
             if(result != null){
                 setAlunos(result.data);
                 setLoading(false);
