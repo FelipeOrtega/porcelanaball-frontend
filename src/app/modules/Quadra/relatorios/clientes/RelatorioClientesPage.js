@@ -77,7 +77,7 @@ function RelatorioClientesPage({ match }) {
                                             <tr key={aluno.codigo}>
                                                 <td>{aluno.nome}</td>
                                                 <td>{aluno.apelido}</td>
-                                                <td>{aluno.cpf}</td>
+                                                <td >{aluno.cpf}</td>
                                                 <td>{aluno.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
                         

@@ -113,7 +113,7 @@ function CadastroEdicaoClientesPage({ match }) {
                 <CardBody>
 
                 <Alert variant="secondary">
-                  <Alert.Heading>INFORMAÇÃO <i class="fas fa-info-circle"></i></Alert.Heading>
+                  <Alert.Heading>INFORMAÇÃO <i className="fas fa-info-circle"></i></Alert.Heading>
                   <hr />
                     <p>
                      Preencha corretamente os campos do cadastro de <b>CLIENTES</b> e clique em <b>SALVAR</b>.

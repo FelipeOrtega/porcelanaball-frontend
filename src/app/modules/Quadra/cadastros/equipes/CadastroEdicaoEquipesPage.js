@@ -122,7 +122,7 @@ function CadastroEdicaoEquipesPage({ match }) {
                 <CardBody>
                 
                 <Alert variant="secondary">
-                  <Alert.Heading>INFORMAÇÃO <i class="fas fa-info-circle"></i></Alert.Heading>
+                  <Alert.Heading>INFORMAÇÃO <i className="fas fa-info-circle"></i></Alert.Heading>
                   <hr />
                     <p>
                      Preencha corretamente os campos do cadastro de <b>EQUIPES</b> e clique em <b>SALVAR</b>.
@@ -218,7 +218,7 @@ function CadastroEdicaoEquipesPage({ match }) {
                     <Form.Group as={Col} md="3" controlId="formGridValor">
                     <Form.Label><b>INÍCIO DA PARTIDA</b></Form.Label>
                     <Form.Control
-                        type="text"
+                        type="time"
                         name="jogo_horario_inicial"
                         placeholder=""
                         autoComplete="off"
@@ -228,7 +228,7 @@ function CadastroEdicaoEquipesPage({ match }) {
                     <Form.Group as={Col} md="3" controlId="formGridValor">
                     <Form.Label><b>FIM DA PARTIDA</b></Form.Label>
                     <Form.Control
-                        type="text"
+                        type="time"
                         name="jogo_horario_final"
                         placeholder=""
                         autoComplete="off"
@@ -270,9 +270,9 @@ function CadastroEdicaoEquipesPage({ match }) {
                   <Form.Group id="formGridCheckboxAdereAcademia">
                     <Form.Check
                         type="checkbox"
-                        name="ativo"
+                        name="adere_academia"
                         label="ADERE ACADEMIA"
-                        defaultChecked={values.ativo || false}
+                        defaultChecked={values.adere_academia || false}
                         value={values.adere_academia}
                         onChange={handleChange} />
                   </Form.Group>
