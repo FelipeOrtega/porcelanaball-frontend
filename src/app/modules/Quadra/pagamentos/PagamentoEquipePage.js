@@ -3,17 +3,11 @@ import { InputGroup, FormControl, Button, Form, Col, Badge, Alert } from "react-
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Formik } from "formik";
 import equipeService from "../../../../services/equipe/EquipeService";
-import equipeAlunoService from "../../../../services/equipe/EquipeAlunoService";
-import modalidadeService from "../../../../services/modalidade/ModalidadeService";
-import moduloService from "../../../../services/modulo/ModuloService";
 import { useHistory } from "react-router-dom";
-import { ListagemAluno } from "../../Aluno/ListagemAluno"
-import { CadastroEdicaoAlunoPage } from "../../Aluno/gestao/CadastroEdicaoAlunoPage";
 import { TableSearch } from "../../../../_helpers/TableSearch";
 import NumberFormat from "react-number-format";
 import {Table} from "react-bootstrap";
-import { Link } from "react-router-dom";
-import PaginationHelper  from "../../../../_helpers/PaginationHelper";
+import ReactGa from "react-ga";
 
 function PagamentoEquipePage({ match }) {
   const history = useHistory();
@@ -28,6 +22,10 @@ function PagamentoEquipePage({ match }) {
   
 
   useEffect(() => {
+    ReactGa.initialize('G-36BCY6E3RY')
+    //to report page view
+    ReactGa.pageview('/quadra/pagamentos')
+
       setLoading(true);
       const promisse = equipeService.getEquipe(history);
       promisse.then(function (result) {
@@ -86,11 +84,45 @@ function PagamentoEquipePage({ match }) {
                     <Form.Group as={Col} md="6" controlId="formGridEquipeDescricao">
                       <Form.Label><b>EQUIPE</b></Form.Label>
                        <Form.Control as="select">
-                      <option>SELECIONE UMA EQUIPE</option>
+                      <option>EQUIPE EXEMPLO</option>
+                      <option>SAO PAULINO</option>
+                      <option>WALLACE</option>
+                      <option>DANDA</option>
+                      <option>CLAUDIO ROSA</option>
+                      <option>HENRIQUE</option>
+                      <option>MAREGA</option>
+                      <option>WILL</option>
+                      <option>RAUL</option>
+                      <option>KITTA</option>
+                      <option>ANAO</option>
+                      <option>SANDRO</option>
+                      <option>VAL</option>
+                      <option>HINHA</option>
+                      <option>VAL GUEDES</option>
+                      <option>REINALDO</option>
+                      <option>JE</option>
+                      <option>FINAZZI</option>
+                      <option>MANE</option>
+                      <option>RONI</option>
+                      <option>DJALMA</option>
+                      <option>MAX</option>
+                      <option>GUEDES</option>
+                      <option>MARCIOA</option>
+                      <option>RENAN</option>
+                      <option>FABINHO</option>
+                      <option>CLAUDINHO</option>
+                      <option>FROIS</option>
+                      <option>TIAGO BETTY BOOP 01</option>
+                      <option>TIAGO BETTY BOOP 02</option>
+                      <option>BRUNO</option>
+                      <option>CAIQUE</option>
+                      <option>ERIC</option>
+                      <option>FABIO</option>
+                      <option>RICARDO</option>
                     </Form.Control>
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="formGridEquipeDescricao">
-                      <Form.Label><b>VENCIMENTO</b></Form.Label>
+                      <Form.Label><b>DIA DE VENCIMENTO</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="valor"
@@ -99,11 +131,11 @@ function PagamentoEquipePage({ match }) {
                         />
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="formGridEquipeDescricao">
-                      <Form.Label><b>VALOR TOTAL</b></Form.Label>
+                      <Form.Label><b>MENSALIDADE</b></Form.Label>
                       <Form.Control
                         type="text"
                         name="valor"
-                        placeholder="R$0,00"
+                        placeholder="R$700,00"
                         readOnly
                         />
                     </Form.Group>
@@ -136,7 +168,7 @@ function PagamentoEquipePage({ match }) {
                         />
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="formGridValor">
-                    <Form.Label><b>MENSALIDADE</b></Form.Label>
+                    <Form.Label><b>VALOR</b></Form.Label>
                     <InputGroup className="mb-3">
                     <InputGroup.Prepend>
                     <InputGroup.Text>R$</InputGroup.Text>
@@ -147,7 +179,7 @@ function PagamentoEquipePage({ match }) {
                         format="####"
                         type="valor"
                         name="valor"
-                        placeholder="700"
+                        placeholder="0"
                         autoComplete="off"
                         removeFormatting="numericString"
                         />
@@ -181,9 +213,6 @@ function PagamentoEquipePage({ match }) {
                             }
                         />
                         <CardBody>
-                            <div>
-                            <input type="text" style={{width:'20%'}} className="form-control" placeholder="PESQUISAR..." onChange={(e) => setSearchVal(e.target.value)} />
-                            </div>
                             <br />
                             <div>
                             <Table striped bordered hover>
@@ -192,40 +221,28 @@ function PagamentoEquipePage({ match }) {
                                             <th style={{ width: '20%' }}>DATA DO PAGAMNETO</th>
                                             <th style={{ width: '20%' }}>TIPO</th>
                                             <th style={{ width: '20%' }}>PAGO POR</th>
-                                            <th style={{ width: '10%' }}>VALOR</th>
-                                            <th style={{ width: '20%' }}>TOTAL À PAGAR</th>
+                                            <th style={{ width: '10%' }}>VALOR PAGO</th>
+                                            <th style={{ width: '20%' }}>VALOR À PAGAR</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {paginationData && paginationData.map(equipe =>
-                                            <tr key={equipe.codigo}>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                        )}
-                                        {!paginationData &&
                                             <tr>
-                                                <td colSpan="4" className="text-center">
-                                                    <div className="spinner-border spinner-border-lg align-center"></div>
-                                                </td>
+                                                <td>01/03/2021</td>
+                                                <td>PARCIAL</td>
+                                                <td>GUILHERME (TESTE)</td>
+                                                <td>100,00</td>
+                                                <td>600,00</td>
                                             </tr>
-                                        }
-                                        {paginationData && !paginationData.length &&
                                             <tr>
-                                                <td colSpan="4" className="text-center">
-                                                    <div className="p-2">NENHUMA 'EQUIPE' ENCONTRADA.</div>
-                                                </td>
+                                                <td>02/03/2021</td>
+                                                <td>PARCIAL</td>
+                                                <td>ANDRE (TESTE)</td>
+                                                <td>100,00</td>
+                                                <td>500,00</td>
                                             </tr>
-                                        }
                                     </tbody>
                                 </Table>
-                                <PaginationHelper
-                                    items={filteredData} onChangePage={onChangePage} 
-                                />
+                               
                             </div>
                         </CardBody>
                     </Card>

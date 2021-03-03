@@ -8,6 +8,7 @@ import diaSemanaService from "../../../../../services/DiaSemana/DiaSemanaService
 import alunoService from "../../../../../services/aluno/AlunoService";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
+import ReactGa from "react-ga";
 
 function CadastroEdicaoEquipesPage({ match }) {
   const history = useHistory();
@@ -20,6 +21,10 @@ function CadastroEdicaoEquipesPage({ match }) {
   const [diasSemana, setDiasSemana] = useState([]);
 
   useEffect(() => {
+    ReactGa.initialize('G-36BCY6E3RY')
+    //to report page view
+    ReactGa.pageview('/quadra/cadastros/equipes')
+
     if (!novaEquipe) {
       equipeService.getEquipeByCodigo(history, id).then(function (result) {
         setEquipe(result.data);

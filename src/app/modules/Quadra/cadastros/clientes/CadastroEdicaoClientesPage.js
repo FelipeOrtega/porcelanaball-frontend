@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import alunoService from "../../../../../services/aluno/AlunoService";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
+import ReactGa from "react-ga";
 
 function CadastroEdicaoClientesPage({ match }) {
   const history = useHistory();
@@ -14,6 +15,10 @@ function CadastroEdicaoClientesPage({ match }) {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    ReactGa.initialize('G-36BCY6E3RY')
+    //to report page view
+    ReactGa.pageview('/quadra/cadastros/clientes')
+
     if (!novoAluno) {
       setLoading(true);
       alunoService.getAlunoByCodigo(history, id).then(function (result) {

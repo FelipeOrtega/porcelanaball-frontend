@@ -1,8 +1,8 @@
 {
     "name": "porcelanaball",
-    "version": "1.0.0",
+    "version": "21.07",
     "private": true,
-    "homepage": "",
+    "homepage": "https://porcelanaball.com.br",
     "scripts": {
         "start": "react-scripts start -o",
         "build": "react-scripts build",
@@ -74,6 +74,7 @@
         "react-datepicker": "2.16.0",
         "react-dom": "^16.13.1",
         "react-draggable": "4.4.2",
+        "react-ga": "^3.3.0",
         "react-inlinesvg": "1.2.0",
         "react-intl": "3.6.2",
         "react-is": "16.13.1",

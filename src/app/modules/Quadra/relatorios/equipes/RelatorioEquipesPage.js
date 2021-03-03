@@ -6,6 +6,7 @@ import {Table} from "react-bootstrap";
 import PaginationHelper  from "../../../../../_helpers/PaginationHelper";
 import { TableSearch } from "../../../../../_helpers/TableSearch";
 import equipeService from "../../../../../services/equipe/EquipeService";
+import ReactGa from "react-ga";
 
 function RelatorioEquipesPage({ match }) {
     const history = useHistory();
@@ -19,6 +20,10 @@ function RelatorioEquipesPage({ match }) {
     });
 
     useEffect(() => {
+        ReactGa.initialize('G-36BCY6E3RY')
+        //to report page view
+        ReactGa.pageview('/quadra/relatorios/equipes')
+
         setLoading(true);
         equipeService.getEquipe(history).then(function (result) {
             if(result != null){

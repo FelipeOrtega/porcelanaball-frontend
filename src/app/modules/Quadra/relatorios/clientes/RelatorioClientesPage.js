@@ -6,6 +6,7 @@ import { TableSearch } from "../../../../../_helpers/TableSearch";
 import alunoService from "../../../../../services/aluno/AlunoService";
 import PaginationHelper  from "../../../../../_helpers/PaginationHelper";
 import {Table} from "react-bootstrap";
+import ReactGa from "react-ga";
 
 function RelatorioClientesPage({ match }) {
     const history = useHistory();
@@ -19,6 +20,10 @@ function RelatorioClientesPage({ match }) {
     });
 
     useEffect(() => {
+        ReactGa.initialize('G-36BCY6E3RY')
+        //to report page view
+        ReactGa.pageview('/quadra/relatorios/clientes')
+
         setLoading(true);
         const promisse = alunoService.getAluno(history);
         promisse.then(function (result) {
