@@ -65,10 +65,10 @@ function RelatorioClientesPage({ match }) {
                                     <thead>
                                         <tr>
                                             <th style={{ width: '30%' }}>NOME <i className="fas fa-sort-alpha-down"></i></th>
-                                            <th style={{ width: '15%' }}>APELIDO </th>
-                                            <th style={{ width: '20%' }}>CPF</th>
-                                            <th style={{ width: '20%' }}>CELULAR</th>
-                                            <th style={{ width: '10%' }}>ATIVO</th>
+                                            <th style={{ width: '20%' }}>APELIDO </th>
+                                            <th style={{ width: '15%' }}>CPF</th>
+                                            <th style={{ width: '15%' }}>CELULAR</th>
+                                            <th style={{ width: '7%' }}>ATIVO</th>
                                             <th style={{ width: '10%' }}>AÇÕES</th>
                                         </tr>
                                     </thead>
@@ -90,7 +90,7 @@ function RelatorioClientesPage({ match }) {
                                                 format="(##) #####-####"
                                                 value={aluno.telefone_celular || ""}/>
                                                 </td>
-                                                <td>{aluno.ativo ? "SIM" : "NÃO"}</td>
+                                                <td><b>{aluno.ativo ? "SIM" : "NÃO"}</b></td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
                                                 <Link to={`/quadra/visualizar/clientes/${aluno.codigo}`} className="btn btn-sm btn-success mr-1"><i className="fas fa-search"></i></Link>
                                                 <Link to={`/quadra/cadastros/clientes/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1"><i className="fas fa-edit"></i></Link>

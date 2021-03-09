@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Col, InputGroup } from "react-bootstrap";
+import { Button, Form, Col, Alert, InputGroup, FormControl } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Formik } from "formik";
 import equipeService from "../../../../../services/equipe/EquipeService";
@@ -8,40 +8,91 @@ import diaSemanaService from "../../../../../services/DiaSemana/DiaSemanaService
 import alunoService from "../../../../../services/aluno/AlunoService";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
+import ReactGa from "react-ga";
 
 function VisualizarEquipesPage({ match }) {
   const history = useHistory();
   const { id } = match.params;
-  const [equipe, getEquipe] = useState({});
-  const [aluno, getAluno] = useState([]);
-  const [quadras, getQuadras] = useState([]);
-  const [diasSemana, getDiasSemana] = useState([]);
+  const novaEquipe = !id;
+  const [equipe, setEquipe] = useState({});
+  const [aluno, setAluno] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [quadras, setQuadras] = useState([]);
+  const [diasSemana, setDiasSemana] = useState([]);
 
   useEffect(() => {
-    if (equipe) {
-      equipeService.getEquipeByCodigo(history, id).then(function (result) {
-        getEquipe(result.data);
+    ReactGa.initialize('G-36BCY6E3RY')
+    //to report page view
+    ReactGa.pageview('/quadra/cadastros/equipes')
+
+    async function initializeComponent() {
+      if (!novaEquipe) {
+      await equipeService.getEquipeByCodigo(history, id).then(function (result) {
+        if(result.data.equipeAluno[0]){
+          result.data.aluno_responsavel_codigo = result.data.equipeAluno[0].aluno_codigo;
+        }
+        setEquipe(result.data);
       });
     }
     alunoService.getAluno(history).then(function (result) {
       if (result != null) {
-        getAluno(result.data);
+        setAluno(result.data);
       }
     });
     quadraService.getQuadra(history).then(function (result) {
       if (result != null) {
-        getQuadras(result.data);
+        setQuadras(result.data);
       }
     });
     diaSemanaService.getDiaSemana(history).then(function (result) {
       if (result != null) {
-        getDiasSemana(result.data);
+        setDiasSemana(result.data);
       }
     });
     setLoading(false);
+    }
+    initializeComponent();
     // eslint-disable-next-line
   }, []);
+
+  function cadastrarEquipe(values, setSubmitting) {
+    if (!values.modalidade_codigo) {
+      values.modalidade_codigo = 1;
+    }
+    if (!values.modulo_codigo) {
+      values.modulo_codigo = 2;
+    }
+    if (!values.quadra_codigo) {
+      values.quadra_codigo = 1;
+    }
+    if (!values.aluno_responsavel_codigo) {
+      values.aluno_responsavel_codigo = 1;
+    }
+    values.equipeAluno = [{
+      'aluno_codigo': values.aluno_responsavel_codigo,
+      'responsavel': true
+    }];
+    equipeService.createEquipe(history, values).then(function (result) {
+      if (result.statusCode === 200) {
+        history.push("/quadra/relatorios/equipes");
+      }
+    });
+    setSubmitting(false);
+  }
+
+  function atualizarEquipe(values, setSubmitting) {
+    values.equipeAluno = [{
+      'aluno_codigo': values.aluno_responsavel_codigo,
+      'equipe_codigo': values.codigo,
+      'responsavel': true
+    }];
+    equipeService.updateEquipe(history, values).then(function (result) {
+      if (result.statusCode === 200) {
+        history.push("/quadra/relatorios/equipes");
+      }
+    });
+    setSubmitting(false);
+  }
 
   if (isLoading) {
     return <div className="d-flex flex-wrap justify-content-between align-items-center">
@@ -51,6 +102,14 @@ function VisualizarEquipesPage({ match }) {
 
   return (
     <Formik
+      onSubmit={(values, { setStatus, setSubmitting }) => {
+        setStatus();
+        if (novaEquipe) {
+          cadastrarEquipe(values, setSubmitting);
+        } else {
+          atualizarEquipe(values, setSubmitting);
+        }
+      }}
       enableReinitialize
       initialValues={equipe ? equipe : {
         descricao: "",
@@ -63,7 +122,17 @@ function VisualizarEquipesPage({ match }) {
         jogo_horario_final: "",
         dia_vencimento: "",
         quadra_codigo: 0,
-        ativo: false
+        ativo: false,
+        adere_academia: false,
+        equipeAluno:[{
+          aluno: null,
+          aluno_codigo: 0,
+          codigo: 0,
+          equipe_codigo: 0,
+          responsavel: false
+        }],
+        aluno_responsavel_codigo: 0
+        
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
         <Form onSubmit={handleSubmit}>
@@ -73,14 +142,12 @@ function VisualizarEquipesPage({ match }) {
                 <CardHeader
                   title={
                     <>
-                      VISUALIZAÇÃO DE EQUIPE
-                    <small> {values.descricao}</small>
+                      CADASTRO DE EQUIPE
+                    <small> QUADRAS</small>
                     </>
                   }
                 />
                 <CardBody>
-
-                <br />
 
                   <Form.Row>
                     <Form.Group as={Col} md="3" controlId="formGridEquipeDescricao">
@@ -95,12 +162,13 @@ function VisualizarEquipesPage({ match }) {
                     <Form.Group as={Col} md="3" controlId="formGridEquipeClienteResponsavel">
                       <Form.Label><b>CLIENTE RESPONSÁVEL</b></Form.Label>
                       <Form.Control as="select"
-                        name="aluno_codigo"
-                        value={values.aluno_codigo}
+                        readOnly
+                        name="aluno_responsavel_codigo"
+                        value={values.aluno_responsavel_codigo}
                         onChange={handleChange}
                       >
                         {aluno.map(aluno => (<option value={aluno.codigo}
-                          defaultValue={values.aluno_codigo === aluno.codigo}
+                          defaultValue={values.aluno_responsavel_codigo === aluno.codigo}
                           key={aluno.codigo}>
                           {aluno.nome}
                         </option>))}
@@ -130,7 +198,7 @@ function VisualizarEquipesPage({ match }) {
                     <Form.Group as={Col} md="3" controlId="formGridDataPrimeiroJogo">
                     <Form.Label><b>DIA DE VENCIMENTO</b></Form.Label>
                     <Form.Control
-                      readOnly
+                    readOnly
                         type="number"
                         name="dia_vencimento"
                         value={values.dia_vencimento || ""}
@@ -144,14 +212,14 @@ function VisualizarEquipesPage({ match }) {
                     <Form.Group as={Col} md="3" controlId="formGridDataPrimeiroJogo">
                       <Form.Label><b>DIA DE JOGO</b></Form.Label>
                       <Form.Control as="select"
-                        readOnly
+                      readOnly
                         name="jogo_dia_da_semana"
                         value={values.jogo_dia_da_semana}
                         onChange={handleChange}
                       >
                         {diasSemana.map(diaSemana =>
                         (<option value={diaSemana}
-                          selected={values.jogo_dia_da_semana === diaSemana}
+                          defaultValue={values.jogo_dia_da_semana === diaSemana}
                           key={diaSemana}>
                           {diaSemana}
                         </option>))}
@@ -161,7 +229,7 @@ function VisualizarEquipesPage({ match }) {
                     <Form.Group as={Col} md="3" controlId="formGridValor">
                     <Form.Label><b>INÍCIO DA PARTIDA</b></Form.Label>
                     <Form.Control
-                      readOnly
+                    readOnly
                         type="time"
                         name="jogo_horario_inicial"
                         value={values.jogo_horario_inicial || ""}
@@ -170,7 +238,7 @@ function VisualizarEquipesPage({ match }) {
                     <Form.Group as={Col} md="3" controlId="formGridValor">
                     <Form.Label><b>FIM DA PARTIDA</b></Form.Label>
                     <Form.Control
-                      readOnly
+                    readOnly
                         type="time"
                         name="jogo_horario_final"
                         value={values.jogo_horario_final || ""}
@@ -179,13 +247,13 @@ function VisualizarEquipesPage({ match }) {
                     <Form.Group as={Col} md="3" controlId="formGridQuadra">
                     <Form.Label><b>QUADRA</b></Form.Label>
                       <Form.Control as="select"
-                        readOnly
+                      readOnly
                         name="quadra_codigo"
                         value={values.quadra_codigo}
                         onChange={handleChange}
                       >
                         {quadras.map(q => (<option value={q.codigo}
-                          selected={values.quadra_codigo === q.codigo}
+                          defaultValue={values.quadra_codigo === q.codigo}
                           key={q.codigo}>
                           {q.descricao}
                         </option>))}
@@ -199,9 +267,8 @@ function VisualizarEquipesPage({ match }) {
                     <hr /><br />
 
                     <Form.Row>
-                    <Form.Group id="formGridCheckboxAtivo">
+                    <Form.Group id="formGridCheckboxEquipeAtivo">
                     <Form.Check
-                      readOnly
                         type="checkbox"
                         name="ativo"
                         label="ATIVO"
@@ -210,11 +277,21 @@ function VisualizarEquipesPage({ match }) {
                         onChange={handleChange} />
                   </Form.Group>
                   &nbsp;&nbsp;&nbsp;
+                  <Form.Group id="formGridCheckboxAdereAcademia">
+                    <Form.Check
+                        type="checkbox"
+                        name="adere_academia"
+                        label="ADERE ACADEMIA"
+                        defaultChecked={values.adere_academia || false}
+                        value={values.adere_academia}
+                        onChange={handleChange} />
+                  </Form.Group>
                  
                   </Form.Row>
 
     
                 </CardBody>
+                <Button type="back" variant="primary">VOLTAR</Button>
               </Card>
               
            

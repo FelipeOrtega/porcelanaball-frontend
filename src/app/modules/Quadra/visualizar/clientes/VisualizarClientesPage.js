@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Form, Col } from "react-bootstrap";
+import { Button, Form, Col, Alert } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Formik } from "formik";
 import alunoService from "../../../../../services/aluno/AlunoService";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
+import ReactGa from "react-ga";
 
 function VisualizarClientesPage({ match }) {
   const history = useHistory();
   const { id } = match.params;
-  const infoAluno = id; 
+  const novoAluno = !id; 
   const [aluno, setAluno] = useState({});
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (infoAluno) {
+    ReactGa.initialize('G-36BCY6E3RY')
+    //to report page view
+    ReactGa.pageview('/quadra/cadastros/clientes')
+
+    if (!novoAluno) {
       setLoading(true);
       alunoService.getAlunoByCodigo(history, id).then(function (result) {
         setAluno(formataAtributos(result.data));
@@ -35,6 +40,26 @@ function VisualizarClientesPage({ match }) {
     return aluno;
   };
 
+  function cadastrarAluno(values, setSubmitting) {
+    alunoService.createAluno(history, values).then(function (result) {
+      if (result.statusCode === 200) {
+        history.push("/quadra/relatorios/clientes");
+      }
+    });
+
+    setSubmitting(false);
+  }
+
+  function atualizarAluno(values, setSubmitting) {
+    const promisse = alunoService.updateAluno(history, values);
+    promisse.then(function(result) {
+      if (result.statusCode === 200) {
+        history.push("/quadra/relatorios/clientes");
+      }
+    });
+
+    setSubmitting(false);
+  }
 
   if (isLoading) {
     return <div className="d-flex flex-wrap justify-content-between align-items-center">
@@ -44,10 +69,14 @@ function VisualizarClientesPage({ match }) {
 
   return (
     <Formik
-    onLoading={(values, { setStatus, setSubmitting }) => {
-      setStatus();
-    
-    }}
+      onSubmit={(values, { setStatus, setSubmitting }) => {
+        setStatus();
+        if (novoAluno) {
+          cadastrarAluno(values, setSubmitting);
+        } else {
+          atualizarAluno(values, setSubmitting);
+        }
+      }}
       initialValues={aluno ? aluno : {
         nome: "",
         apelido: "",
@@ -77,8 +106,8 @@ function VisualizarClientesPage({ match }) {
                 <CardHeader
                   title={
                     <>
-                    VISUALIZAÇÃO DO CLIENTE
-                    <small> {values.nome}</small>
+                    DETALHES DO CLIENTE - {aluno.nome}
+                    <small> QUADRAS</small>
                    
                     </>
                     
@@ -87,9 +116,7 @@ function VisualizarClientesPage({ match }) {
                 />
               
                 <CardBody>
-
-                <br />
-
+            
                   <Form.Row>
                     <Form.Group as={Col} md="4" controlId="formGridNome">
                     <Form.Label><b>NOME DO CLIENTE</b></Form.Label>
@@ -98,16 +125,16 @@ function VisualizarClientesPage({ match }) {
                         type="text"
                         name="nome"
                         value={values.nome || ""}
-                        onChange={handleChange} />
+                         />
                     </Form.Group>
                     <Form.Group as={Col} md="4" controlId="formGridApelido">
                       <Form.Label><b>APELIDO</b></Form.Label>
                       <Form.Control
-                        readOnly
+                      readOnly
                         type="text"
                         name="apelido"
                         value={values.apelido || ""}
-                        onChange={handleChange} />
+                         />
                     </Form.Group>
 
                     <Form.Group as={Col} md="4" controlId="formGridDataNas">
@@ -117,7 +144,7 @@ function VisualizarClientesPage({ match }) {
                         type="date"
                         name="data_nascimento"
                         value={values.data_nascimento || ""}
-                        onChange={handleChange}
+                        
                       />
                     </Form.Group>
                     </Form.Row>
@@ -127,48 +154,48 @@ function VisualizarClientesPage({ match }) {
                     <Form.Group as={Col} controlId="formGridRG">
                        <Form.Label><b>RG</b></Form.Label>
                        <NumberFormat
-                        readOnly
+                       readOnly
                         customInput={Form.Control}
                         format="##.###.###-#"
                         type="text"
                         name="rg"
                         removeFormatting="numericString"
                         value={values.rg || ""}
-                        onChange={handleChange}
+                        
                         />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridCPF">
                     <Form.Label><b>CPF/CNPJ</b></Form.Label>
                     <NumberFormat
-                        readOnly
                         customInput={Form.Control}
+                        readOnly
                         format="###.###.###-##"
                         type="text"
                         name="cpf"
                         value={values.cpf || ""}
-                        onChange={handleChange}
+                       
                       />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridTel">
                     <Form.Label><b>CELULAR / TELEFONE</b></Form.Label>
                     <NumberFormat
-                        readOnly
+                    readOnly
                         customInput={Form.Control}
                         format="(##) #####-####"
                         type="text"
                         name="telefone_celular"
                         value={values.telefone_celular || ""}
-                        onChange={handleChange}
+                       
                       />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridCel">
                     <Form.Label><b>E-MAIL</b></Form.Label>
                       <Form.Control
-                        readOnly
+                      readOnly
                         type="email"
                         name="email"
                         value={values.email || ""}
-                        onChange={handleChange}
+                        
                       />
                     </Form.Group>
                   </Form.Row>
@@ -177,69 +204,71 @@ function VisualizarClientesPage({ match }) {
                     <Form.Group as={Col} md="10" controlId="formGridEndereco">
                     <Form.Label><b>ENDEREÇO</b></Form.Label>
                     <Form.Control
-                        readOnly
+                    readOnly
                         type="text"
                         name="endereco"
                         value={values.endereco || ""}
-                        onChange={handleChange}
+                        
                         />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridNumero">
                     <Form.Label><b>NÚMERO</b></Form.Label>
                     <Form.Control
-                        readOnly
+                    readOnly
                         type="number"
                         name="numero"
                         value={values.numero || ""}
-                        onChange={handleChange}
+                        
                          />
                     </Form.Group>
+
+                   
                   </Form.Row>
 
                   <Form.Row>
                   <Form.Group as={Col} controlId="formGridBairro">
                     <Form.Label><b>BAIRRO</b></Form.Label>
                     <Form.Control
-                        readOnly
+                    readOnly
                         type="text"
                         name="bairro"
                         value={values.bairro || ""}
-                        onChange={handleChange}
+                        
                          />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridCidade">
                     <Form.Label><b>CIDADE</b></Form.Label>
                     <Form.Control
-                        readOnly
+                    readOnly
                         type="text"
                         name="cidade"
                         value={values.cidade || ""}
-                        onChange={handleChange}
+                        
                          />
                     </Form.Group>
 
                     <Form.Group as={Col} md="2" controlId="formGridCep">
                     <Form.Label><b>CEP</b></Form.Label>
                     <NumberFormat
+                    readOnly
                         customInput={Form.Control}
-                        readOnly
                         type="text"
                         name="cep"
                         format="##.###-###"
                         value={values.cep || ""}
-                        onChange={handleChange}
+                        
                          />
                     </Form.Group>
 
                     <Form.Group as={Col} md="1" controlId="formGridEstadoUf">
                     <Form.Label><b>UF</b></Form.Label>
                     <Form.Control
-                        readOnly
                         type="text"
                         name="uf"
+                        readOnly
                         value={values.uf || ""}
-                        onChange={handleChange}
+                        
                          />
                     </Form.Group>
                   </Form.Row>
@@ -249,19 +278,19 @@ function VisualizarClientesPage({ match }) {
                   <Form.Row>
                   <Form.Group id="formGridCheckboxAtivo">
                     <Form.Check
-                        readOnly
+                    readOnly
                         type="checkbox"
                         name="ativo"
                         label="ATIVO"
                         defaultChecked={values.ativo || false}
                         value={values.ativo}
-                        onChange={handleChange} />
+                         />
                   </Form.Group>
                 
                   </Form.Row>
                   
                 </CardBody>
-               
+                <Button type="back" variant="primary">VOLTAR</Button>
               </Card>
             </div>
           </div>

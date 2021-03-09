@@ -99,7 +99,7 @@ function CadastroEdicaoClientesPage({ match }) {
         ativo: false
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
-        <Form onSubmit={handleSubmit} autocomplete="off">
+        <Form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-md-12">
               <Card className="mt-4 justify-content-end">

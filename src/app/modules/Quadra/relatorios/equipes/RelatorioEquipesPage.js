@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import {Table} from "react-bootstrap";
+import { Table, Form, InputGroup } from "react-bootstrap";
 import PaginationHelper  from "../../../../../_helpers/PaginationHelper";
 import { TableSearch } from "../../../../../_helpers/TableSearch";
 import equipeService from "../../../../../services/equipe/EquipeService";
-import ReactGa from "react-ga";
+import NumberFormat from "react-number-format";
 
 function RelatorioEquipesPage({ match }) {
     const history = useHistory();
@@ -20,12 +20,10 @@ function RelatorioEquipesPage({ match }) {
     });
 
     useEffect(() => {
-        ReactGa.initialize('G-36BCY6E3RY')
-        //to report page view
-        ReactGa.pageview('/quadra/relatorios/equipes')
 
         setLoading(true);
-        equipeService.getEquipe(history).then(function (result) {
+        const promisse = equipeService.getEquipe(history);
+        promisse.then(function (result) {
             if(result != null){
                 setEquipes(result.data);
                 setLoading(false);
@@ -68,23 +66,56 @@ function RelatorioEquipesPage({ match }) {
                                     <thead>
                                         <tr>
                                             <th style={{ width: '30%' }}>NOME DA EQUIPE</th>
-                                            <th style={{ width: '30%' }}>JOGO DIA</th>
-                                            <th style={{ width: '30%' }}>VALOR</th>
-                                            <th style={{ width: '10%' }}>ATIVO</th>
+                                            <th style={{ width: '15%' }}>JOGO DIA <i className="fas fa-sort"></i></th>
+                                            <th style={{ width: '15%' }}>VALOR</th>
+                                            <th style={{ width: '10%' }}>INÍCIO</th>
+                                            <th style={{ width: '10%' }}>FIM</th>
+                                            <th style={{ width: '7%' }}>ATIVO</th>
                                             <th style={{ width: '10%' }}>AÇÕES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {paginationData && paginationData.map(equipe =>
                                             <tr key={equipe.codigo}>
-                                                <td>{equipe.descricao}</td>
-                                                <td>{equipe.jogo_dia_da_semana}</td>
-                                                <td>{equipe.valor}</td>
-                                                <td>{equipe.ativo ? "SIM" : "NÃO"}</td>
-                                                <td style={{ whiteSpace: 'nowrap' }}>
-                        
-                                                    <Link to={`/quadra/cadastros/equipes/edicao/${equipe.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
+                                                <td><b>{equipe.descricao}</b></td>
+                                                <td><b>{equipe.jogo_dia_da_semana}</b></td>
+                                                <td>
+                                                <InputGroup className="mb-3">
+                                                <InputGroup.Prepend>
+                                                <InputGroup.Text>R$</InputGroup.Text>
+                                                </InputGroup.Prepend><NumberFormat
+                                                customInput={Form.Control}
+                                                readOnly
+                                                format="####"
+                                                value={equipe.valor || ""}/>
+                                               
+                                                    <InputGroup.Append>
+                                                    <InputGroup.Text>,00</InputGroup.Text>
+                                                    </InputGroup.Append>
+                                                    </InputGroup>
+                                                </td>
+                                                <td>
                                                     
+                                                <Form.Control
+                                                        type="time"
+                                                        name="jogo_horario_inicial"
+                                                        placeholder=""
+                                                        autoComplete="off"
+                                                        value={equipe.jogo_horario_inicial || ""}
+                                                        />
+                                                </td>
+                                                <td><Form.Control
+                                                        type="time"
+                                                        name="jogo_horario_final"
+                                                        placeholder=""
+                                                        autoComplete="off"
+                                                        value={equipe.jogo_horario_final || ""}
+                                                        />
+                                                </td>
+                                                <td><b>{equipe.ativo ? "SIM" : "NÃO"}</b></td>
+                                                <td style={{ whiteSpace: 'nowrap' }}>
+                                                <Link to={`/quadra/visualizar/equipes/${equipe.codigo}`} className="btn btn-sm btn-success mr-1"><i className="fas fa-search"></i></Link>
+                                                <Link to={`/quadra/cadastros/equipes/edicao/${equipe.codigo}`} className="btn btn-sm btn-primary mr-1"><i className="fas fa-edit"></i></Link>
                                                 </td>
                                             </tr>
                                         )}
@@ -119,8 +150,3 @@ function RelatorioEquipesPage({ match }) {
 }
 
 export { RelatorioEquipesPage };
-
-
-
-
-
