@@ -5,8 +5,8 @@ import { useHistory } from "react-router-dom";
 import { TableSearch } from "../../../../../_helpers/TableSearch";
 import alunoService from "../../../../../services/aluno/AlunoService";
 import PaginationHelper  from "../../../../../_helpers/PaginationHelper";
-import {Table} from "react-bootstrap";
-import ReactGa from "react-ga";
+import {Table, Form} from "react-bootstrap";
+import NumberFormat from "react-number-format";
 
 function RelatorioClientesPage({ match }) {
     const history = useHistory();
@@ -20,10 +20,6 @@ function RelatorioClientesPage({ match }) {
     });
 
     useEffect(() => {
-        ReactGa.initialize('G-36BCY6E3RY')
-        //to report page view
-        ReactGa.pageview('/quadra/relatorios/clientes')
-
         setLoading(true);
         const promisse = alunoService.getAluno(history);
         promisse.then(function (result) {
@@ -53,10 +49,8 @@ function RelatorioClientesPage({ match }) {
                         <CardHeader
                             title={
                                 <> RELATÓRIO DE CLIENTES
-                               
-                                    <div>
-       
-      </div>
+                                        <small> QUADRAS
+                                    </small>
                                 </>
                             }
                         />
@@ -70,9 +64,10 @@ function RelatorioClientesPage({ match }) {
                             <Table striped bordered hover>
                                     <thead>
                                         <tr>
-                                            <th style={{ width: '30%' }}>NOME</th>
-                                            <th style={{ width: '30%' }}>APELIDO</th>
-                                            <th style={{ width: '30%' }}>CPF</th>
+                                            <th style={{ width: '30%' }}>NOME <i className="fas fa-sort-alpha-down"></i></th>
+                                            <th style={{ width: '15%' }}>APELIDO </th>
+                                            <th style={{ width: '20%' }}>CPF</th>
+                                            <th style={{ width: '20%' }}>CELULAR</th>
                                             <th style={{ width: '10%' }}>ATIVO</th>
                                             <th style={{ width: '10%' }}>AÇÕES</th>
                                         </tr>
@@ -80,15 +75,27 @@ function RelatorioClientesPage({ match }) {
                                     <tbody>
                                         {paginationData && paginationData.map(aluno =>
                                             <tr key={aluno.codigo}>
-                                                <td>{aluno.nome}</td>
+                                                <td><b>{aluno.nome}</b></td>
                                                 <td>{aluno.apelido}</td>
-                                                <td >{aluno.cpf}</td>
+                                               
+                                                <td ><NumberFormat
+                                                customInput={Form.Control}
+                                                readOnly
+                                                format="###.###.###-##"
+                                                value={aluno.cpf || ""}/>
+                                                </td>
+                                                <td ><NumberFormat
+                                                customInput={Form.Control}
+                                                readOnly
+                                                format="(##) #####-####"
+                                                value={aluno.telefone_celular || ""}/>
+                                                </td>
                                                 <td>{aluno.ativo ? "SIM" : "NÃO"}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
-                        
-                                                <Link to={`/quadra/cadastros/clientes/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1">EDITAR</Link>
-                                                
+                                                <Link to={`/quadra/visualizar/clientes/${aluno.codigo}`} className="btn btn-sm btn-success mr-1"><i className="fas fa-search"></i></Link>
+                                                <Link to={`/quadra/cadastros/clientes/edicao/${aluno.codigo}`} className="btn btn-sm btn-primary mr-1"><i className="fas fa-edit"></i></Link>
                                                 </td>
+                                                
                                             </tr>
                                         )}
                                         {!paginationData &&
@@ -122,8 +129,3 @@ function RelatorioClientesPage({ match }) {
 }
 
 export { RelatorioClientesPage };
-
-
-
-
-

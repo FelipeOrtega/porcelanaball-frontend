@@ -6,6 +6,8 @@ import { CadastroEdicaoEquipesPage} from "./cadastros/equipes/CadastroEdicaoEqui
 import { PagamentoEquipePage } from "./pagamentos/PagamentoEquipePage";
 import { RelatorioClientesPage } from "./relatorios/clientes/RelatorioClientesPage";
 import { RelatorioEquipesPage } from "./relatorios/equipes/RelatorioEquipesPage";
+import { VisualizarClientesPage} from "./visualizar/clientes/VisualizarClientesPage"
+import { VisualizarEquipesPage} from "./visualizar/equipes/VisualizarEquipesPage";
 
 export default function QuadraPage() {
     return (
@@ -26,6 +28,9 @@ export default function QuadraPage() {
 
             <ContentRoute from="/quadra/cadastros/equipes/edicao/:id" component={CadastroEdicaoEquipesPage} />
             <ContentRoute from="/quadra/cadastros/equipes" component={CadastroEdicaoEquipesPage} />
+
+            <ContentRoute from="/quadra/visualizar/clientes/:id" component={VisualizarClientesPage} />
+            <ContentRoute from="/quadra/visualizar/equipes/:id" component={VisualizarEquipesPage} />
                     
         </Switch>
     );
