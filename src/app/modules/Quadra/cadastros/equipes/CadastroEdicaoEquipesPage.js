@@ -25,8 +25,12 @@ function CadastroEdicaoEquipesPage({ match }) {
     //to report page view
     ReactGa.pageview('/quadra/cadastros/equipes')
 
-    if (!novaEquipe) {
-      equipeService.getEquipeByCodigo(history, id).then(function (result) {
+    async function initializeComponent() {
+      if (!novaEquipe) {
+      await equipeService.getEquipeByCodigo(history, id).then(function (result) {
+        if(result.data.equipeAluno[0]){
+          result.data.aluno_responsavel_codigo = result.data.equipeAluno[0].aluno_codigo;
+        }
         setEquipe(result.data);
       });
     }
@@ -46,6 +50,8 @@ function CadastroEdicaoEquipesPage({ match }) {
       }
     });
     setLoading(false);
+    }
+    initializeComponent();
     // eslint-disable-next-line
   }, []);
 
@@ -59,21 +65,29 @@ function CadastroEdicaoEquipesPage({ match }) {
     if (!values.quadra_codigo) {
       values.quadra_codigo = 1;
     }
-    console.log(values);
+    if (!values.aluno_responsavel_codigo) {
+      values.aluno_responsavel_codigo = 1;
+    }
+    values.equipeAluno = [{
+      'aluno_codigo': values.aluno_responsavel_codigo,
+      'responsavel': true
+    }];
     equipeService.createEquipe(history, values).then(function (result) {
       if (result.statusCode === 200) {
-        console.log(result);
         history.push("/quadra/relatorios/equipes");
       }
     });
-
     setSubmitting(false);
   }
 
   function atualizarEquipe(values, setSubmitting) {
+    values.equipeAluno = [{
+      'aluno_codigo': values.aluno_responsavel_codigo,
+      'equipe_codigo': values.codigo,
+      'responsavel': true
+    }];
     equipeService.updateEquipe(history, values).then(function (result) {
       if (result.statusCode === 200) {
-        console.log(result);
         history.push("/quadra/relatorios/equipes");
       }
     });
@@ -109,7 +123,16 @@ function CadastroEdicaoEquipesPage({ match }) {
         dia_vencimento: "",
         quadra_codigo: 0,
         ativo: false,
-        adere_academia: false
+        adere_academia: false,
+        equipeAluno:[{
+          aluno: null,
+          aluno_codigo: 0,
+          codigo: 0,
+          equipe_codigo: 0,
+          responsavel: false
+        }],
+        aluno_responsavel_codigo: 0
+        
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
         <Form onSubmit={handleSubmit}>
@@ -155,12 +178,12 @@ function CadastroEdicaoEquipesPage({ match }) {
                       <Form.Label><b>CLIENTE RESPONSÁVEL</b></Form.Label>
                       <Form.Control as="select"
                         required
-                        name="aluno_codigo"
-                        value={values.aluno_codigo}
+                        name="aluno_responsavel_codigo"
+                        value={values.aluno_responsavel_codigo}
                         onChange={handleChange}
                       >
                         {aluno.map(aluno => (<option value={aluno.codigo}
-                          defaultValue={values.aluno_codigo === aluno.codigo}
+                          defaultValue={values.aluno_responsavel_codigo === aluno.codigo}
                           key={aluno.codigo}>
                           {aluno.nome}
                         </option>))}
@@ -213,7 +236,7 @@ function CadastroEdicaoEquipesPage({ match }) {
                       >
                         {diasSemana.map(diaSemana =>
                         (<option value={diaSemana}
-                          selected={values.jogo_dia_da_semana === diaSemana}
+                          defaultValue={values.jogo_dia_da_semana === diaSemana}
                           key={diaSemana}>
                           {diaSemana}
                         </option>))}
@@ -248,7 +271,7 @@ function CadastroEdicaoEquipesPage({ match }) {
                         onChange={handleChange}
                       >
                         {quadras.map(q => (<option value={q.codigo}
-                          selected={values.quadra_codigo === q.codigo}
+                          defaultValue={values.quadra_codigo === q.codigo}
                           key={q.codigo}>
                           {q.descricao}
                         </option>))}
