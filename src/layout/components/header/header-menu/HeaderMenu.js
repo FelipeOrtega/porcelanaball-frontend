@@ -130,9 +130,9 @@ export function HeaderMenu({ layoutProps }) {
                         </li>
                         {/*end::2 Level*/}
                         <li
-                            className={`menu-item menu-item-submenu ${getMenuItemActive('/quadra/pagamentos')}`}
+                            className={`menu-item menu-item-submenu ${getMenuItemActive('/quadra/pagamento')}`}
                         >
-                            <NavLink className="menu-link" to="/quadra/pagamentos">
+                            <NavLink className="menu-link" to="/quadra/pagamento">
                                 <span className="svg-icon menu-icon">
                                     <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Dollar.svg")} />
                                 </span>

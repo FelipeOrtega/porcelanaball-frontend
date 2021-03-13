@@ -8,6 +8,7 @@ export const FUNCIONARIO_BASE_URL = "Funcionario/";
 export const PLANO_BASE_URL = "Plano/";
 export const LANCAMENTO_BASE_URL = "Lancamento/";
 export const EQUIPE_BASE_URL = "Equipe/";
+export const PAGAMENTO_BASE_URL = "Pagamento/";
 export const EQUIPE_ALUNO_BASE_URL = "EquipeAluno/";
 export const MODALIDADE_BASE_URL = "Modalidade/";
 export const MODULO_BASE_URL = "Modulo/";

@@ -3,7 +3,7 @@ import { Redirect, Switch } from "react-router-dom";
 import { ContentRoute } from "../../../layout";
 import { CadastroEdicaoClientesPage} from "./cadastros/clientes/CadastroEdicaoClientesPage"
 import { CadastroEdicaoEquipesPage} from "./cadastros/equipes/CadastroEdicaoEquipesPage";
-import { PagamentoEquipePage } from "./pagamentos/PagamentoEquipePage";
+import { PagamentoEquipePage } from "./pagamento/PagamentoEquipePage";
 import { RelatorioClientesPage } from "./relatorios/clientes/RelatorioClientesPage";
 import { RelatorioEquipesPage } from "./relatorios/equipes/RelatorioEquipesPage";
 import { VisualizarClientesPage} from "./visualizar/clientes/VisualizarClientesPage"
@@ -24,7 +24,7 @@ export default function QuadraPage() {
             <ContentRoute from="/quadra/cadastros/clientes/edicao/:id" component={CadastroEdicaoClientesPage} />
             <ContentRoute from="/quadra/cadastros/clientes" component={CadastroEdicaoClientesPage} />
 
-            <ContentRoute from="/quadra/pagamentos" component={PagamentoEquipePage} />
+            <ContentRoute from="/quadra/pagamento" component={PagamentoEquipePage} />
 
             <ContentRoute from="/quadra/cadastros/equipes/edicao/:id" component={CadastroEdicaoEquipesPage} />
             <ContentRoute from="/quadra/cadastros/equipes" component={CadastroEdicaoEquipesPage} />

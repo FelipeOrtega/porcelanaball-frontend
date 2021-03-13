@@ -3,6 +3,7 @@ import { InputGroup, FormControl, Button, Form, Col, Badge, Alert } from "react-
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Formik } from "formik";
 import equipeService from "../../../../services/equipe/EquipeService";
+import pagamentoService from "../../../../services/pagamento/PagamentoService";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import {Table} from "react-bootstrap";
@@ -19,7 +20,7 @@ function PagamentoEquipePage({ match }) {
   useEffect(() => {
     ReactGa.initialize('G-36BCY6E3RY')
     //to report page view
-    ReactGa.pageview('/quadra/pagamentos')
+    ReactGa.pageview('/quadra/pagamento')
 
     equipeService.getEquipe(history).then(function (result) {
       if (result != null) {
@@ -47,7 +48,8 @@ function PagamentoEquipePage({ match }) {
       initialValues={equipe ? equipe : {
         descricao: "",
         codigo: 0,
-        valor: "",
+        dia_vencimento: "",
+        valor: ""
       
       }}>
       {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
@@ -88,20 +90,35 @@ function PagamentoEquipePage({ match }) {
                     <Form.Group as={Col} md="3" controlId="formGridEquipeDiaVencimento">
                       <Form.Label><b>DIA DE VENCIMENTO</b></Form.Label>
                       <Form.Control
-                        type="text"
-                        name="valor"
-                        placeholder="05"
-                        readOnly
-                        />
+                      readOnly
+                        type="number"
+                        name="dia_vencimento"
+                        placeholder="1"
+                        value={values.dia_vencimento || ""}
+                        onChange={handleChange} />
                     </Form.Group>
+
                     <Form.Group as={Col} md="3" controlId="formGridEquipeMensalidadeValor">
                       <Form.Label><b>MENSALIDADE</b></Form.Label>
-                      <Form.Control
-                        type="text"
+                       <InputGroup className="mb-3">
+                    <InputGroup.Prepend>
+                    <InputGroup.Text>R$</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <NumberFormat
+                    customInput={Form.Control}
+                        required
+                        format="####"
+                        type="valor"
                         name="valor"
-                        placeholder="R$700,00"
-                        readOnly
-                        />
+                        placeholder="700"
+                        autoComplete="off"
+                        removeFormatting="numericString"
+                        value={values.valor || ""}
+                        onChange={handleChange} />
+                    <InputGroup.Append>
+                    <InputGroup.Text>,00</InputGroup.Text>
+                    </InputGroup.Append>
+                    </InputGroup>
                     </Form.Group>
                 </Form.Row>
 
