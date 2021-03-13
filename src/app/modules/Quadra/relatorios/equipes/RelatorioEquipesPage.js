@@ -65,7 +65,7 @@ function RelatorioEquipesPage({ match }) {
                             <Table striped bordered hover>
                                     <thead>
                                         <tr>
-                                            <th style={{ width: '30%' }}>NOME DA EQUIPE</th>
+                                            <th style={{ width: '25%' }}>NOME DA EQUIPE</th>
                                             <th style={{ width: '15%' }}>JOGO DIA <i className="fas fa-sort"></i></th>
                                             <th style={{ width: '15%' }}>VALOR</th>
                                             <th style={{ width: '10%' }}>INÍCIO</th>
