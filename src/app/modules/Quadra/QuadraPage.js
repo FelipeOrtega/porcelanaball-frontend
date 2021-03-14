@@ -6,6 +6,7 @@ import { CadastroEdicaoEquipesPage} from "./cadastros/equipes/CadastroEdicaoEqui
 import { PagamentoEquipePage } from "./pagamento/PagamentoEquipePage";
 import { RelatorioClientesPage } from "./relatorios/clientes/RelatorioClientesPage";
 import { RelatorioEquipesPage } from "./relatorios/equipes/RelatorioEquipesPage";
+import { HistoricoPagamentosEquipePage } from "./relatorios/pagamentos/HistoricoPagamentosEquipePage";
 import { VisualizarClientesPage} from "./visualizar/clientes/VisualizarClientesPage"
 import { VisualizarEquipesPage} from "./visualizar/equipes/VisualizarEquipesPage";
 
@@ -20,6 +21,7 @@ export default function QuadraPage() {
             {/* QUADRA */}
             <ContentRoute from="/quadra/relatorios/equipes" component={RelatorioEquipesPage} />
             <ContentRoute from="/quadra/relatorios/clientes" component={RelatorioClientesPage} />
+            <ContentRoute from="/quadra/relatorios/pagamentos" component={HistoricoPagamentosEquipePage} />
 
             <ContentRoute from="/quadra/cadastros/clientes/edicao/:id" component={CadastroEdicaoClientesPage} />
             <ContentRoute from="/quadra/cadastros/clientes" component={CadastroEdicaoClientesPage} />
