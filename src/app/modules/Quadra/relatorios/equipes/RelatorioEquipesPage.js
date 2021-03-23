@@ -20,7 +20,6 @@ function RelatorioEquipesPage({ match }) {
     });
 
     useEffect(() => {
-
         setLoading(true);
         const promisse = equipeService.getEquipe(history);
         promisse.then(function (result) {
@@ -29,7 +28,6 @@ function RelatorioEquipesPage({ match }) {
                 setLoading(false);
             }
         });
-
     }, []);
 
     function onChangePage(paginationData) {
@@ -85,7 +83,6 @@ function RelatorioEquipesPage({ match }) {
                                                 <InputGroup.Text>R$</InputGroup.Text>
                                                 </InputGroup.Prepend><NumberFormat
                                                 customInput={Form.Control}
-                                                readOnly
                                                 format="####"
                                                 value={equipe.valor || ""}/>
                                                
