@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { TableSearch } from "../../../../../_helpers/TableSearch";
-import alunoService from "../../../../../services/aluno/AlunoService";
+import AlunoService from "../../../../../services/aluno/aluno.service";
 import PaginationHelper  from "../../../../../_helpers/PaginationHelper";
 import {Table, Form} from "react-bootstrap";
 import NumberFormat from "react-number-format";
@@ -21,7 +21,7 @@ function RelatorioClientesPage({ match }) {
 
     useEffect(() => {
         setLoading(true);
-        const promisse = alunoService.getAluno(history);
+        const promisse = AlunoService.getAluno(history);
         promisse.then(function (result) {
             if(result != null){
                 setAlunos(result.data);

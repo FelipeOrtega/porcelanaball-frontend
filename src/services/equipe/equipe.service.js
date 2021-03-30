@@ -1,6 +1,8 @@
-import {EQUIPE_BASE_URL, BaseService} from "../BaseService";
+import {EQUIPE_BASE_URL, BaseService} from "../base/base.service";
 
-class equipeService extends BaseService{
+class EquipeService extends BaseService{
+
+    EQUIPE_HISTORICO_PAGAMENTO_URL = `HistoricoPagamento/`
 
     getEquipe(history){
         return super.get(history, EQUIPE_BASE_URL);
@@ -21,6 +23,12 @@ class equipeService extends BaseService{
     deleteEquipe(history, equipeCodigo){
         return super.delete(history, EQUIPE_BASE_URL+equipeCodigo);
     }
+
+    getHistoricoPagamento(history, equipeCodigo){
+        console.log(`${EQUIPE_BASE_URL}${this.EQUIPE_HISTORICO_PAGAMENTO_URL}${equipeCodigo}`)
+        return super.get(history, `${EQUIPE_BASE_URL}${this.EQUIPE_HISTORICO_PAGAMENTO_URL}${equipeCodigo}`);
+    }
+
 }
 
-export default new equipeService()
+export default new EquipeService()

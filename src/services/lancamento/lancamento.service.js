@@ -1,6 +1,6 @@
-import {LANCAMENTO_BASE_URL, BaseService} from "../BaseService";
+import {LANCAMENTO_BASE_URL, BaseService} from "../base/base.service";
 
-class lancamentoService extends BaseService{
+class LancamentoService extends BaseService{
 
     getlancamentos(history){
         return super.get(history, LANCAMENTO_BASE_URL);
@@ -23,4 +23,4 @@ class lancamentoService extends BaseService{
     }
 }
 
-export default new lancamentoService()
+export default new LancamentoService()

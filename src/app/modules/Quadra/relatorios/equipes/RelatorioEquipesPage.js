@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Table, Form, InputGroup } from "react-bootstrap";
 import PaginationHelper  from "../../../../../_helpers/PaginationHelper";
 import { TableSearch } from "../../../../../_helpers/TableSearch";
-import equipeService from "../../../../../services/equipe/EquipeService";
+import EquipeService from "../../../../../services/equipe/equipe.service";
 import NumberFormat from "react-number-format";
 
 function RelatorioEquipesPage({ match }) {
@@ -21,8 +21,7 @@ function RelatorioEquipesPage({ match }) {
 
     useEffect(() => {
         setLoading(true);
-        const promisse = equipeService.getEquipe(history);
-        promisse.then(function (result) {
+        EquipeService.getEquipe(history).then(function (result) {
             if(result != null){
                 setEquipes(result.data);
                 setLoading(false);

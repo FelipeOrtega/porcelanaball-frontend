@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader } from "../../../_partials/controls";
 import { useHistory } from "react-router-dom";
 import  PaginationHelper  from "../../../_helpers/PaginationHelper";
-import alunoService from "../../../services/aluno/AlunoService";
+import AlunoService from "../../../services/aluno/aluno.service";
 import {Table} from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { TableSearch } from "../../../_helpers/TableSearch";
@@ -20,7 +20,7 @@ function ListagemAluno({alunosSelecionadosCallBack, handleChange}) {
     
     useEffect(() => {
         setLoading(true);
-        const promisse = alunoService.getAluno(history);
+        const promisse = AlunoService.getAluno(history);
         promisse.then(function (result) {
             if(result != null){
                 setAlunos(result.data);

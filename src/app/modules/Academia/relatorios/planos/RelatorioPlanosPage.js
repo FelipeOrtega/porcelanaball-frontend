@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { TableSearch } from "../../../../../_helpers/TableSearch";
-import planoService from "../../../../../services/plano/PlanoService";
+import PlanoService from "../../../../../services/plano/plano.service";
 
 function RelatorioPlanosPage({ match }) {
     const history = useHistory();
@@ -17,7 +17,7 @@ function RelatorioPlanosPage({ match }) {
 
     useEffect(() => {
         setLoading(true);
-        const promisse = planoService.getPlano(history);
+        const promisse = PlanoService.getPlano(history);
         promisse.then(function (result) {
             if(result != null){
                 setPlano(result.data);

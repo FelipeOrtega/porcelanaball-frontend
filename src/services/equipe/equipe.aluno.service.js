@@ -1,6 +1,6 @@
-import {EQUIPE_ALUNO_BASE_URL, BaseService} from "../BaseService";
+import {EQUIPE_ALUNO_BASE_URL, BaseService} from "../base/base.service";
 
-class equipeAlunoService extends BaseService{
+class EquipeAlunoService extends BaseService{
 
     getEquipeAluno(history){
         return super.get(history, EQUIPE_ALUNO_BASE_URL);
@@ -23,4 +23,4 @@ class equipeAlunoService extends BaseService{
     }
 }
 
-export default new equipeAlunoService()
+export default new EquipeAlunoService()

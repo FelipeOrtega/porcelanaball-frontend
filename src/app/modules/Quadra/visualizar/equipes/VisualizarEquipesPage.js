@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Col, Alert, InputGroup, FormControl } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Formik } from "formik";
-import equipeService from "../../../../../services/equipe/EquipeService";
-import quadraService from "../../../../../services/quadra/QuadraService";
-import diaSemanaService from "../../../../../services/DiaSemana/DiaSemanaService";
-import alunoService from "../../../../../services/aluno/AlunoService";
+import EquipeService from "../../../../../services/equipe/equipe.service";
+import QuadraService from "../../../../../services/quadra/quadra.service";
+import diaSemanaService from "../../../../../services/dia.semana/dia.semana.service";
+import AlunoService from "../../../../../services/aluno/aluno.service";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import ReactGa from "react-ga";
@@ -27,19 +27,19 @@ function VisualizarEquipesPage({ match }) {
 
     async function initializeComponent() {
       if (!novaEquipe) {
-      await equipeService.getEquipeByCodigo(history, id).then(function (result) {
+      await EquipeService.getEquipeByCodigo(history, id).then(function (result) {
         if(result.data.equipeAluno[0]){
           result.data.aluno_responsavel_codigo = result.data.equipeAluno[0].aluno_codigo;
         }
         setEquipe(result.data);
       });
     }
-    alunoService.getAluno(history).then(function (result) {
+    AlunoService.getAluno(history).then(function (result) {
       if (result != null) {
         setAluno(result.data);
       }
     });
-    quadraService.getQuadra(history).then(function (result) {
+    QuadraService.getQuadra(history).then(function (result) {
       if (result != null) {
         setQuadras(result.data);
       }
@@ -72,7 +72,7 @@ function VisualizarEquipesPage({ match }) {
       'aluno_codigo': values.aluno_responsavel_codigo,
       'responsavel': true
     }];
-    equipeService.createEquipe(history, values).then(function (result) {
+    EquipeService.createEquipe(history, values).then(function (result) {
       if (result.statusCode === 200) {
         history.push("/quadra/relatorios/equipes");
       }
@@ -86,7 +86,7 @@ function VisualizarEquipesPage({ match }) {
       'equipe_codigo': values.codigo,
       'responsavel': true
     }];
-    equipeService.updateEquipe(history, values).then(function (result) {
+    EquipeService.updateEquipe(history, values).then(function (result) {
       if (result.statusCode === 200) {
         history.push("/quadra/relatorios/equipes");
       }

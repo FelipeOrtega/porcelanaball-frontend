@@ -1,6 +1,6 @@
-import {MODALIDADE_BASE_URL, BaseService} from "../BaseService";
+import {MODALIDADE_BASE_URL, BaseService} from "../base/base.service";
 
-class modalidadeService extends BaseService{
+class ModalidadeService extends BaseService{
 
     getModalidades(history){
         return super.get(history, MODALIDADE_BASE_URL);
@@ -23,4 +23,4 @@ class modalidadeService extends BaseService{
     }
 }
 
-export default new modalidadeService()
+export default new ModalidadeService()

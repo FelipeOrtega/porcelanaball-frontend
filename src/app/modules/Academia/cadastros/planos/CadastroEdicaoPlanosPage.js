@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Col } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Formik } from "formik";
-import planoService from "../../../../../services/plano/PlanoService";
-import modalidadeService from "../../../../../services/modalidade/ModalidadeService";
-import moduloService from "../../../../../services/modulo/ModuloService";
+import PlanoService from "../../../../../services/plano/plano.service";
+//import ModalidadeService from "../../../../../services/modalidade/modalidade.service";
+//import ModuloService from "../../../../../services/modulo/modulo.service";
 import { useHistory } from "react-router-dom";
 
 function CadastroEdicaoPlanosPage({ match }) {
@@ -12,32 +12,32 @@ function CadastroEdicaoPlanosPage({ match }) {
   const { id } = match.params;
   const novaPlano = !id;
   const [plano, setPlano] = useState({});
-  const [modalidades, setModalidades] = useState([]);
-  const [modulos, setModulos] = useState([]);
+  //const [modalidades, setModalidades] = useState([]);
+  //const [modulos, setModulos] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!novaPlano) {
-      planoService.getPlanoByCodigo(history, id).then(function (result) {
+      PlanoService.getPlanoByCodigo(history, id).then(function (result) {
         setPlano(result.data);
       });
     }
-    modalidadeService.getModalidades(history).then(function (result) {
-      if (result != null) {
-        setModalidades(result.data);
-      }
-    });
-    moduloService.getModulos(history).then(function (result) {
-      if (result != null) {
-        setModulos(result.data);
-      }
-    });
+    // ModalidadeService.getModalidades(history).then(function (result) {
+    //   if (result != null) {
+    //     setModalidades(result.data);
+    //   }
+    // });
+    // ModuloService.getModulos(history).then(function (result) {
+    //   if (result != null) {
+    //     setModulos(result.data);
+    //   }
+    // });
     setLoading(false);
     // eslint-disable-next-line
   }, []);
 
   function cadastrarPlano(values, setSubmitting) {
-    const promisse = planoService.createPlano(history, values);
+    const promisse = PlanoService.createPlano(history, values);
     promisse.then(function (result) {
       if (result.StatusCode === 200) {
         history.push(".");
@@ -47,7 +47,7 @@ function CadastroEdicaoPlanosPage({ match }) {
   }
 
   function atualizarPlano(values, setSubmitting) {
-    const promisse = planoService.updatePlano(history, values);
+    const promisse = PlanoService.updatePlano(history, values);
     promisse.then(function (result) {
       if (result.statusCode === 200) {
         history.push(".");

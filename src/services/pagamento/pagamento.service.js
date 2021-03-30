@@ -1,6 +1,6 @@
-import {PAGAMENTO_BASE_URL, BaseService} from "../BaseService";
+import {PAGAMENTO_BASE_URL, BaseService} from "../base/base.service";
 
-class pagamentoService extends BaseService{
+class PagamentoService extends BaseService{
 
     getPagamento(history){
         return super.get(history, PAGAMENTO_BASE_URL);
@@ -23,4 +23,4 @@ class pagamentoService extends BaseService{
     }
 }
 
-export default new pagamentoService()
+export default new PagamentoService()

@@ -1,6 +1,6 @@
-import {MODULO_BASE_URL, BaseService} from "../BaseService";
+import {MODULO_BASE_URL, BaseService} from "../base/base.service";
 
-class moduloService extends BaseService{
+class ModuloService extends BaseService{
 
     getModulos(history){
         return super.get(history, MODULO_BASE_URL);
@@ -23,4 +23,4 @@ class moduloService extends BaseService{
     }
 }
 
-export default new moduloService()
+export default new ModuloService()

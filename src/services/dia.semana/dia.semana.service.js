@@ -1,4 +1,4 @@
-import {DIA_SEMANA_BASE_URL, BaseService} from "../BaseService";
+import {DIA_SEMANA_BASE_URL, BaseService} from "../base/base.service";
 
 class diaSemanaService extends BaseService{
 

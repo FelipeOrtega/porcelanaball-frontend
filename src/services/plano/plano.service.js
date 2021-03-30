@@ -1,6 +1,6 @@
-import {PLANO_BASE_URL, BaseService} from "../BaseService";
+import {PLANO_BASE_URL, BaseService} from "../base/base.service";
 
-class planoService extends BaseService{
+class PlanoService extends BaseService{
 
     getPlano(history){
         return super.get(history, PLANO_BASE_URL);
@@ -23,4 +23,4 @@ class planoService extends BaseService{
     }
 }
 
-export default new planoService()
+export default new PlanoService()

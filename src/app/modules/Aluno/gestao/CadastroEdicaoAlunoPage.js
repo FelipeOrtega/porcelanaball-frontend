@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Col } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Formik } from "formik";
-import alunoService from "../../../../services/aluno/AlunoService";
+import AlunoService from "../../../../services/aluno/aluno.service";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
 
@@ -16,7 +16,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
   useEffect(() => {
     if (!novoAluno) {
       setLoading(true);
-      alunoService.getAlunoByCodigo(history, id).then(function (result) {
+      AlunoService.getAlunoByCodigo(history, id).then(function (result) {
         setAluno(formataAtributos(result.data));
         setLoading(false);
       });
@@ -36,7 +36,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
   };
 
   function cadastrarAluno(values, setSubmitting) {
-    alunoService.createAluno(history, values).then(function (result) {
+    AlunoService.createAluno(history, values).then(function (result) {
       if (result.statusCode === 200) {
         history.push(".");
       }
@@ -46,7 +46,7 @@ function CadastroEdicaoAlunoPage({ match, handleOnParent}) {
   }
 
   function atualizarAluno(values, setSubmitting) {
-    alunoService.updateAluno(history, values).then(function (result) {
+    AlunoService.updateAluno(history, values).then(function (result) {
       if (result.statusCode === 200) {
         history.push(".");
       }

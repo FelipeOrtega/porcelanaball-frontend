@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //export const BASE_URL = "https://api.porcelanaball.com.br/";
-export const BASE_URL = "https://localhost:5001/";
+export const BASE_URL = "https://localhost:44319/";
 export const AUTENTICACAO_BASE_URL = "Autenticacao/";
 export const ALUNO_BASE_URL = "Aluno/";
 export const FUNCIONARIO_BASE_URL = "Funcionario/";
@@ -19,7 +19,6 @@ class BaseService {
 
     get(history, URL) {
         return axios.get(`${BASE_URL}${URL}`).then((response) => {
-
             return response.data;
         }).catch((error) => {
             this.handleErrors(error, history);
@@ -28,8 +27,6 @@ class BaseService {
 
     create(history, URL, object) {
         return axios.post(`${BASE_URL}${URL}`, object).then((response) => {
-
-        
             return response.data;
         }).catch((error) => {
             this.handleErrors(error, history);
@@ -54,7 +51,6 @@ class BaseService {
 
     delete(history, URL, object) {
         return axios.delete(`${BASE_URL}${URL}${object}`).then((response) => {
-
             return response.data;
         }).catch((error) => {
             this.handleErrors(error, history);
@@ -68,7 +64,5 @@ class BaseService {
         }
     }
 }
-
-
 
 export { BaseService }

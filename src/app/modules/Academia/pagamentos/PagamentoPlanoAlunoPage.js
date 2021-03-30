@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Col, ButtonGroup } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Formik } from "formik";
-import equipeService from "../../../../services/equipe/EquipeService";
-import equipeAlunoService from "../../../../services/equipe/EquipeAlunoService";
-import modalidadeService from "../../../../services/modalidade/ModalidadeService";
-import moduloService from "../../../../services/modulo/ModuloService";
+import EquipeService from "../../../../services/equipe/equipe.service";
+import EquipeAlunoService from "../../../../services/equipe/equipe.aluno.service";
+import ModalidadeService from "../../../../services/modalidade/modalidade.service";
+import ModuloService from "../../../../services/modulo/modulo.service";
 import { useHistory } from "react-router-dom";
 import { ListagemAluno } from "../../Aluno/ListagemAluno"
 import { CadastroEdicaoAlunoPage } from "../../Aluno/gestao/CadastroEdicaoAlunoPage";
@@ -28,7 +28,7 @@ function PagamentoPlanoAlunoPage({ match }) {
 
   useEffect(() => {
       setLoading(true);
-      const promisse = equipeService.getEquipe(history);
+      const promisse = EquipeService.getEquipe(history);
       promisse.then(function (result) {
           if(result != null){
               setEquipes(result.data);

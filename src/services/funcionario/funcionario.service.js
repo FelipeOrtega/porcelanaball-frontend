@@ -1,6 +1,6 @@
-import {FUNCIONARIO_BASE_URL, BaseService} from "../BaseService";
+import {FUNCIONARIO_BASE_URL, BaseService} from "../base/base.service";
 
-class funcionarioService extends BaseService{
+class FuncionarioService extends BaseService{
 
     getfuncionarios(history){
         return super.get(history, FUNCIONARIO_BASE_URL);
@@ -23,4 +23,4 @@ class funcionarioService extends BaseService{
     }
 }
 
-export default new funcionarioService()
+export default new FuncionarioService()

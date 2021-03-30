@@ -1,12 +1,13 @@
-import {ALUNO_BASE_URL, BaseService} from "../BaseService";
+import {ALUNO_BASE_URL, BaseService} from "../base/base.service";
 
-class alunoService extends BaseService{
+class AlunoService extends BaseService{
 
     getAluno(history){
         return super.get(history, ALUNO_BASE_URL);
     }
 
     createAluno(history, aluno){
+        console.log(aluno);
         return super.create(history, ALUNO_BASE_URL,aluno);
     }
 
@@ -23,4 +24,4 @@ class alunoService extends BaseService{
     }
 }
 
-export default new alunoService()
+export default new AlunoService()

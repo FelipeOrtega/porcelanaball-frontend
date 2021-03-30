@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Col, Alert } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Formik } from "formik";
-import alunoService from "../../../../../services/aluno/AlunoService";
+import AlunoService from "../../../../../services/aluno/aluno.service";
 import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import ReactGa from "react-ga";
@@ -21,7 +21,7 @@ function VisualizarClientesPage({ match }) {
 
     if (!novoAluno) {
       setLoading(true);
-      alunoService.getAlunoByCodigo(history, id).then(function (result) {
+      AlunoService.getAlunoByCodigo(history, id).then(function (result) {
         setAluno(formataAtributos(result.data));
         setLoading(false);
       });
@@ -41,7 +41,7 @@ function VisualizarClientesPage({ match }) {
   };
 
   function cadastrarAluno(values, setSubmitting) {
-    alunoService.createAluno(history, values).then(function (result) {
+    AlunoService.createAluno(history, values).then(function (result) {
       if (result.statusCode === 200) {
         history.push("/quadra/relatorios/clientes");
       }
@@ -51,7 +51,7 @@ function VisualizarClientesPage({ match }) {
   }
 
   function atualizarAluno(values, setSubmitting) {
-    const promisse = alunoService.updateAluno(history, values);
+    const promisse = AlunoService.updateAluno(history, values);
     promisse.then(function(result) {
       if (result.statusCode === 200) {
         history.push("/quadra/relatorios/clientes");

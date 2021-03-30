@@ -1,6 +1,6 @@
-import {QUADRA_BASE_URL, BaseService} from "../BaseService";
+import {QUADRA_BASE_URL, BaseService} from "../base/base.service";
 
-class quadraService extends BaseService{
+class QuadraService extends BaseService{
 
     getQuadra(history){
         return super.get(history, QUADRA_BASE_URL);
@@ -24,4 +24,4 @@ class quadraService extends BaseService{
     }
 }
 
-export default new quadraService()
+export default new QuadraService()
