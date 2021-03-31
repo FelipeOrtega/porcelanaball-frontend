@@ -144,7 +144,7 @@ function PagamentoEquipePage({ match }) {
                               placeholder="700"
                               autoComplete="off"
                               removeFormatting="numericString"
-                              value={values.valor || ""}
+                              value={pagamentoEquipeHistorico.valorRestante || ""}
                               onChange={handleChange} />
                             <InputGroup.Append>
                               <InputGroup.Text>,00</InputGroup.Text>
@@ -231,11 +231,11 @@ function PagamentoEquipePage({ match }) {
                         </tr>
                       </thead>
                       <tbody>
-                        {pagamentoEquipeHistorico.pagamentos != null ? pagamentoEquipeHistorico.pagamentos.map(pgHist =>
-                          <tr key={pagamentoEquipeHistorico.pagamentos.indexOf(pgHist)}>
-                            <td>{UtilService.formataDataSaida(pgHist.data_pagamento)}</td>
-                            <td>{pgHist.observacao}</td>
-                            <td>{pgHist.valor_pago}</td>
+                        {pagamentoEquipeHistorico.pagamentosVigentes != null ? pagamentoEquipeHistorico.pagamentosVigentes.map(pgv =>
+                          <tr key={pagamentoEquipeHistorico.pagamentosVigentes.indexOf(pgv)}>
+                            <td>{UtilService.formataData(pgv.data_pagamento)}</td>
+                            <td>{pgv.observacao}</td>
+                            <td>{UtilService.formataMoedaComCifrao(pgv.valor_pago)}</td>
                           </tr>
                         ) :
                           <tr>
@@ -253,7 +253,52 @@ function PagamentoEquipePage({ match }) {
             </div>
 
           </div>
+          
+          <div className="row">
+            <div className="col-md-12">
+              <Card className="mt-4">
+                <CardHeader
+                  title={
+                    <>
+                      PAGAMENTOS MESES ANTERIORES
+                      <small></small>
+                    </>
+                  }
+                />
+                <CardBody>
+                  <br />
+                  <div>
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th style={{ width: '20%' }}>DATA DO PAGAMNETO</th>
+                          <th style={{ width: '30%' }}>OBSERVAÇÃO</th>
+                          <th style={{ width: '25%' }}>VALOR PAGO</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {pagamentoEquipeHistorico.pagamentosNaoVigentes != null ? pagamentoEquipeHistorico.pagamentosNaoVigentes.map(pgnv =>
+                          <tr key={pagamentoEquipeHistorico.pagamentosNaoVigentes.indexOf(pgnv)}>
+                            <td>{UtilService.formataData(pgnv.data_pagamento)}</td>
+                            <td>{pgnv.observacao}</td>
+                            <td>{UtilService.formataMoedaComCifrao(pgnv.valor_pago)}</td>
+                          </tr>
+                        ) :
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>}
+                      </tbody>
+                    </Table>
 
+                  </div>
+                </CardBody>
+              </Card>
+
+            </div>
+
+          </div>
 
         </Form>
       )}
