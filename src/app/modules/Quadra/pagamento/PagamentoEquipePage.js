@@ -14,7 +14,7 @@ import PaginationHelper  from "../../../../_helpers/PaginationHelper";
 function PagamentoEquipePage({ match }) {
   const history = useHistory();
   const [equipe, setEquipe] = useState([]);
-  const [pagamento, setpagamento] = useState({});
+  const [pagamento] = useState({});
   const [pagamentoEquipeHistorico, setPagamentoEquipeHistorico] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [paginationDataPagamentosVigentes, setPaginationDataPagamentosVigentes] = useState([]);
@@ -61,6 +61,12 @@ function PagamentoEquipePage({ match }) {
       }
     });
     setSubmitting(false);
+  }
+
+  if (isLoading) {
+    return <div className="d-flex flex-wrap justify-content-between align-items-center">
+      <span className="ml-3 spinner spinner-white"></span>
+    </div>
   }
 
   return (

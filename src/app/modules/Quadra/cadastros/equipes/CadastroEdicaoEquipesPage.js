@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Col, Alert, InputGroup, FormControl } from "react-bootstrap";
+import { Button, Form, Col, Alert, InputGroup } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Formik } from "formik";
 import EquipeService from "../../../../../services/equipe/equipe.service";

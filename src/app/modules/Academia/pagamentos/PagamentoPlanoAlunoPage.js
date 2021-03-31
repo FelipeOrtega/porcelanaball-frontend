@@ -1,46 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Col, ButtonGroup } from "react-bootstrap";
+import { Button, Form, Col } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
-import { Formik } from "formik";
-import EquipeService from "../../../../services/equipe/equipe.service";
-import EquipeAlunoService from "../../../../services/equipe/equipe.aluno.service";
-import ModalidadeService from "../../../../services/modalidade/modalidade.service";
-import ModuloService from "../../../../services/modulo/modulo.service";
-import { useHistory } from "react-router-dom";
-import { ListagemAluno } from "../../Aluno/ListagemAluno"
-import { CadastroEdicaoAlunoPage } from "../../Aluno/gestao/CadastroEdicaoAlunoPage";
-import {Table} from "react-bootstrap";
-import { Link } from 'react-router-dom';
-import PaginationHelper  from "../../../../_helpers/PaginationHelper";
-import { TableSearch } from "../../../../_helpers/TableSearch";
 
 function PagamentoPlanoAlunoPage({ match }) {
-  const history = useHistory();
-  const [equipes, setEquipes] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const [searchVal, setSearchVal] = useState(null);
-  const [paginationData, setPaginationData] = useState([]);
-  const { filteredData, loadingSearch } = TableSearch({
-    searchVal,
-    retrieve: equipes
-  });
-  
 
   useEffect(() => {
-      setLoading(true);
-      const promisse = EquipeService.getEquipe(history);
-      promisse.then(function (result) {
-          if(result != null){
-              setEquipes(result.data);
-              setLoading(false);
-          }
-      });
-
+    setLoading(false);
   }, []);
-
-  function onChangePage(paginationData) {
-      setPaginationData(paginationData);
-  }
 
   if (isLoading) {
       return <div className="d-flex flex-wrap justify-content-between align-items-center">

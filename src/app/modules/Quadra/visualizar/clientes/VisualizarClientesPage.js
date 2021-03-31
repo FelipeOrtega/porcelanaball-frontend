@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Col, Alert } from "react-bootstrap";
+import { Button, Form, Col } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../../_partials/controls";
 import { Formik } from "formik";
 import AlunoService from "../../../../../services/aluno/aluno.service";
