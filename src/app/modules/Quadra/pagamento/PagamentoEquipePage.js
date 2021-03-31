@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { InputGroup, FormControl, Button, Form, Col, Badge, Alert } from "react-bootstrap";
+import { InputGroup, Button, Form, Col } from "react-bootstrap";
 import { Card, CardBody, CardHeader } from "../../../../_partials/controls";
 import { Formik } from "formik";
 import EquipeService from "../../../../services/equipe/equipe.service";
@@ -9,15 +9,16 @@ import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import { Table } from "react-bootstrap";
 import ReactGa from "react-ga";
+import PaginationHelper  from "../../../../_helpers/PaginationHelper";
 
 function PagamentoEquipePage({ match }) {
   const history = useHistory();
   const [equipe, setEquipe] = useState([]);
-  const [equipeSelecionada, setEquipeSelecionada] = useState({});
   const [pagamento, setpagamento] = useState({});
   const [pagamentoEquipeHistorico, setPagamentoEquipeHistorico] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const [paginationData, setPaginationData] = useState([]);
+  const [paginationDataPagamentosVigentes, setPaginationDataPagamentosVigentes] = useState([]);
+  const [paginationDataPagamentosNaoVigentes, setPaginationDataPagamentosNaoVigentes] = useState([]);
 
   useEffect(() => {
     ReactGa.initialize('G-36BCY6E3RY')
@@ -31,8 +32,12 @@ function PagamentoEquipePage({ match }) {
     // eslint-disable-next-line
   }, []);
 
-  function onChangePage(paginationData) {
-    setPaginationData(paginationData);
+  function onChangeTablePagamentosVigentes(paginationDataPagamentosVigentes) {
+    setPaginationDataPagamentosVigentes(paginationDataPagamentosVigentes);
+  }
+  
+  function onChangeTablePagamentosNaoVigentes(paginationDataPagamentosNaoVigentes) {
+    setPaginationDataPagamentosNaoVigentes(paginationDataPagamentosNaoVigentes);
   }
 
   function pesquisarEquipe(codigoEquipe){
@@ -40,9 +45,7 @@ function PagamentoEquipePage({ match }) {
     EquipeService.getHistoricoPagamento(history, codigoEquipe).then(function (result){
       if(result.data){
         setPagamentoEquipeHistorico(result.data);
-        console.log(result.data);
       }
-      
     });
   }
 
@@ -231,8 +234,8 @@ function PagamentoEquipePage({ match }) {
                         </tr>
                       </thead>
                       <tbody>
-                        {pagamentoEquipeHistorico.pagamentosVigentes != null ? pagamentoEquipeHistorico.pagamentosVigentes.map(pgv =>
-                          <tr key={pagamentoEquipeHistorico.pagamentosVigentes.indexOf(pgv)}>
+                        {paginationDataPagamentosVigentes != null ? paginationDataPagamentosVigentes.map(pgv =>
+                          <tr key={paginationDataPagamentosVigentes.indexOf(pgv)}>
                             <td>{UtilService.formataData(pgv.data_pagamento)}</td>
                             <td>{pgv.observacao}</td>
                             <td>{UtilService.formataMoedaComCifrao(pgv.valor_pago)}</td>
@@ -245,7 +248,7 @@ function PagamentoEquipePage({ match }) {
                           </tr>}
                       </tbody>
                     </Table>
-
+                    <PaginationHelper items={pagamentoEquipeHistorico.pagamentosVigentes} onChangePage={onChangeTablePagamentosVigentes} />
                   </div>
                 </CardBody>
               </Card>
@@ -277,8 +280,8 @@ function PagamentoEquipePage({ match }) {
                         </tr>
                       </thead>
                       <tbody>
-                        {pagamentoEquipeHistorico.pagamentosNaoVigentes != null ? pagamentoEquipeHistorico.pagamentosNaoVigentes.map(pgnv =>
-                          <tr key={pagamentoEquipeHistorico.pagamentosNaoVigentes.indexOf(pgnv)}>
+                        {paginationDataPagamentosNaoVigentes != null ? paginationDataPagamentosNaoVigentes.map(pgnv =>
+                          <tr key={paginationDataPagamentosNaoVigentes.indexOf(pgnv)}>
                             <td>{UtilService.formataData(pgnv.data_pagamento)}</td>
                             <td>{pgnv.observacao}</td>
                             <td>{UtilService.formataMoedaComCifrao(pgnv.valor_pago)}</td>
@@ -291,7 +294,7 @@ function PagamentoEquipePage({ match }) {
                           </tr>}
                       </tbody>
                     </Table>
-
+                    <PaginationHelper items={pagamentoEquipeHistorico.pagamentosNaoVigentes} onChangePage={onChangeTablePagamentosNaoVigentes} />
                   </div>
                 </CardBody>
               </Card>
