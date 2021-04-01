@@ -44,7 +44,6 @@ function PagamentoEquipePage({ match }) {
     if(!codigoEquipe) codigoEquipe = 1;
     EquipeService.getHistoricoPagamento(history, codigoEquipe).then(function (result){
       if(result.data){
-        console.log(result.data)
         setPagamentoEquipeHistorico(result.data);
       }
     });
@@ -103,43 +102,39 @@ function PagamentoEquipePage({ match }) {
                     />
                     <CardBody>
 
-                      <Form.Row>
+                    <Form.Row>
 
-                        <Form.Group as={Col} md="6" controlId="formGridEquipeSelecionada">
-                          <Form.Label><b>EQUIPE SELECIONADA</b></Form.Label>
-                          <Form.Control as="select"
-                            name="equipe_codigo"
-                            value={values.equipe_codigo}
-                            onChange={handleChange}
-                          >
-                            {equipe.map(equipe => (<option value={equipe.codigo}
-                              defaultValue={values.equipe_codigo === equipe.codigo}
-                              key={equipe.codigo}>
-                              {equipe.descricao}
-                            </option>))}
-                          </Form.Control>
-                        </Form.Group>
-                        
-                        <Form.Group as={Col} md="6">
-                          <Button variant="success" onClick={() => pesquisarEquipe(values.equipe_codigo)}>Pesquisar</Button>
-                        </Form.Group>
+                      <Form.Group as={Col} md="11" controlId="formGridEquipeSelecionada">
+                        <Form.Label><b>EQUIPE SELECIONADA</b></Form.Label>
+                        <Form.Control as="select"
+                          name="equipe_codigo"
+                          value={values.equipe_codigo}
+                          onChange={handleChange}
+                        >
+                        {equipe.map(equipe => (<option value={equipe.codigo}
+                        defaultValue={values.equipe_codigo === equipe.codigo}
+                        key={equipe.codigo}>
+                        {equipe.descricao}
+                        </option>))}
+                        </Form.Control>
+  
+                      </Form.Group>
+
+                      <Form.Group as={Col} >
+                        <Form.Label><b>PESQUISAR</b></Form.Label>
+                          <Button variant="primary" onClick={() => pesquisarEquipe(values.equipe_codigo)} size="" block><i className="fas fa-search"></i></Button>
+                      </Form.Group>
+
+                      </Form.Row>
+                     
+
+                      <Form.Row>
 
                       </Form.Row>
                       
                       <Form.Row>
-                      <Form.Group as={Col} md="3" controlId="formGridEquipeDiaVencimento">
-                          <Form.Label><b>DIA DE VENCIMENTO</b></Form.Label>
-                          <Form.Control
-                            readOnly
-                            type="number"
-                            name="dia_vencimento"
-                            placeholder="1"
-                            value={pagamentoEquipeHistorico.equipe? pagamentoEquipeHistorico.equipe.dia_vencimento : ""}
-                            onChange={handleChange} />
-                        </Form.Group>
-
-                        <Form.Group as={Col} md="3" controlId="formGridEquipeMensalidadeValor">
-                          <Form.Label><b>MENSALIDADE</b></Form.Label>
+                      <Form.Group as={Col} md="3" controlId="formGridEquipeMensalidadeValor">
+                          <Form.Label><b>VALOR EM ABERTO</b></Form.Label>
                           <InputGroup className="mb-3">
                             <InputGroup.Prepend>
                               <InputGroup.Text>R$</InputGroup.Text>
@@ -151,7 +146,6 @@ function PagamentoEquipePage({ match }) {
                               format="####"
                               type="valor"
                               name="valor"
-                              placeholder="700"
                               autoComplete="off"
                               removeFormatting="numericString"
                               value={pagamentoEquipeHistorico.valorRestante || ""}
@@ -161,6 +155,17 @@ function PagamentoEquipePage({ match }) {
                             </InputGroup.Append>
                           </InputGroup>
                         </Form.Group>
+                      <Form.Group as={Col} md="3" controlId="formGridEquipeDiaVencimento">
+                          <Form.Label><b>DIA DE VENCIMENTO</b></Form.Label>
+                          <Form.Control
+                            readOnly
+                            type="number"
+                            name="dia_vencimento"
+                            value={pagamentoEquipeHistorico.equipe? pagamentoEquipeHistorico.equipe.dia_vencimento : ""}
+                            onChange={handleChange} />
+                        </Form.Group>
+
+                      
                       </Form.Row>
                       <hr /><br />
 
@@ -197,7 +202,7 @@ function PagamentoEquipePage({ match }) {
                             </InputGroup.Append>
                           </InputGroup>
                         </Form.Group>
-                        <Form.Group as={Col} md="3" controlId="formGridEquipeMensalidadeValor">
+                        <Form.Group as={Col} md="6" controlId="formGridEquipeMensalidadeValor">
                           <Form.Label><b>OBSERVAÇÃO</b></Form.Label>
                           <Form.Control
                             type="text"
