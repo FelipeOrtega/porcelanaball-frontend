@@ -44,6 +44,7 @@ function PagamentoEquipePage({ match }) {
     if(!codigoEquipe) codigoEquipe = 1;
     EquipeService.getHistoricoPagamento(history, codigoEquipe).then(function (result){
       if(result.data){
+        console.log(result.data)
         setPagamentoEquipeHistorico(result.data);
       }
     });
@@ -133,7 +134,7 @@ function PagamentoEquipePage({ match }) {
                             type="number"
                             name="dia_vencimento"
                             placeholder="1"
-                            value={values.dia_vencimento || ""}
+                            value={pagamentoEquipeHistorico.equipe? pagamentoEquipeHistorico.equipe.dia_vencimento : ""}
                             onChange={handleChange} />
                         </Form.Group>
 

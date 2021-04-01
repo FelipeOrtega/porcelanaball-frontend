@@ -98,6 +98,7 @@ function RelatorioEquipesPage({ match }) {
                                                         placeholder=""
                                                         autoComplete="off"
                                                         value={equipe.jogo_horario_inicial || ""}
+                                                        readOnly
                                                         />
                                                 </td>
                                                 <td><Form.Control
@@ -106,6 +107,7 @@ function RelatorioEquipesPage({ match }) {
                                                         placeholder=""
                                                         autoComplete="off"
                                                         value={equipe.jogo_horario_final || ""}
+                                                        readOnly
                                                         />
                                                 </td>
                                                 <td><b>{equipe.ativo ? "SIM" : "NÃO"}</b></td>

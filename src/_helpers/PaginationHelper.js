@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Pagination } from "react-bootstrap";
 
 const propTypes = {
-    items: PropTypes.array.isRequired,
+    items: PropTypes.array,
     onChangePage: PropTypes.func.isRequired,
     initialPage: PropTypes.number,
     pageSize: PropTypes.number
@@ -46,7 +46,8 @@ class PaginationHelper extends React.Component {
         pager = this.getPager(items.length, page, pageSize);
 
         // get new page of items from items array
-        var pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
+        if(items)
+            var pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
 
         // update state
         this.setState({ pager: pager });
