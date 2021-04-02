@@ -102,38 +102,35 @@ function PagamentoEquipePage({ match }) {
                     />
                     <CardBody>
 
-                    <Form.Row>
+                      <Form.Row>
 
-                      <Form.Group as={Col} md="11" controlId="formGridEquipeSelecionada">
-                        <Form.Label><b>EQUIPE SELECIONADA</b></Form.Label>
-                        <Form.Control as="select"
-                          name="equipe_codigo"
-                          value={values.equipe_codigo}
-                          onChange={handleChange}
-                        >
-                        {equipe.map(equipe => (<option value={equipe.codigo}
-                        defaultValue={values.equipe_codigo === equipe.codigo}
-                        key={equipe.codigo}>
-                        {equipe.descricao}
-                        </option>))}
-                        </Form.Control>
-  
-                      </Form.Group>
+                        <Form.Group as={Col} md="11" controlId="formGridEquipeSelecionada">
+                          <Form.Label><b>EQUIPE SELECIONADA</b></Form.Label>
+                          <Form.Control as="select"
+                            name="equipe_codigo"
+                            value={values.equipe_codigo}
+                            onChange={handleChange}
+                          >
+                            {equipe.map(equipe => (<option value={equipe.codigo}
+                              defaultValue={values.equipe_codigo === equipe.codigo}
+                              key={equipe.codigo}>
+                              {equipe.descricao}
+                            </option>))}
+                          </Form.Control>
+                        </Form.Group>
 
-                      <Form.Group as={Col} >
-                        <Form.Label><b>PESQUISAR</b></Form.Label>
+                        <Form.Group as={Col} >
+                          <Form.Label><b>PESQUISAR</b></Form.Label>
                           <Button variant="primary" onClick={() => pesquisarEquipe(values.equipe_codigo)} size="" block><i className="fas fa-search"></i></Button>
-                      </Form.Group>
 
+                        </Form.Group>
                       </Form.Row>
-                     
 
                       <Form.Row>
-
                       </Form.Row>
-                      
+
                       <Form.Row>
-                      <Form.Group as={Col} md="3" controlId="formGridEquipeMensalidadeValor">
+                        <Form.Group as={Col} md="3" controlId="formGridEquipeMensalidadeValor">
                           <Form.Label><b>VALOR EM ABERTO</b></Form.Label>
                           <InputGroup className="mb-3">
                             <InputGroup.Prepend>
@@ -155,17 +152,17 @@ function PagamentoEquipePage({ match }) {
                             </InputGroup.Append>
                           </InputGroup>
                         </Form.Group>
-                      <Form.Group as={Col} md="3" controlId="formGridEquipeDiaVencimento">
+                        <Form.Group as={Col} md="3" controlId="formGridEquipeDiaVencimento">
                           <Form.Label><b>DIA DE VENCIMENTO</b></Form.Label>
                           <Form.Control
                             readOnly
                             type="number"
                             name="dia_vencimento"
-                            value={pagamentoEquipeHistorico.equipe? pagamentoEquipeHistorico.equipe.dia_vencimento : ""}
+                            value={pagamentoEquipeHistorico.equipe ? pagamentoEquipeHistorico.equipe.dia_vencimento : ""}
                             onChange={handleChange} />
                         </Form.Group>
 
-                      
+
                       </Form.Row>
                       <hr /><br />
 
@@ -178,7 +175,13 @@ function PagamentoEquipePage({ match }) {
                             name="data"
                             placeholder="dd/mm/aaaa"
                             value={values.data || ""}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                              var dataInserida = new Date(e.target.value.split("-").join("/"));
+                              if (dataInserida > new Date()) {
+                                e.target.value = UtilService.formataData(new Date(), "yyyy-MM-DD");
+                              }
+                              handleChange(e);
+                            }}
                           />
                         </Form.Group>
                         <Form.Group as={Col} md="3" controlId="formGridValorPago">
@@ -248,7 +251,7 @@ function PagamentoEquipePage({ match }) {
                       <tbody>
                         {paginationDataPagamentosVigentes != null ? paginationDataPagamentosVigentes.map(pgv =>
                           <tr key={paginationDataPagamentosVigentes.indexOf(pgv)}>
-                            <td>{UtilService.formataData(pgv.data_pagamento)}</td>
+                            <td>{UtilService.formataData(pgv.data_pagamento, "DD/MM/yyyy")}</td>
                             <td>{pgv.observacao}</td>
                             <td>{UtilService.formataMoedaComCifrao(pgv.valor_pago)}</td>
                           </tr>
@@ -268,7 +271,7 @@ function PagamentoEquipePage({ match }) {
             </div>
 
           </div>
-          
+
           <div className="row">
             <div className="col-md-12">
               <Card className="mt-4">
@@ -294,7 +297,7 @@ function PagamentoEquipePage({ match }) {
                       <tbody>
                         {paginationDataPagamentosNaoVigentes != null ? paginationDataPagamentosNaoVigentes.map(pgnv =>
                           <tr key={paginationDataPagamentosNaoVigentes.indexOf(pgnv)}>
-                            <td>{UtilService.formataData(pgnv.data_pagamento)}</td>
+                            <td>{UtilService.formataData(pgnv.data_pagamento, "DD/MM/yyyy")}</td>
                             <td>{pgnv.observacao}</td>
                             <td>{UtilService.formataMoedaComCifrao(pgnv.valor_pago)}</td>
                           </tr>
