@@ -177,15 +177,6 @@ export function HeaderMenu({ layoutProps }) {
                                         </NavLink>
                                     </li>
                                     {/*end::3 Level*/}
-
-                                       {/*begin::3 Level*/}
-                                       <li className={`menu-item ${getMenuItemActive('/quadra/relatorios/pagamentos')}`}>
-                                        <NavLink className="menu-link" to="/quadra/relatorios/pagamentos">
-                                            <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                            <span className="menu-text">HISTÓRICO DE PAGAMENTOS</span>
-                                        </NavLink>
-                                    </li>
-                                    {/*end::3 Level*/}
                                 </ul>
                             </div>
                         </li>
